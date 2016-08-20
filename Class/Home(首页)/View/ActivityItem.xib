@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ActivityItem" customModule="MeiTuan_Swift" customModuleProvider="target">
+            <connections>
+                <outlet property="detailLB" destination="qap-zr-0sv" id="oIc-e4-b64"/>
+                <outlet property="imageView" destination="Woo-el-Wf6" id="gqy-ad-bUT"/>
+                <outlet property="titleLB" destination="xYN-lM-ZhZ" id="jeU-SY-BsW"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="171" height="70"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="美食排行榜" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xYN-lM-ZhZ">
+                    <rect key="frame" x="8" y="4" width="92" height="20.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Woo-el-Wf6">
+                    <rect key="frame" x="108" y="6" width="58" height="58"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="Woo-el-Wf6" secondAttribute="height" multiplier="1:1" id="ahv-Xm-1Y4"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="总能找到你喜欢的" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qap-zr-0sv">
+                    <rect key="frame" x="8" y="26" width="92" height="38"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="Woo-el-Wf6" firstAttribute="leading" secondItem="qap-zr-0sv" secondAttribute="trailing" constant="8" id="S56-Yr-8a7"/>
+                <constraint firstItem="Woo-el-Wf6" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="6" id="Zly-vU-cqG"/>
+                <constraint firstItem="xYN-lM-ZhZ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="4" id="fPK-SH-zbL"/>
+                <constraint firstAttribute="trailing" secondItem="Woo-el-Wf6" secondAttribute="trailing" constant="5" id="gYN-k2-2sT"/>
+                <constraint firstItem="qap-zr-0sv" firstAttribute="top" secondItem="xYN-lM-ZhZ" secondAttribute="bottom" constant="2" id="itj-P5-Gpd"/>
+                <constraint firstAttribute="bottom" secondItem="Woo-el-Wf6" secondAttribute="bottom" constant="6" id="kdm-Pa-dLk"/>
+                <constraint firstAttribute="bottom" secondItem="qap-zr-0sv" secondAttribute="bottom" constant="6" id="lWr-SU-uyh"/>
+                <constraint firstItem="qap-zr-0sv" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="p59-ON-VWt"/>
+                <constraint firstItem="xYN-lM-ZhZ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="q5B-LQ-cFM"/>
+                <constraint firstItem="Woo-el-Wf6" firstAttribute="leading" secondItem="xYN-lM-ZhZ" secondAttribute="trailing" constant="8" id="vNz-g6-dds"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="177.5" y="270"/>
+        </view>
+    </objects>
+</document>

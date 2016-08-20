@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HeaderViewVC" customModule="MeiTuan_Swift" customModuleProvider="target">
+            <connections>
+                <outlet property="balanceLB" destination="x47-bw-bvp" id="gL2-zV-vUe"/>
+                <outlet property="imageView" destination="EpF-eh-Jh1" id="LIU-CW-Kd5"/>
+                <outlet property="userNameLB" destination="ky8-zR-hRG" id="ZAe-RF-1ij"/>
+                <outlet property="view" destination="5bt-Gy-vW1" id="Kn9-wx-0EM"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="5bt-Gy-vW1">
+            <rect key="frame" x="0.0" y="0.0" width="323" height="65"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_mine_accountViewRightArrow.png" translatesAutoresizingMaskIntoConstraints="NO" id="EpF-eh-Jh1">
+                    <rect key="frame" x="301" y="20" width="14" height="25"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="25" id="SRO-Wy-Ei6"/>
+                        <constraint firstAttribute="width" constant="14" id="aen-rg-uPo"/>
+                    </constraints>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="SRO-Wy-Ei6"/>
+                        </mask>
+                    </variation>
+                </imageView>
+                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="AOE-L5-3jn">
+                    <rect key="frame" x="1" y="1" width="292" height="63"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_mine_default_portrait.png" translatesAutoresizingMaskIntoConstraints="NO" id="D7g-cw-5f8">
+                            <rect key="frame" x="0.0" y="4" width="73" height="55"/>
+                        </imageView>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="11" translatesAutoresizingMaskIntoConstraints="NO" id="mSw-oU-EjP">
+                            <rect key="frame" x="76" y="8" width="216" height="48"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="jorn_wza@sina.com" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ky8-zR-hRG">
+                                    <rect key="frame" x="0.0" y="0.0" width="216" height="21"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" red="0.098039215690000001" green="0.71372549019999998" blue="0.61960784310000006" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="mbM-hu-Dhn">
+                                    <rect key="frame" x="0.0" y="32" width="216" height="16"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="账户余额:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iTb-5a-Tgg">
+                                            <rect key="frame" x="0.0" y="1" width="52" height="15"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <color key="textColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8 888 888 888" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x47-bw-bvp">
+                                            <rect key="frame" x="54" y="0.0" width="94" height="16"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                            <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="元" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qm2-9M-xul">
+                                            <rect key="frame" x="150" y="0.0" width="67" height="16"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </stackView>
+                            </subviews>
+                        </stackView>
+                    </subviews>
+                </stackView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="AOE-L5-3jn" secondAttribute="bottom" constant="1" id="3rD-XH-SVL"/>
+                <constraint firstItem="EpF-eh-Jh1" firstAttribute="top" secondItem="5bt-Gy-vW1" secondAttribute="top" constant="20" id="8B6-V9-jNs"/>
+                <constraint firstItem="AOE-L5-3jn" firstAttribute="top" secondItem="5bt-Gy-vW1" secondAttribute="top" constant="1" id="9zw-BD-fYn"/>
+                <constraint firstItem="EpF-eh-Jh1" firstAttribute="leading" secondItem="AOE-L5-3jn" secondAttribute="trailing" constant="8" id="AMa-Mg-2gw"/>
+                <constraint firstItem="EpF-eh-Jh1" firstAttribute="centerX" secondItem="5bt-Gy-vW1" secondAttribute="centerX" id="Inx-nv-PqT"/>
+                <constraint firstAttribute="trailing" secondItem="EpF-eh-Jh1" secondAttribute="trailing" constant="8" id="Ptf-k2-X6x"/>
+                <constraint firstItem="AOE-L5-3jn" firstAttribute="leading" secondItem="5bt-Gy-vW1" secondAttribute="leading" constant="1" id="XbT-M5-UAI"/>
+                <constraint firstAttribute="bottom" secondItem="EpF-eh-Jh1" secondAttribute="bottom" constant="20" id="edY-ek-kPL"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="Inx-nv-PqT"/>
+                </mask>
+            </variation>
+            <point key="canvasLocation" x="39.5" y="133.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="icon_mine_accountViewRightArrow.png" width="24" height="42"/>
+        <image name="icon_mine_default_portrait.png" width="55" height="55"/>
+    </resources>
+</document>

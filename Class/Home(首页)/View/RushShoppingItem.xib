@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeViewController" customModule="MeiTuan_Swift" customModuleProvider="target">
+            <connections>
+                <outlet property="imageView" destination="tUu-A8-BUA" id="pCy-I1-ovp"/>
+                <outlet property="newPriceLB" destination="Kks-ID-XwQ" id="jin-HO-ShJ"/>
+                <outlet property="oldPriceLB" destination="sRW-or-SAW" id="lEW-yj-BJU"/>
+                <outlet property="view" destination="b97-ig-MxQ" id="JBJ-Ks-PU5"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="b97-ig-MxQ">
+            <rect key="frame" x="0.0" y="0.0" width="84" height="64"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="37元" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kks-ID-XwQ">
+                    <rect key="frame" x="0.0" y="43" width="46" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="46" id="UZ5-mz-cHw"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <color key="textColor" red="1" green="0.86012526069999995" blue="0.2161429959" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="89元" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sRW-or-SAW">
+                    <rect key="frame" x="49" y="43" width="35" height="18"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <color key="textColor" red="0.098039215690000001" green="0.71372549019999998" blue="0.61960784310000006" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tUu-A8-BUA">
+                    <rect key="frame" x="0.0" y="0.0" width="84" height="43"/>
+                </imageView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="Kks-ID-XwQ" firstAttribute="leading" secondItem="b97-ig-MxQ" secondAttribute="leading" id="1wW-yd-L4v"/>
+                <constraint firstItem="Kks-ID-XwQ" firstAttribute="leading" secondItem="b97-ig-MxQ" secondAttribute="leading" id="2Tv-CV-0C8"/>
+                <constraint firstAttribute="bottom" secondItem="sRW-or-SAW" secondAttribute="bottom" id="2YW-sE-1D9"/>
+                <constraint firstItem="sRW-or-SAW" firstAttribute="leading" secondItem="Kks-ID-XwQ" secondAttribute="trailing" constant="3" id="2fC-Lc-C3S"/>
+                <constraint firstAttribute="bottom" secondItem="sRW-or-SAW" secondAttribute="bottom" constant="3" id="D4a-sS-YXU"/>
+                <constraint firstAttribute="trailing" secondItem="tUu-A8-BUA" secondAttribute="trailing" id="DVU-EV-914"/>
+                <constraint firstItem="tUu-A8-BUA" firstAttribute="leading" secondItem="b97-ig-MxQ" secondAttribute="leading" id="GiN-Sf-GO9"/>
+                <constraint firstItem="tUu-A8-BUA" firstAttribute="top" secondItem="b97-ig-MxQ" secondAttribute="top" id="I3i-dc-OPv"/>
+                <constraint firstItem="sRW-or-SAW" firstAttribute="leading" secondItem="Kks-ID-XwQ" secondAttribute="trailing" constant="3" id="QL6-iB-EYm"/>
+                <constraint firstAttribute="bottom" secondItem="Kks-ID-XwQ" secondAttribute="bottom" id="QM8-Ku-yQN"/>
+                <constraint firstAttribute="trailing" secondItem="sRW-or-SAW" secondAttribute="trailing" id="RpH-gX-rXa"/>
+                <constraint firstItem="sRW-or-SAW" firstAttribute="top" secondItem="tUu-A8-BUA" secondAttribute="bottom" id="Xxd-so-1Qu"/>
+                <constraint firstAttribute="bottom" secondItem="Kks-ID-XwQ" secondAttribute="bottom" id="YcC-3P-UUc"/>
+                <constraint firstItem="sRW-or-SAW" firstAttribute="top" secondItem="b97-ig-MxQ" secondAttribute="top" constant="43" id="bS3-Ms-bJr"/>
+                <constraint firstItem="Kks-ID-XwQ" firstAttribute="leading" secondItem="b97-ig-MxQ" secondAttribute="leading" id="cWc-CX-66C"/>
+                <constraint firstAttribute="bottom" secondItem="tUu-A8-BUA" secondAttribute="bottom" constant="21" id="dnq-aH-aNa"/>
+                <constraint firstItem="sRW-or-SAW" firstAttribute="leading" secondItem="Kks-ID-XwQ" secondAttribute="trailing" constant="3" id="dsM-dy-rrh"/>
+                <constraint firstAttribute="trailing" secondItem="sRW-or-SAW" secondAttribute="trailing" id="eyk-fD-Yt4"/>
+                <constraint firstItem="sRW-or-SAW" firstAttribute="leading" secondItem="Kks-ID-XwQ" secondAttribute="trailing" constant="3" id="g5h-LE-Q03"/>
+                <constraint firstItem="Kks-ID-XwQ" firstAttribute="top" secondItem="b97-ig-MxQ" secondAttribute="top" constant="43" id="mh3-m6-1Mu"/>
+                <constraint firstAttribute="trailing" secondItem="sRW-or-SAW" secondAttribute="trailing" id="q8Y-dz-Axv"/>
+                <constraint firstItem="Kks-ID-XwQ" firstAttribute="top" secondItem="tUu-A8-BUA" secondAttribute="bottom" id="u3Z-lb-MAJ"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="QM8-Ku-yQN"/>
+                    <exclude reference="2YW-sE-1D9"/>
+                </mask>
+            </variation>
+            <point key="canvasLocation" x="351" y="157"/>
+        </view>
+    </objects>
+</document>
