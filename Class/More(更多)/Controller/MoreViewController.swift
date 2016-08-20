@@ -27,7 +27,7 @@ class MoreViewController: BaseViewController, UITableViewDataSource, UITableView
     }
     
     func creatTableView() {
-        moreTableView = UITableView(frame: CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT), style: UITableViewStyle.Grouped)
+        moreTableView = UITableView(frame: CGRectMake(0, 64, SCREENWIDTH, SCREENHEIGHT), style: UITableViewStyle.Grouped)
         self.view.addSubview(moreTableView)
         
         moreTableView.dataSource = self

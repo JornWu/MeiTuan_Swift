@@ -40,7 +40,7 @@ struct Campaign{
 	 */
 	func toDictionary() -> NSDictionary
 	{
-		var dictionary = NSMutableDictionary()
+		let dictionary = NSMutableDictionary()
 		if buystatus != nil{
 			dictionary["buystatus"] = buystatus
 		}

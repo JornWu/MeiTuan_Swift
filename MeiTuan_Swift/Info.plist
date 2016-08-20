@@ -40,5 +40,10 @@
 	<string>开始定位</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>开始定位</string>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
 </dict>
 </plist>

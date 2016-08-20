@@ -28,7 +28,7 @@ struct RE_Data{
 	var end : Int!
 	var festcanuse : Int!
 	var frontPoiCates : String!
-	var id : Int!
+	var mId : Int!
 	var imgurl : String!
 	var isAvailableToday : Bool!
 	var mealcount : String!
@@ -93,7 +93,7 @@ struct RE_Data{
 		end = dictionary["end"] as? Int
 		festcanuse = dictionary["festcanuse"] as? Int
 		frontPoiCates = dictionary["frontPoiCates"] as? String
-		id = dictionary["id"] as? Int
+		mId = dictionary["id"] as? Int
         
 		imgurl = String.URLStringHttpToHttps(dictionary["imgurl"] as! String)
         
@@ -136,5 +136,6 @@ struct RE_Data{
 		title = dictionary["title"] as? String
 		value = dictionary["value"] as? Int
 	}
+    
 
 }

@@ -99,7 +99,7 @@ class MineViewController: BaseViewController, UITableViewDataSource, UITableView
     }
     
     func creatMineTableView() {
-        mineTableView = UITableView(frame: self.view.bounds, style: UITableViewStyle.Grouped)
+        mineTableView = UITableView(frame: CGRectMake(0, 64, SCREENWIDTH, SCREENHEIGHT), style: UITableViewStyle.Grouped)
         mineTableView.dataSource = self
         mineTableView.delegate = self
         

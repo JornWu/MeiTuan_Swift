@@ -12,45 +12,17 @@ class BaseNavigationController: UINavigationController {
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-
-//        let mainColor = UIColor(red: 33.0 / 255.0, green: 192.0 / 255.0, blue: 174.0 / 255.0, alpha: 1)
-//        self.navigationBar.barTintColor = mainColor
-//        self.navigationBar.tintColor = UIColor.blueColor()
-//        
-//        //设置标题颜色
-//        let navigationTitleAttribute : NSDictionary = NSDictionary(object: UIColor.whiteColor(), forKey: NSForegroundColorAttributeName)
-//        self.navigationBar.titleTextAttributes = navigationTitleAttribute as? [String : AnyObject]
-        
+     
     }
 
     required init?(coder aDecoder: NSCoder) {
         //fatalError("init(coder:) has not been implemented")
         super.init(coder: aDecoder)
         
-//        let mainColor = UIColor(red: 33.0 / 255.0, green: 192.0 / 255.0, blue: 174.0 / 255.0, alpha: 1)
-//        self.navigationBar.barTintColor = mainColor
-//        self.navigationBar.tintColor = UIColor.blueColor()
-//        
-//        //设置标题颜色
-//        let navigationTitleAttribute : NSDictionary = NSDictionary(object: UIColor.whiteColor(), forKey: NSForegroundColorAttributeName)
-//        self.navigationBar.titleTextAttributes = navigationTitleAttribute as? [String : AnyObject]
-        
     }
     
     override init(rootViewController: UIViewController) {
         super.init(rootViewController: rootViewController)
-
-        let mainColor = UIColor(red: 33.0 / 255.0, green: 192.0 / 255.0, blue: 174.0 / 255.0, alpha: 1)
-        self.navigationBar.barTintColor = mainColor
-        self.navigationBar.tintColor = UIColor.whiteColor()
-
-        //设置标题颜色
-        let navigationTitleAttribute : NSDictionary = NSDictionary(object: UIColor.blackColor(), forKey: NSForegroundColorAttributeName)
-        self.navigationBar.titleTextAttributes = navigationTitleAttribute as? [String : AnyObject]
-        
-        let backBtn = UIButton(frame: CGRectMake(0, 0, 40, 40))
-        backBtn.setImage(UIImage(named: "back@2x,png"), forState: UIControlState.Normal)
-        self.navigationItem.backBarButtonItem = UIBarButtonItem(customView: backBtn)
 
     }
 
@@ -63,20 +35,7 @@ class BaseNavigationController: UINavigationController {
     }
     
     func reloadNavigationBar(){
-//        if( ([[[UIDevice currentDevice] systemVersion] doubleValue]>=7.0))
-//        {
-//            self.edgesForExtendedLayout = UIRectEdgeNone;//视图控制器，四条边不指定
-//            self.extendedLayoutIncludesOpaqueBars = NO;//不透明的操作栏
-//            self.modalPresentationCapturesStatusBarAppearance = NO;
-//            [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@""]
-//                forBarPosition:UIBarPositionTop
-//                barMetrics:UIBarMetricsDefault];
-//        }
-//        else
-//        {
-//            [self.navigationBar setBackgroundImage:[UIImage imageNamed:@""]
-//                forBarMetrics:UIBarMetricsDefault];
-//        }
+
         if Double(UIDevice.currentDevice().systemVersion) >= 7.0 {
             self.edgesForExtendedLayout = UIRectEdge.None//视图控制器，四条边不指定
             self.extendedLayoutIncludesOpaqueBars = false//不透明的操作栏
@@ -85,6 +44,18 @@ class BaseNavigationController: UINavigationController {
                 forBarPosition: UIBarPosition.Top,
                 barMetrics:UIBarMetrics.Default)
         }
+        
+        let mainColor = THEMECOLOR
+        self.navigationBar.barTintColor = mainColor
+        self.navigationBar.tintColor = UIColor.whiteColor()
+        
+        //设置标题颜色
+        let navigationTitleAttribute : NSDictionary = NSDictionary(object: UIColor.blackColor(), forKey: NSForegroundColorAttributeName)
+        self.navigationBar.titleTextAttributes = navigationTitleAttribute as? [String : AnyObject]
+        
+        let backBtn = UIButton(frame: CGRectMake(0, 0, 40, 40))
+        backBtn.setImage(UIImage(named: "back@2x,png"), forState: UIControlState.Normal)
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(customView: backBtn)
     }
     
     override func didReceiveMemoryWarning() {

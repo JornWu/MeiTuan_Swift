@@ -24,7 +24,7 @@ struct Server{
 	 */
 	func toDictionary() -> NSDictionary
 	{
-		var dictionary = NSMutableDictionary()
+		let dictionary = NSMutableDictionary()
 		if time != nil{
 			dictionary["time"] = time
 		}

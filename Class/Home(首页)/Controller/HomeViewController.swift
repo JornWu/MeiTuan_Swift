@@ -258,6 +258,16 @@ class HomeViewController: BaseViewController, AddressViewDelegate, UITableViewDa
             
             itemContainView.addSubview(itemBgView)
         }
+        
+        let faceBtn = UIButton(frame: rushShoppingView.bounds)
+        faceBtn.addTarget(self, action: Selector("intoRushShoppingDetailView"), forControlEvents: UIControlEvents.TouchUpInside)
+        rushShoppingView.addSubview(faceBtn)
+    }
+    
+    func intoRushShoppingDetailView() {
+        let RSDVC = RushShoppingDetailViewController()
+        //RSDVC.URLString = UrlStrType.RushBuyWebData.getUrlString()//move to internal
+        self.navigationController?.pushViewController(RSDVC, animated: true)
     }
      
 /****************************************************************************************************/
@@ -338,7 +348,13 @@ class HomeViewController: BaseViewController, AddressViewDelegate, UITableViewDa
     }
     
     func acItemButtonAction(btn: UIButton) {
-        print(btn.tag)
+//        print(btn.tag)
+        ///进入详情页面
+        let dataAr = activityModel.data
+        let urlString = dataAr[(btn.tag - 2000)].share.url
+        let ACDVC = ActivityDetailViewController(urlString: urlString)
+        
+        self.navigationController?.pushViewController(ACDVC, animated: true)
     }
      
      
@@ -356,7 +372,25 @@ class HomeViewController: BaseViewController, AddressViewDelegate, UITableViewDa
         
         let blankView = UIView(frame: CGRectMake(0, 212 + 190 + 120 + 30, SCREENWIDTH, 50))
         blankView.backgroundColor = UIColor.whiteColor()
-        headerView.addSubview(blankView)//空白修饰视图
+        headerView.addSubview(blankView)//空白修饰视图（添加额外内容和通知）
+        
+        let email = UILabel(frame: CGRectMake(10, 0, SCREENWIDTH - 20, 15))
+        email.text = "有问题请投递：jorn_wza@sina.com QQ:1249233155"
+        email.font = UIFont.systemFontOfSize(13)
+        email.textColor = UIColor.redColor()
+        blankView.addSubview(email)
+        let blog = UILabel(frame: CGRectMake(10, 15, SCREENWIDTH - 20, 15))
+        blog.text = "微博：JornWu丶WwwwW 博客：http://blog.sina.com.cn/u/5077687473"
+        blog.numberOfLines = 0
+        blog.font = UIFont.systemFontOfSize(11)
+        blog.textColor = THEMECOLOR
+        blankView.addSubview(blog)
+        let update = UILabel(frame: CGRectMake(10, 30, SCREENWIDTH - 20, 15))
+        update.text = "功能持续更新，相互学习，共同进步。"
+        update.numberOfLines = 0
+        update.font = UIFont.systemFontOfSize(11)
+        update.textColor = THEMECOLOR
+        blankView.addSubview(update)
         
         self.addMenuView()//不用网络
         
@@ -379,7 +413,7 @@ class HomeViewController: BaseViewController, AddressViewDelegate, UITableViewDa
         }
         
         OP1.addDependency(OP2)
-        OP2.addDependency(OP3)//确保前面的视图都创建完成在创建表视图
+        OP2.addDependency(OP3)//确保前面的视图都创建完成再创建表视图
         
         let QE = NSOperationQueue()
         QE.addOperation(OP1)
@@ -455,6 +489,11 @@ class HomeViewController: BaseViewController, AddressViewDelegate, UITableViewDa
             cell.detailLB.text = "[" + dataItem.range + "]" + dataItem.mtitle
             cell.priceLB.text = "\(dataItem.price)" + "元"
             cell.priceLB.textColor = THEMECOLOR
+            
+            cell.valueLB.text = "门面价：" + "\(dataItem.value)" + "元"
+            cell.valueLB.textColor = UIColor.grayColor()
+            cell.salesLB.text = "已卖" + "\(dataItem.solds)" + "份"
+            cell.salesLB.textColor = UIColor.redColor()
             return cell 
         }
  
@@ -468,6 +507,11 @@ class HomeViewController: BaseViewController, AddressViewDelegate, UITableViewDa
         }
     }
     
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let dataItem = recommentModel.data[indexPath.row - 1]
+        let HTVC = HotelViewController(dataModel: dataItem)
+        self.navigationController?.pushViewController(HTVC, animated: true)
+    }
     
     
     

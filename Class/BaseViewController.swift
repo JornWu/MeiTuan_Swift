@@ -15,7 +15,7 @@ class BaseViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         
-        //self.automaticallyAdjustsScrollViewInsets = false//取消scrollview和tableview上的留白
+        self.automaticallyAdjustsScrollViewInsets = false//取消scrollview和tableview上的留白
     }
 
     override func didReceiveMemoryWarning() {
@@ -23,7 +23,7 @@ class BaseViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
+    
     /*
     // MARK: - Navigation
 

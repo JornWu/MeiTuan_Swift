@@ -1402,6 +1402,13 @@
 		43EF761B1D6608FB005C36AD /* RE_Stid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43EF76101D6608FB005C36AD /* RE_Stid.swift */; };
 		43EF761C1D6608FB005C36AD /* RE_Tab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43EF76111D6608FB005C36AD /* RE_Tab.swift */; };
 		43EF761D1D6608FB005C36AD /* RE_Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43EF76121D6608FB005C36AD /* RE_Tag.swift */; };
+		43EF761F1D681F6C005C36AD /* RushShoppingDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43EF761E1D681F6C005C36AD /* RushShoppingDetailViewController.swift */; };
+		43EF76211D683813005C36AD /* ActivityDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43EF76201D683813005C36AD /* ActivityDetailViewController.swift */; };
+		43EF76231D684336005C36AD /* HotelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43EF76221D684336005C36AD /* HotelViewController.swift */; };
+		43EF76311D6882ED005C36AD /* HD_Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43EF762D1D6882ED005C36AD /* HD_Data.swift */; };
+		43EF76321D6882ED005C36AD /* HD_Deal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43EF762E1D6882ED005C36AD /* HD_Deal.swift */; };
+		43EF76331D6882ED005C36AD /* HD_HotelDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43EF762F1D6882ED005C36AD /* HD_HotelDetailModel.swift */; };
+		43EF76341D6882ED005C36AD /* HD_Stid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43EF76301D6882ED005C36AD /* HD_Stid.swift */; };
 		FD6DFBD833E8603E0261D968 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CC7762249A458EC07075EF9 /* Pods.framework */; };
 /* End PBXBuildFile section */
 
@@ -2754,7 +2761,7 @@
 		436A7F8B1D58CEBB0007F956 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		436A7F971D58D2C20007F956 /* MaybeInteresteCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaybeInteresteCell.swift; sourceTree = "<group>"; };
 		436A7F981D58D2C20007F956 /* MaybeInteresteCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MaybeInteresteCell.xib; sourceTree = "<group>"; };
-		436A7F9B1D58D4050007F956 /* RootTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootTabBarController.swift; sourceTree = "<group>"; };
+		436A7F9B1D58D4050007F956 /* RootTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RootTabBarController.swift; path = ../../RootTabBarController.swift; sourceTree = "<group>"; };
 		436A7F9D1D58DC860007F956 /* MineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MineViewController.swift; sourceTree = "<group>"; };
 		436A7F9F1D58DC9D0007F956 /* MoreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreViewController.swift; sourceTree = "<group>"; };
 		436A7FA11D58DCB20007F956 /* ShopViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShopViewController.swift; sourceTree = "<group>"; };
@@ -2825,6 +2832,13 @@
 		43EF76101D6608FB005C36AD /* RE_Stid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RE_Stid.swift; sourceTree = "<group>"; };
 		43EF76111D6608FB005C36AD /* RE_Tab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RE_Tab.swift; sourceTree = "<group>"; };
 		43EF76121D6608FB005C36AD /* RE_Tag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RE_Tag.swift; sourceTree = "<group>"; };
+		43EF761E1D681F6C005C36AD /* RushShoppingDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RushShoppingDetailViewController.swift; sourceTree = "<group>"; };
+		43EF76201D683813005C36AD /* ActivityDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityDetailViewController.swift; sourceTree = "<group>"; };
+		43EF76221D684336005C36AD /* HotelViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HotelViewController.swift; sourceTree = "<group>"; };
+		43EF762D1D6882ED005C36AD /* HD_Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HD_Data.swift; sourceTree = "<group>"; };
+		43EF762E1D6882ED005C36AD /* HD_Deal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HD_Deal.swift; sourceTree = "<group>"; };
+		43EF762F1D6882ED005C36AD /* HD_HotelDetailModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HD_HotelDetailModel.swift; sourceTree = "<group>"; };
+		43EF76301D6882ED005C36AD /* HD_Stid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HD_Stid.swift; sourceTree = "<group>"; };
 		6CC7762249A458EC07075EF9 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		71FC6062D2EB08D00F7495F1 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		7671895F112058CDFDB6693D /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -2986,8 +3000,12 @@
 		436A74C01D58CB3F0007F956 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				436A7F9B1D58D4050007F956 /* RootTabBarController.swift */,
 				436A7F8B1D58CEBB0007F956 /* HomeViewController.swift */,
 				436A7FB51D5B8B2B0007F956 /* CityListViewController.swift */,
+				43EF761E1D681F6C005C36AD /* RushShoppingDetailViewController.swift */,
+				43EF76201D683813005C36AD /* ActivityDetailViewController.swift */,
+				43EF76221D684336005C36AD /* HotelViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -2995,6 +3013,7 @@
 		436A74C11D58CB3F0007F956 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				43EF76241D688297005C36AD /* HotelDetailModel */,
 				43EF76071D6608FB005C36AD /* RecommentDataModel */,
 				43EF75EE1D65EBBF005C36AD /* ActivityDataModel */,
 				43227D4E1D63505B00C86760 /* RushShoppingDataModel */,
@@ -5036,7 +5055,6 @@
 				436A7F871D58CDE80007F956 /* BaseViewController.swift */,
 				436A7F891D58CE3B0007F956 /* BaseTableView.swift */,
 				436A7FAD1D58E2D30007F956 /* BaseNavigationController.swift */,
-				436A7F9B1D58D4050007F956 /* RootTabBarController.swift */,
 			);
 			name = MainFile;
 			sourceTree = "<group>";
@@ -5095,6 +5113,17 @@
 				43EF76121D6608FB005C36AD /* RE_Tag.swift */,
 			);
 			path = RecommentDataModel;
+			sourceTree = "<group>";
+		};
+		43EF76241D688297005C36AD /* HotelDetailModel */ = {
+			isa = PBXGroup;
+			children = (
+				43EF762D1D6882ED005C36AD /* HD_Data.swift */,
+				43EF762E1D6882ED005C36AD /* HD_Deal.swift */,
+				43EF762F1D6882ED005C36AD /* HD_HotelDetailModel.swift */,
+				43EF76301D6882ED005C36AD /* HD_Stid.swift */,
+			);
+			path = HotelDetailModel;
 			sourceTree = "<group>";
 		};
 		5FDD90D75C9305397C470D6B /* Pods */ = {
@@ -6628,6 +6657,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				43EF76311D6882ED005C36AD /* HD_Data.swift in Sources */,
 				43EF76161D6608FB005C36AD /* RE_Optionalattr.swift in Sources */,
 				43C2D87C1D6060C900E1C7CE /* HeaderViewVC.swift in Sources */,
 				43C2D8B01D61F4C300E1C7CE /* NetworkeProcessor.swift in Sources */,
@@ -6656,6 +6686,7 @@
 				43EF761B1D6608FB005C36AD /* RE_Stid.swift in Sources */,
 				43EF76031D65ECE9005C36AD /* AC_Server.swift in Sources */,
 				43EF76011D65ECE9005C36AD /* AC_Data.swift in Sources */,
+				43EF76341D6882ED005C36AD /* HD_Stid.swift in Sources */,
 				43EF76151D6608FB005C36AD /* RE_Data.swift in Sources */,
 				43EF761A1D6608FB005C36AD /* RE_Server.swift in Sources */,
 				43EF76041D65ECE9005C36AD /* AC_Share.swift in Sources */,
@@ -6664,15 +6695,20 @@
 				43EF76001D65ECE9005C36AD /* AC_ActivityDataModel.swift in Sources */,
 				43227D601D636D2000C86760 /* UIviewExtension.swift in Sources */,
 				43EF761D1D6608FB005C36AD /* RE_Tag.swift in Sources */,
+				43EF76211D683813005C36AD /* ActivityDetailViewController.swift in Sources */,
 				43227D721D64CECB00C86760 /* URLStringExtension.swift in Sources */,
 				43C2D87F1D606E8A00E1C7CE /* MineDetailViewController.swift in Sources */,
+				43EF76231D684336005C36AD /* HotelViewController.swift in Sources */,
+				43EF76321D6882ED005C36AD /* HD_Deal.swift in Sources */,
 				43227D581D63505B00C86760 /* Campaign.swift in Sources */,
 				436A7FA21D58DCB20007F956 /* ShopViewController.swift in Sources */,
 				43C2D8851D6073E500E1C7CE /* MineTableViewCellModel.swift in Sources */,
 				436A7F8C1D58CEBB0007F956 /* HomeViewController.swift in Sources */,
 				436A7FB81D5CCF840007F956 /* MenuView.swift in Sources */,
+				43EF76331D6882ED005C36AD /* HD_HotelDetailModel.swift in Sources */,
 				43EF76141D6608FB005C36AD /* RE_Campaign.swift in Sources */,
 				436A7FA41D58DCCC0007F956 /* VisitViewController.swift in Sources */,
+				43EF761F1D681F6C005C36AD /* RushShoppingDetailViewController.swift in Sources */,
 				43EF76061D65FB42005C36AD /* UIColorExtension.swift in Sources */,
 				43227D5A1D63505B00C86760 /* Deal.swift in Sources */,
 				436A7FCE1D5F54920007F956 /* AddressView.swift in Sources */,

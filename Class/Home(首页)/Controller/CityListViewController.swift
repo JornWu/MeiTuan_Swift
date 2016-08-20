@@ -6,6 +6,15 @@
 //  Copyright © 2016年 Jorn.Wu(jorn_wza@sina.com). All rights reserved.
 //
 
+/****************************************************************************************************/
+/*
+**
+** 这是地址，城市列表页面
+**
+*/
+/****************************************************************************************************/
+
+
 import UIKit
 
 class CityListViewController: BaseViewController,UITableViewDataSource,UITableViewDelegate {
@@ -31,6 +40,7 @@ class CityListViewController: BaseViewController,UITableViewDataSource,UITableVi
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        self.automaticallyAdjustsScrollViewInsets = false
         processData()
         creatHotCityView()
         creatHotCityItem()

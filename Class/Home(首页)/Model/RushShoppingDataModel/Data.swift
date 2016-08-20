@@ -63,7 +63,7 @@ struct Data{
 	 */
 	func toDictionary() -> NSDictionary
 	{
-		var dictionary = NSMutableDictionary()
+		let dictionary = NSMutableDictionary()
 		if activityImgUrl != nil{
 			dictionary["activityImgUrl"] = activityImgUrl
 		}

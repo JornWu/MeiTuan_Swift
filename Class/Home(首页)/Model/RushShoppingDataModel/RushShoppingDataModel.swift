@@ -36,7 +36,7 @@ struct RushShoppingDataModel{
 	 */
 	func toDictionary() -> NSDictionary
 	{
-		var dictionary = NSMutableDictionary()
+		let dictionary = NSMutableDictionary()
 		if data != nil{
 			dictionary["data"] = data.toDictionary()
 		}

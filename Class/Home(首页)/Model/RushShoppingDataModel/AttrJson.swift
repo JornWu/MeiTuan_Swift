@@ -28,7 +28,7 @@ struct AttrJson{
 	 */
 	func toDictionary() -> NSDictionary
 	{
-		var dictionary = NSMutableDictionary()
+		let dictionary = NSMutableDictionary()
 		if iconname != nil{
 			dictionary["iconname"] = iconname
 		}

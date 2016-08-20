@@ -99,7 +99,7 @@ struct Deal{
 	 */
 	func toDictionary() -> NSDictionary
 	{
-		var dictionary = NSMutableDictionary()
+		let dictionary = NSMutableDictionary()
 		if attrJson != nil{
 			var dictionaryElements = [NSDictionary]()
 			for attrJsonElement in attrJson {

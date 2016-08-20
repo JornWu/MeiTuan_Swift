@@ -28,7 +28,7 @@ struct Share{
 	 */
 	func toDictionary() -> NSDictionary
 	{
-		var dictionary = NSMutableDictionary()
+		let dictionary = NSMutableDictionary()
 		if imgurl != nil{
 			dictionary["imgurl"] = imgurl
 		}
