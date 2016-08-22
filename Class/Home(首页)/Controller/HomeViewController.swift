@@ -71,12 +71,12 @@ class HomeViewController: BaseViewController, AddressViewDelegate, UITableViewDa
  */
     private func addNavigationItems() {
         ///left button item
-        lBtn = UIButton(type: UIButtonType.System)
+        lBtn = UIButton(type: UIButtonType.Custom)
         lBtn.frame = CGRectMake(0, 0, 60, 35)
         lBtn.setTitle(currentCity, forState: UIControlState.Normal)
         lBtn.titleLabel?.font = UIFont.systemFontOfSize(12)
-        lBtn.setImage(UIImage(named: "icon_homepage_upArrow"), forState: UIControlState.Normal)
-        lBtn.setImage(UIImage(named: "icon_homepage_downArrow"), forState: UIControlState.Selected)
+        lBtn.setImage(UIImage(named: "icon_homepage_downArrow"), forState: UIControlState.Normal)
+        lBtn.setImage(UIImage(named: "icon_homepage_upArrow"), forState: UIControlState.Selected)
         lBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -36, 0, 0)
         lBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 36, 0, 0)
         lBtn.addTarget(self, action: Selector("leftItemAction:"), forControlEvents: UIControlEvents.TouchUpInside)
@@ -84,8 +84,10 @@ class HomeViewController: BaseViewController, AddressViewDelegate, UITableViewDa
         self.navigationItem.leftBarButtonItem = leftItem
         
         ///right button item
-        let rBtn = UIButton(type: UIButtonType.System)
+        let rBtn = UIButton(type: UIButtonType.Custom)
+        rBtn.backgroundColor = UIColor.clearColor()
         rBtn.frame = CGRectMake(0, 0, 50, 35)
+        rBtn.contentMode = UIViewContentMode.ScaleAspectFit
         rBtn.setImage(UIImage(named: "icon_homepage_map_old"), forState: UIControlState.Normal)
         rBtn.setImage(UIImage(named: "icon_homepage_map_selected_old"), forState: UIControlState.Selected)
         rBtn.addTarget(self, action: Selector("mapButtonItemAction:"), forControlEvents: UIControlEvents.TouchUpInside)
@@ -139,7 +141,7 @@ class HomeViewController: BaseViewController, AddressViewDelegate, UITableViewDa
  **
  */
     func mapButtonItemAction(btn: UIButton) {
-        btn.selected = !btn.selected
+        //btn.selected = !btn.selected
         print("-----------open map-----------")
         
     }

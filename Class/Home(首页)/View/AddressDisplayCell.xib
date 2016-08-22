@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
@@ -12,53 +13,62 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="h4y-fX-rLA">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HKw-nP-U4L">
-                                <rect key="frame" x="0.0" y="0.0" width="252" height="44"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="icon_dropdown_location_selected.png" translatesAutoresizingMaskIntoConstraints="NO" id="yhG-cg-AIb">
-                                        <rect key="frame" x="0.0" y="0.0" width="168" height="44"/>
-                                    </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="当前城市：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="654-h1-m2q">
-                                        <rect key="frame" x="168" y="0.0" width="60" height="44"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="上海" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1rd-pR-Epq">
-                                        <rect key="frame" x="228" y="0.0" width="24" height="44"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                            </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="z76-bA-e2w">
-                                <rect key="frame" x="252" y="3" width="68" height="38"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vOL-xM-EtX">
-                                        <rect key="frame" x="0.0" y="0.0" width="30" height="38"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                        <state key="normal" title="切换"/>
-                                    </button>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="icon_payment_right_green_arrow" translatesAutoresizingMaskIntoConstraints="NO" id="W1I-de-YmY">
-                                        <rect key="frame" x="30" y="0.0" width="38" height="38"/>
-                                    </imageView>
-                                </subviews>
-                            </stackView>
-                        </subviews>
-                    </stackView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vOL-xM-EtX">
+                        <rect key="frame" x="254" y="9" width="30" height="27"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="30" id="1Dl-xX-thK"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <state key="normal" title="切换"/>
+                    </button>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_payment_right_green_arrow" translatesAutoresizingMaskIntoConstraints="NO" id="W1I-de-YmY">
+                        <rect key="frame" x="286" y="8" width="30" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="30" id="GUp-uI-7ky"/>
+                            <constraint firstAttribute="height" constant="30" id="dvz-q0-7bq"/>
+                        </constraints>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" verticalHuggingPriority="251" image="icon_dropdown_location_selected.png" translatesAutoresizingMaskIntoConstraints="NO" id="yhG-cg-AIb">
+                        <rect key="frame" x="2" y="3" width="38" height="38"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="yhG-cg-AIb" secondAttribute="height" multiplier="1:1" id="lp3-FV-6Ty"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="当前城市：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="654-h1-m2q">
+                        <rect key="frame" x="48" y="20" width="60" height="15"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="60" id="wou-SY-kLO"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="上海" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1rd-pR-Epq">
+                        <rect key="frame" x="122" y="20" width="97" height="15"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="h4y-fX-rLA" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="-8" id="1DK-A8-WYt"/>
-                    <constraint firstItem="h4y-fX-rLA" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-8" id="5Jc-hD-Wu4"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="h4y-fX-rLA" secondAttribute="trailing" constant="-8" id="aJL-vJ-Jg4"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="h4y-fX-rLA" secondAttribute="bottom" constant="-8" id="nMO-62-z0u"/>
+                    <constraint firstItem="yhG-cg-AIb" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-5" id="0dT-hI-rSV"/>
+                    <constraint firstItem="yhG-cg-AIb" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="-6" id="DKs-3U-3Xd"/>
+                    <constraint firstItem="vOL-xM-EtX" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="1" id="HkF-4I-ode"/>
+                    <constraint firstItem="654-h1-m2q" firstAttribute="leading" secondItem="yhG-cg-AIb" secondAttribute="trailing" constant="8" id="IDu-kX-tDJ"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="W1I-de-YmY" secondAttribute="trailing" constant="-4" id="IEa-Gt-M1M"/>
+                    <constraint firstItem="vOL-xM-EtX" firstAttribute="leading" secondItem="1rd-pR-Epq" secondAttribute="trailing" constant="35" id="RHk-TI-QAW"/>
+                    <constraint firstItem="654-h1-m2q" firstAttribute="bottom" secondItem="H2p-sc-9uM" secondAttribute="bottomMargin" id="ShC-G8-xud"/>
+                    <constraint firstItem="654-h1-m2q" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="12" id="Vhh-G3-1vg"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="vOL-xM-EtX" secondAttribute="bottom" constant="-1" id="YeQ-i7-FKI"/>
+                    <constraint firstItem="1rd-pR-Epq" firstAttribute="leading" secondItem="654-h1-m2q" secondAttribute="trailing" constant="14" id="ejZ-n5-GUJ"/>
+                    <constraint firstItem="W1I-de-YmY" firstAttribute="leading" secondItem="vOL-xM-EtX" secondAttribute="trailing" constant="2" id="imm-4F-NKU"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="yhG-cg-AIb" secondAttribute="bottom" constant="-6" id="pSy-ru-Ye0"/>
+                    <constraint firstItem="1rd-pR-Epq" firstAttribute="bottom" secondItem="H2p-sc-9uM" secondAttribute="bottomMargin" id="r1L-lc-Ez5"/>
+                    <constraint firstItem="W1I-de-YmY" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" constant="1.5" id="tIa-FE-6rG"/>
+                    <constraint firstItem="1rd-pR-Epq" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="12" id="tWC-i8-sC0"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

@@ -102,7 +102,7 @@ class CityListViewController: BaseViewController,UITableViewDataSource,UITableVi
     }
     
     func loadTableView() {
-        mTableView = UITableView.init(frame: self.view.bounds, style: UITableViewStyle.Grouped)
+        mTableView = UITableView.init(frame: CGRectMake(0, 64, SCREENWIDTH, SCREENHEIGHT - 64), style: UITableViewStyle.Grouped)
         mTableView.backgroundColor = UIColor.grayColor()
         self.view.addSubview(mTableView)
         

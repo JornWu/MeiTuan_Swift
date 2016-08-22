@@ -51,6 +51,7 @@ class RushShoppingDetailViewController: BaseViewController, UIWebViewDelegate {
         rBtn.addTarget(self, action: Selector("adjustDisplay:"), forControlEvents: UIControlEvents.TouchUpInside)
         let rightItem = UIBarButtonItem(customView: rBtn)
         self.navigationItem.rightBarButtonItem = rightItem
+ 
         
         let backBtn = UIButton(frame: CGRectMake(0, 0, 30, 30))
         backBtn.setImage(UIImage(named: "back@2x.png"), forState: UIControlState.Normal)
