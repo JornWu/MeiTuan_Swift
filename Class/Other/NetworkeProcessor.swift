@@ -25,7 +25,7 @@ struct NetworkeProcessor {
         ///ios 9.0 之前
         //let URLStr = URLString.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)//解码，可能包含中文等
         ///iOS 9.0 之后
-        let URLStr = URLString.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!//解码
+        //let URLStr = URLString.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!//解码
         
         ///NSURLSessionConfiguration
         let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
@@ -56,7 +56,7 @@ struct NetworkeProcessor {
         security.validatesDomainName = false
         httpsManager.securityPolicy = security
         
-        let dataTask = httpsManager.GET(URLStr, parameters: parameters, progress: progress, success: success, failure: failure)//可以监视进度
+        let dataTask = httpsManager.GET(URLString as String, parameters: parameters, progress: progress, success: success, failure: failure)//可以监视进度
         
         
         
@@ -85,5 +85,31 @@ struct NetworkeProcessor {
         dataTask!.resume()
         
     }
+    
+    //////////////////////////
+    
+    static func dataWith(URLString: NSString, parameters: AnyObject?, completionHandler hander: (NSData?, NSURLResponse?, NSError?) -> Void) {
+        
+        let URLStr = URLString.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!//编码
+        
+        ///NSURLSessionConfiguration
+        let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
+        
+        ///AFURLSessionManager   ------(way one)------
+        let session = NSURLSession(configuration: configuration)
+        ///NSURL
+        let Url = NSURL(string: URLStr)
+        ///NSURLRequet
+        let request = NSMutableURLRequest(URL: Url!, cachePolicy: NSURLRequestCachePolicy.UseProtocolCachePolicy, timeoutInterval: 6)
+        //NSURLRequest(URL: Url!)
+        request.HTTPMethod = "POST"
+
+        ///NSURLSessionDataTask
+        let dataTask = session.dataTaskWithRequest(request, completionHandler: hander)
+        
+        dataTask.resume()
+    }
+
+    
 
 }

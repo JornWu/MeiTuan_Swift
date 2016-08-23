@@ -2761,7 +2761,7 @@
 		436A7F8B1D58CEBB0007F956 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		436A7F971D58D2C20007F956 /* MaybeInteresteCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaybeInteresteCell.swift; sourceTree = "<group>"; };
 		436A7F981D58D2C20007F956 /* MaybeInteresteCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MaybeInteresteCell.xib; sourceTree = "<group>"; };
-		436A7F9B1D58D4050007F956 /* RootTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RootTabBarController.swift; path = ../../RootTabBarController.swift; sourceTree = "<group>"; };
+		436A7F9B1D58D4050007F956 /* RootTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootTabBarController.swift; sourceTree = "<group>"; };
 		436A7F9D1D58DC860007F956 /* MineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MineViewController.swift; sourceTree = "<group>"; };
 		436A7F9F1D58DC9D0007F956 /* MoreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreViewController.swift; sourceTree = "<group>"; };
 		436A7FA11D58DCB20007F956 /* ShopViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShopViewController.swift; sourceTree = "<group>"; };
@@ -3000,7 +3000,6 @@
 		436A74C01D58CB3F0007F956 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				436A7F9B1D58D4050007F956 /* RootTabBarController.swift */,
 				436A7F8B1D58CEBB0007F956 /* HomeViewController.swift */,
 				436A7FB51D5B8B2B0007F956 /* CityListViewController.swift */,
 				43EF761E1D681F6C005C36AD /* RushShoppingDetailViewController.swift */,
@@ -5055,6 +5054,7 @@
 				436A7F871D58CDE80007F956 /* BaseViewController.swift */,
 				436A7F891D58CE3B0007F956 /* BaseTableView.swift */,
 				436A7FAD1D58E2D30007F956 /* BaseNavigationController.swift */,
+				436A7F9B1D58D4050007F956 /* RootTabBarController.swift */,
 			);
 			name = MainFile;
 			sourceTree = "<group>";

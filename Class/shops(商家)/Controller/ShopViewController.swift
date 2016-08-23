@@ -12,6 +12,7 @@ class ShopViewController: BaseViewController, UITableViewDataSource, UITableView
     
     private var segBtn1: UIButton!
     private var segBtn2: UIButton!
+    private var currentSelectedBtnTag: Int!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,12 +61,12 @@ class ShopViewController: BaseViewController, UITableViewDataSource, UITableView
         segView.layer.borderWidth = 2
         
         segBtn1 = UIButton(type: UIButtonType.Custom)
-        segBtn1.frame = CGRectMake(0, 2, 100, 30)
+        segBtn1.frame = CGRectMake(0, 1, 100, 32)
         segBtn1.setTitle("全部商家", forState: UIControlState.Normal)
         segBtn1.setTitle("全部商家", forState: UIControlState.Selected)
         segBtn1.selected = true
         segBtn1.tag = 1
-//        segBtn1.layer.cornerRadius = 5
+        segBtn1.layer.cornerRadius = 5
 //        segBtn1.layer.borderColor = THEMECOLOR.CGColor
 //        segBtn1.layer.borderWidth = 2
         segBtn1.titleLabel?.font = UIFont.systemFontOfSize(15)
@@ -75,11 +76,11 @@ class ShopViewController: BaseViewController, UITableViewDataSource, UITableView
         segBtn1.addTarget(self, action: Selector("segBtnAction:"), forControlEvents: UIControlEvents.TouchUpInside)
         
         segBtn2 = UIButton(type: UIButtonType.Custom)
-        segBtn2.frame = CGRectMake(100, 2, 100, 30)
+        segBtn2.frame = CGRectMake(100, 1, 100, 32)
         segBtn2.setTitle("优惠商家", forState: UIControlState.Normal)
         segBtn2.selected = false
         segBtn2.tag = 2
-//        segBtn2.layer.cornerRadius = 5
+        segBtn2.layer.cornerRadius = 5
 //        btsegBtn2n2.layer.borderColor = THEMECOLOR.CGColor
 //        segBtn2.layer.borderWidth = 2
         segBtn2.titleLabel?.font = UIFont.systemFontOfSize(15)
@@ -88,7 +89,7 @@ class ShopViewController: BaseViewController, UITableViewDataSource, UITableView
         segBtn2.backgroundColor = UIColor.whiteColor()
         segBtn2.addTarget(self, action: Selector("segBtnAction:"), forControlEvents: UIControlEvents.TouchUpInside)
         
-        
+        currentSelectedBtnTag = 1 //segBtn1
         segView.addSubview(segBtn1)
         segView.addSubview(segBtn2)
         self.navigationItem.titleView = segView
@@ -100,25 +101,27 @@ class ShopViewController: BaseViewController, UITableViewDataSource, UITableView
     }
     
     func segBtnAction(btn: UIButton)  {
-        
-        segBtn1.selected = !segBtn1.selected
-        if segBtn1.selected {
-            segBtn1.backgroundColor = THEMECOLOR
-        }else {
-            segBtn1.backgroundColor = UIColor.whiteColor()
-        }
-        
-        segBtn2.selected = !segBtn2.selected
-        if segBtn2.selected {
-            segBtn2.backgroundColor = THEMECOLOR
-        }else {
-            segBtn2.backgroundColor = UIColor.whiteColor()
-        }
-        
-        if btn.tag == 1 {
-            //........ data 1 reload tableview
-        }else if btn.tag == 2 {
-            //........ data 2 reload tableview
+        if btn.tag != currentSelectedBtnTag {//不是原来的button
+            currentSelectedBtnTag = btn.tag
+            segBtn1.selected = !segBtn1.selected
+            if segBtn1.selected {
+                segBtn1.backgroundColor = THEMECOLOR
+            }else {
+                segBtn1.backgroundColor = UIColor.whiteColor()
+            }
+            
+            segBtn2.selected = !segBtn2.selected
+            if segBtn2.selected {
+                segBtn2.backgroundColor = THEMECOLOR
+            }else {
+                segBtn2.backgroundColor = UIColor.whiteColor()
+            }
+            
+            if btn.tag == 1 {
+                //........ data 1 reload tableview
+            }else if btn.tag == 2 {
+                //........ data 2 reload tableview
+            }
         }
         
     }

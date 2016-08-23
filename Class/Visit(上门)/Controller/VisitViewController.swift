@@ -6,139 +6,55 @@
 //  Copyright © 2016年 Jorn.Wu(jorn_wza@sina.com). All rights reserved.
 //
 
+/****************************************************************************************************/
+/*
+**
+** 这是“上门”模块（已经被美团丢弃），通过URL获取的数据将为空或URL失效
+**
+*/
+/****************************************************************************************************/
+
+
 import UIKit
 
 class VisitViewController: BaseViewController {
+    
+//    private var visitDataModel: 
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
+//        loadVisitData()
         
-//        addNavigationItems()
     }
-//    
-//    /****************************************************************************************************/
-//     /**
-//     ** 添加导航栏按钮
-//     **
-//     */
-//    private func addNavigationItems() {
-//        ///left button item
-//        let lBtn = UIButton(type: UIButtonType.System)
-//        lBtn.frame = CGRectMake(0, 0, 50, 35)
-//        lBtn.setImage(UIImage(named: "icon_map.png"), forState: UIControlState.Normal)
-//        lBtn.setImage(UIImage(named: "icon_map_highlighted.png"), forState: UIControlState.Selected)
-//        lBtn.addTarget(self, action: Selector("openMapView:"), forControlEvents: UIControlEvents.TouchUpInside)
-//        let leftItem = UIBarButtonItem(customView: lBtn)
-//        self.navigationItem.leftBarButtonItem = leftItem
-//        
-//        ///right button item
-//        let rBtn = UIButton(type: UIButtonType.System)
-//        rBtn.backgroundColor = UIColor.clearColor()
-//        rBtn.frame = CGRectMake(0, 0, 50, 35)
-//        rBtn.contentMode = UIViewContentMode.ScaleAspectFit
-//        rBtn.setImage(UIImage(named: "icon_search.png"), forState: UIControlState.Normal)
-//        rBtn.setImage(UIImage(named: "icon_search_selected.png"), forState: UIControlState.Selected)
-//        rBtn.addTarget(self, action: Selector("mapButtonItemAction:"), forControlEvents: UIControlEvents.TouchUpInside)
-//        let rightItem = UIBarButtonItem(customView: rBtn)
-//        self.navigationItem.rightBarButtonItem = rightItem
-//        
-//        //        let backBtn = UIButton(frame: CGRectMake(0, 0, 50, 50))
-//        //        backBtn.setImage(UIImage(named: "back@2x,png"), forState: UIControlState.Normal)
-//        //        self.navigationItem.backBarButtonItem = UIBarButtonItem(customView: backBtn)
+//    case VisitAd//获取上门广告的数据
+//    case VisitService//获取上门服务的数据
+//    func loadVisitData() {
+        ///上门数据
+//        let visitURLString = UrlStrType.VisitService.getUrlString()
+//        NetworkeProcessor.GET(recommentURLString, parameters: nil, progress: nil, success: {
+////            [unowned self]//捕获列表，避免循环引用
+//            (task, responseObject) -> Void in
+//            print("----获取数据成功----",responseObject)
+//            
+////            self.recommentModelWith(responseObject as! NSDictionary)
+//            
+//            }) { (task, error) -> Void in
+//                print("----获取数据失败----",error.localizedDescription)
+//                
+//        }
+        
+//        NetworkeProcessor.dataWith(visitURLString, parameters: nil) { (data, reponse, error) -> Void in
+//            if error != nil {
+//                print(error?.localizedDescription)
+//            }else {
+//                let str = NSString(data: data!, encoding: NSUTF8StringEncoding)
+//                print(str)
+//            }
+//        }
 //    }
-//    
-//    func openMapView(btn: UIButton) {
-//        print("open map View")
-//    }
-//    
-//    func openView(){
-//        print("open search View")
-//    }
-//    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-/****************************************************************************************************/
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
+ 
      
 /****************************************************************************************************/
 

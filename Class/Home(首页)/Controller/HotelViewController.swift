@@ -38,15 +38,24 @@ class HotelViewController: BaseViewController, UITableViewDataSource, UITableVie
     
         self.dataModel = model
         self.view.backgroundColor = BACKGROUNDCOLOR
+        
+        let backBtn = UIButton(frame: CGRectMake(0, 0, 30, 30))
+        backBtn.setImage(UIImage(named: "back@2x.png"), forState: UIControlState.Normal)
+        backBtn.addTarget(self, action: Selector("backBtnAction"), forControlEvents: UIControlEvents.TouchUpInside)
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backBtn)
+        
+        loadOtherHotelData()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        
-        loadOtherHotelData()
 
+    }
+    
+    func backBtnAction() {
+        self.navigationController?.popToRootViewControllerAnimated(true)
     }
     
     func loadOtherHotelData() {
@@ -56,7 +65,7 @@ class HotelViewController: BaseViewController, UITableViewDataSource, UITableVie
         NetworkeProcessor.GET(URLString, parameters: nil, progress: nil, success: {
             [unowned self]//捕获列表，避免循环引用
             (task, responseObject) -> Void in
-            print("----获取数据成功----",responseObject)
+            //print("----获取数据成功----",responseObject)
             
             self.hotelModelWith(responseObject as! NSDictionary)
             
@@ -102,15 +111,16 @@ class HotelViewController: BaseViewController, UITableViewDataSource, UITableVie
                 
                 let cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: nil)
                 let headerImageView = UIImageView(frame: CGRectMake(0, 0, SCREENWIDTH, 150))
-                headerImageView.sd_setImageWithURL(NSURL(string: dataModel.squareimgurl), placeholderImage: UIImage(named: "bg_merchant_photo_placeholder_big@2x.png"))
+                headerImageView.sd_setImageWithURL(NSURL(string: dataModel.imgurl), placeholderImage: UIImage(named: "bg_merchant_photo_placeholder_big@2x.png"))
+                cell.addSubview(headerImageView)
                 return cell
             }else if indexPath.row == 1 {
                 let cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: nil)
-//                cell.textLabel?.text = hotelDetailModel.data.title
+                //.cell.textLabel?.text = hotelDetailModel.data.title
                 return cell
             }else {
                 let cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: nil)
-//                cell.textLabel?.text = hotelDetailModel.data.title
+                //cell.textLabel?.text = hotelDetailModel.data.title
                 return cell
             }
             
@@ -133,6 +143,11 @@ class HotelViewController: BaseViewController, UITableViewDataSource, UITableVie
                 cell.detailLB.text = "[" + dealModel.range + "]" + dealModel.title
                 cell.priceLB.text = "\(dealModel.price)" + "元"
                 cell.priceLB.textColor = THEMECOLOR
+                
+                cell.valueLB.text = "门面价：" + "\(dealModel.value)" + "元"
+                cell.valueLB.textColor = UIColor.grayColor()
+                cell.salesLB.text = "已卖" + "\(dealModel.solds)" + "份"
+                cell.salesLB.textColor = UIColor.redColor()
                 return cell
             }
         }

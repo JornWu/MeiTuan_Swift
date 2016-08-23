@@ -95,6 +95,7 @@ struct RE_Data{
 		frontPoiCates = dictionary["frontPoiCates"] as? String
 		mId = dictionary["id"] as? Int
         
+        //imgurl = dictionary["imgurl"] as? String
 		imgurl = String.URLStringHttpToHttps(dictionary["imgurl"] as! String)
         
 		isAvailableToday = dictionary["isAvailableToday"] as? Bool
@@ -123,8 +124,10 @@ struct RE_Data{
 		smstitle = dictionary["smstitle"] as? String
 		solds = dictionary["solds"] as? Int
         
-		squareimgurl = String.URLStringHttpToHttps(dictionary["squareimgurl"] as! String)
-        
+        if let squareimgurlString = dictionary["squareimgurl"] as? String {
+            squareimgurl = String.URLStringHttpToHttps(squareimgurlString)
+        }
+            
 		start = dictionary["start"] as? Int
 		state = dictionary["state"] as? Int
 		status = dictionary["status"] as? Int
