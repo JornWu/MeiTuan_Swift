@@ -53,9 +53,9 @@ class BaseNavigationController: UINavigationController {
         let navigationTitleAttribute : NSDictionary = NSDictionary(object: UIColor.blackColor(), forKey: NSForegroundColorAttributeName)
         self.navigationBar.titleTextAttributes = navigationTitleAttribute as? [String : AnyObject]
         
-        let backBtn = UIButton(frame: CGRectMake(0, 0, 40, 40))
-        backBtn.setImage(UIImage(named: "back@2x,png"), forState: UIControlState.Normal)
-        self.navigationItem.backBarButtonItem = UIBarButtonItem(customView: backBtn)
+//        let backBtn = UIButton(frame: CGRectMake(0, 0, 40, 40))
+//        backBtn.setImage(UIImage(named: "back@2x,png"), forState: UIControlState.Normal)
+//        self.navigationItem.backBarButtonItem = UIBarButtonItem(customView: backBtn)
     }
     
     override func didReceiveMemoryWarning() {

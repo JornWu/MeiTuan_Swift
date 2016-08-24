@@ -12,13 +12,6 @@ import AFNetworking
 
 struct NetworkeProcessor {
     
-    //[[AFHTTPRequestSerializer serializer] requestWithMethod:@"GET" URLString:URLString parameters:parameters error:nil];
-    
-//    func GET(NSString *)URLString
-//    parameters:(id)parameters
-//    success:(void (^)(NSURLSessionDataTask *task, id responseObject))success
-//    failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure
-    
     static func GET(URLString: NSString, parameters: AnyObject?, progress: ((progress: NSProgress) -> Void)?, success:(task: NSURLSessionDataTask, responseObject: AnyObject?) -> Void, failure: (task: NSURLSessionDataTask?, error: NSError) -> Void) {
         
         
@@ -76,12 +69,7 @@ struct NetworkeProcessor {
 //            }) { (task: NSURLSessionDataTask?, error: NSError) -> Void in
 //                print(error)
 //        }
-        
-        
-        //---------------将闭包数据传出去----------------
-        //let dataTask = httpManager.GET(URLString, parameters: parameters, success: success, failure: failure)
-        
-        
+
         dataTask!.resume()
         
     }
