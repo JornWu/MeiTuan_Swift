@@ -18,6 +18,9 @@
             <rect key="frame" x="0.0" y="0.0" width="323" height="65"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_login.png" translatesAutoresizingMaskIntoConstraints="NO" id="hq9-86-9O1">
+                    <rect key="frame" x="0.0" y="0.0" width="323" height="65"/>
+                </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_mine_accountViewRightArrow.png" translatesAutoresizingMaskIntoConstraints="NO" id="EpF-eh-Jh1">
                     <rect key="frame" x="301" y="20" width="14" height="25"/>
                     <constraints>
@@ -75,14 +78,18 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstItem="hq9-86-9O1" firstAttribute="leading" secondItem="5bt-Gy-vW1" secondAttribute="leading" id="1gI-6t-mKj"/>
                 <constraint firstAttribute="bottom" secondItem="AOE-L5-3jn" secondAttribute="bottom" constant="1" id="3rD-XH-SVL"/>
                 <constraint firstItem="EpF-eh-Jh1" firstAttribute="top" secondItem="5bt-Gy-vW1" secondAttribute="top" constant="20" id="8B6-V9-jNs"/>
                 <constraint firstItem="AOE-L5-3jn" firstAttribute="top" secondItem="5bt-Gy-vW1" secondAttribute="top" constant="1" id="9zw-BD-fYn"/>
                 <constraint firstItem="EpF-eh-Jh1" firstAttribute="leading" secondItem="AOE-L5-3jn" secondAttribute="trailing" constant="8" id="AMa-Mg-2gw"/>
+                <constraint firstAttribute="bottom" secondItem="hq9-86-9O1" secondAttribute="bottom" id="I4o-ja-gQD"/>
                 <constraint firstItem="EpF-eh-Jh1" firstAttribute="centerX" secondItem="5bt-Gy-vW1" secondAttribute="centerX" id="Inx-nv-PqT"/>
+                <constraint firstItem="hq9-86-9O1" firstAttribute="top" secondItem="5bt-Gy-vW1" secondAttribute="top" id="OcC-UZ-w73"/>
                 <constraint firstAttribute="trailing" secondItem="EpF-eh-Jh1" secondAttribute="trailing" constant="8" id="Ptf-k2-X6x"/>
                 <constraint firstItem="AOE-L5-3jn" firstAttribute="leading" secondItem="5bt-Gy-vW1" secondAttribute="leading" constant="1" id="XbT-M5-UAI"/>
                 <constraint firstAttribute="bottom" secondItem="EpF-eh-Jh1" secondAttribute="bottom" constant="20" id="edY-ek-kPL"/>
+                <constraint firstAttribute="trailing" secondItem="hq9-86-9O1" secondAttribute="trailing" id="vcT-mY-L5o"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <variation key="default">
@@ -94,6 +101,7 @@
         </view>
     </objects>
     <resources>
+        <image name="bg_login.png" width="480" height="126"/>
         <image name="icon_mine_accountViewRightArrow.png" width="24" height="42"/>
         <image name="icon_mine_default_portrait.png" width="55" height="55"/>
     </resources>

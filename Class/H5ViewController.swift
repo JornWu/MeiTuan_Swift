@@ -1,16 +1,15 @@
 //
-//  RushShoppingDetailViewController.swift
+//  H5ViewController.swift
 //  MeiTuan_Swift
 //
-//  Created by JornWu on 16/8/20.
+//  Created by JornWu on 16/8/24.
 //  Copyright © 2016年 Jorn.Wu(jorn_wza@sina.com). All rights reserved.
 //
-
 
 /****************************************************************************************************/
 /*
 **
-** 这是抢购详情视图（进入H5页面）（和ActivityDetailViewController一样）
+** 这是H5页面视图，凡是要加载H5页面的只要传一个URL字符串即可
 ** 从这里可以进入H5页面，现在的APP大多开始流行H5混合开发
 ** 这样大大减少移动端的开发压力，减少bug，缩短开发流程，页面加载跟快，更流畅，更好维护，缩小APP的大小
 ** 各方面效果都不错，用户体验也不错，只是烧流量，当然还与网络有关
@@ -21,25 +20,25 @@
 
 import UIKit
 
-class RushShoppingDetailViewController: BaseViewController, UIWebViewDelegate {
+class H5ViewController: BaseViewController, UIWebViewDelegate {
     
     var URLString: String!
     private var webView: UIWebView!
     private var activityView: UIActivityIndicatorView!
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
-        //------------------------------------------//
-        URLString = UrlStrType.RushBuyWebData.getUrlString()
+        // Do any additional setup after loading the view.
+    }
+    
+    convenience init(urlString: String) {
+        self.init()
+        URLString = urlString
         self.view.backgroundColor = BACKGROUNDCOLOR
         setupNavigationBar()
         setupWebView()
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        //fatalError("init(coder:) has not been implemented")
-        super.init(coder: aDecoder)
     }
     
     func setupNavigationBar() {
@@ -51,13 +50,12 @@ class RushShoppingDetailViewController: BaseViewController, UIWebViewDelegate {
         rBtn.addTarget(self, action: Selector("adjustDisplay:"), forControlEvents: UIControlEvents.TouchUpInside)
         let rightItem = UIBarButtonItem(customView: rBtn)
         self.navigationItem.rightBarButtonItem = rightItem
- 
         
         let backBtn = UIButton(frame: CGRectMake(0, 0, 30, 30))
         backBtn.setImage(UIImage(named: "back@2x.png"), forState: UIControlState.Normal)
         backBtn.addTarget(self, action: Selector("backBtnAction"), forControlEvents: UIControlEvents.TouchUpInside)
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backBtn)
-
+        
         
     }
     
@@ -69,6 +67,7 @@ class RushShoppingDetailViewController: BaseViewController, UIWebViewDelegate {
         btn.selected = !btn.selected
         webView.autoresizesSubviews = btn.selected
         webView.scalesPageToFit = btn.selected
+        loadWebViewData()//reload
     }
     
     func setupWebView() {
@@ -114,5 +113,24 @@ class RushShoppingDetailViewController: BaseViewController, UIWebViewDelegate {
         self.title = theTitle
     }
     
-
+    
+    
+    /****************************************************************************************************/
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    
+    /*
+    // MARK: - Navigation
+    
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    // Get the new view controller using segue.destinationViewController.
+    // Pass the selected object to the new view controller.
+    }
+    */
+    
 }
+

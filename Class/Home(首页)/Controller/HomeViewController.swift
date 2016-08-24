@@ -267,9 +267,7 @@ class HomeViewController: BaseViewController, AddressViewDelegate, UITableViewDa
     }
     
     func intoRushShoppingDetailView() {
-        let RSDVC = RushShoppingDetailViewController()
-        //RSDVC.URLString = UrlStrType.RushBuyWebData.getUrlString()//move to internal
-        self.navigationController?.pushViewController(RSDVC, animated: true)
+        self.navigationController?.pushViewController(H5ViewController(urlString: UrlStrType.RushBuyWebData.getUrlString()), animated: true)
     }
      
 /****************************************************************************************************/
@@ -354,9 +352,7 @@ class HomeViewController: BaseViewController, AddressViewDelegate, UITableViewDa
         ///进入详情页面
         let dataAr = activityModel.data
         let urlString = dataAr[(btn.tag - 2000)].share.url
-        let ACDVC = ActivityDetailViewController(urlString: urlString)
-        
-        self.navigationController?.pushViewController(ACDVC, animated: true)
+        self.navigationController?.pushViewController(H5ViewController(urlString: urlString), animated: true)
     }
      
      

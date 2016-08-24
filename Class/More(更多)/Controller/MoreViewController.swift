@@ -27,7 +27,7 @@ class MoreViewController: BaseViewController, UITableViewDataSource, UITableView
     }
     
     func creatTableView() {
-        moreTableView = UITableView(frame: CGRectMake(0, 64, SCREENWIDTH, SCREENHEIGHT), style: UITableViewStyle.Grouped)
+        moreTableView = UITableView(frame: CGRectMake(0, 64, SCREENWIDTH, SCREENHEIGHT - 64 - 49), style: UITableViewStyle.Grouped)
         self.view.addSubview(moreTableView)
         
         moreTableView.dataSource = self
@@ -49,15 +49,33 @@ class MoreViewController: BaseViewController, UITableViewDataSource, UITableView
         cell.textLabel!.text = (dataAr[indexPath.section] as! NSArray)[indexPath.row] as? String
         cell.selectionStyle = UITableViewCellSelectionStyle.None
         cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+        
+        if indexPath.section == 0 {
+            //二维码扫描
+            cell.backgroundColor = THEMECOLOR
+        }else if indexPath.section == 2 {
+            if indexPath.row == 1 {
+                cell.backgroundColor = THEMECOLOR
+            }else if indexPath.row == 4 {
+                cell.backgroundColor = THEMECOLOR
+            }
+        }
+        
         return cell
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.section == 0 {
-            //二维码扫描
-            
+        if indexPath.section == 0 {//二维码扫描
             let QRCodeVC = QRCodeScanViewController()
             self.navigationController?.pushViewController(QRCodeVC, animated: true)
+        }else if indexPath.section == 2 {//支付帮助
+            if indexPath.row == 1 {
+                let urlString = UrlStrType.PayHelp.getUrlString()
+                self.navigationController?.pushViewController(H5ViewController(urlString: urlString), animated: true)
+            }else if indexPath.row == 4 {//我要应聘
+                let urlString = UrlStrType.HelpWorking.getUrlString()
+                self.navigationController?.pushViewController(H5ViewController(urlString: urlString), animated: true)
+            }
         }
     }
 
