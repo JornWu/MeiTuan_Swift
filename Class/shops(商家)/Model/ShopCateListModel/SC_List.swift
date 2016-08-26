@@ -7,7 +7,7 @@ import Foundation
 struct SC_List{
 
 	var count : Int!
-	var id : Int!
+	var mId : Int64!
 	var index : Int!
 	var name : String!
 	var onRed : Bool!
@@ -19,7 +19,7 @@ struct SC_List{
 	 */
 	init(fromDictionary dictionary: NSDictionary){
 		count = dictionary["count"] as? Int
-		id = dictionary["id"] as? Int
+		mId = dictionary["id"] as? Int64
 		index = dictionary["index"] as? Int
 		name = dictionary["name"] as? String
 		onRed = dictionary["onRed"] as? Bool

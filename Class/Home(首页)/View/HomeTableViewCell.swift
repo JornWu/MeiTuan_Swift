@@ -21,7 +21,7 @@ class HomeTableViewCell: UITableViewCell {
         // Initialization code
     }
     
-    static func creatCellWith(aTableView: UITableView, indexPath: NSIndexPath, reuseIdentifier: String) -> HomeTableViewCell {
+    class func creatCellWith(aTableView: UITableView, indexPath: NSIndexPath, reuseIdentifier: String) -> HomeTableViewCell {
         let cell = aTableView.dequeueReusableCellWithIdentifier(reuseIdentifier, forIndexPath: indexPath)
         return cell as! HomeTableViewCell
     }

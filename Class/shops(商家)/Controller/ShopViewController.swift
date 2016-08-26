@@ -6,22 +6,42 @@
 //  Copyright © 2016年 Jorn.Wu(jorn_wza@sina.com). All rights reserved.
 //
 
+
 import UIKit
 
-class ShopViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate {
+protocol ShopViewControllerDelegate: NSObjectProtocol {
+    func didClickChoiceBarButtonItemWith(tag t: Int)
+    func didChoiceTheTypeWith(id mId: Int64)
+}
+
+class ShopViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate, ShopDropDownViewDelegate {
+    
+    weak var choiceFilterDelegate: ShopViewControllerDelegate? //选择过滤类型的delegate
     
     private var segBtn1: UIButton!
     private var segBtn2: UIButton!
     private var currentSelectedBtnTag: Int!
+    
+    ///////////////////////////////
+    
+    private var shopCateListModel: SC_ShopCateListModel!
+    private var shopListModel: SP_ShopModel!
+    private var kindId: Int64!
+    private var shopTableView: UITableView!
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        
         addNavigationItems()
+        
+        //loadShopCateListData()
+        
+        kindId = -1 ///////
+        loadShopListData(withKindId: kindId)
+        
         creatChooseBar()
-        creatShopTableView()
     }
     
 /****************************************************************************************************/
@@ -95,9 +115,6 @@ class ShopViewController: BaseViewController, UITableViewDataSource, UITableView
         self.navigationItem.titleView = segView
         
 
-//        let backBtn = UIButton(frame: CGRectMake(0, 0, 50, 50))
-//        backBtn.setImage(UIImage(named: "back@2x,png"), forState: UIControlState.Normal)
-//        self.navigationItem.backBarButtonItem = UIBarButtonItem(customView: backBtn)
     }
     
     func segBtnAction(btn: UIButton)  {
@@ -132,12 +149,14 @@ class ShopViewController: BaseViewController, UITableViewDataSource, UITableView
     }
     
     func openSearchView(btn: UIButton){
-        print("open search View")
+        let SHVC = SearchViewController()
+        self.navigationController?.pushViewController(SHVC, animated: true)
+
     }
     
 /****************************************************************************************************/
  /**
- ** 下拉选择视图
+ ** 下拉类型选择视图
  **
  */
 
@@ -171,23 +190,71 @@ class ShopViewController: BaseViewController, UITableViewDataSource, UITableView
             btnItem.titleEdgeInsets = UIEdgeInsetsMake(0, -15, 0, 0)
             btnItem.imageEdgeInsets = UIEdgeInsetsMake(0, btnItem.extWidth() - 45, 0, 0)
             btnItem.backgroundColor = UIColor.whiteColor()
-            btnItem.addTarget(self, action: Selector("creatChooseListView:"), forControlEvents: UIControlEvents.TouchUpInside)
+            btnItem.addTarget(self, action: Selector("chooseListView:"), forControlEvents: UIControlEvents.TouchUpInside)
             
             chooseBar.addSubview(btnItem)
         }
     }
     
-    
-    func creatChooseListView(btn: UIButton) {
+    ///控制下拉列表视图的显示
+    func chooseListView(btn: UIButton) {
         
-        if btn.tag == 200 {
-            
-        }else if btn.tag == 201 {
-            
-        }else if btn.tag == 202 {
-            
+        if (self.choiceFilterDelegate?.respondsToSelector(Selector("didClickChoiceBarButtonItemWith:")) != nil){
+            self.choiceFilterDelegate?.didClickChoiceBarButtonItemWith(tag: btn.tag)
         }
         
+    }
+    
+    
+/****************************************************************************************************/
+ /**
+ ** 下拉视图
+ **
+ */
+    ///商家分类列表数据
+    func loadShopCateListData() {
+        let URLString = UrlStrType.CateList.getUrlString()
+        NetworkeProcessor.GET(URLString, parameters: nil, progress: nil, success: {
+            [unowned self]//捕获列表，避免循环引用
+            (task: NSURLSessionDataTask, responseObject: AnyObject?) in
+            //print("----获取数据成功----",responseObject)//responseObject 已经是一个字典对象了
+
+            self.shopCateListModel(withDictionary: responseObject as! NSDictionary)
+            
+            }, failure: {(task: NSURLSessionDataTask?, responseObject: AnyObject)in
+                print("----获取数据失败----",responseObject)
+        })
+    }
+    
+    func shopCateListModel(withDictionary dictionary: NSDictionary) {
+        
+        self.shopCateListModel = SC_ShopCateListModel(fromDictionary: dictionary)
+        
+        //self.kindId = shopCateListModel.data[0].mId
+        
+        //创建分类列表（下拉列表）
+        creatFilterTypeChoiceView()
+    }
+    
+    func creatFilterTypeChoiceView() {
+        
+        let filterTypeChoiceView = ShopDropDownView(frame: CGRectMake(0, 64 + 41, SCREENWIDTH, SCREENHEIGHT - 64), shopCateListModel: shopCateListModel)
+        self.choiceFilterDelegate = filterTypeChoiceView
+        filterTypeChoiceView.delegate = self//注意循环引用
+        self.view.addSubview(filterTypeChoiceView)
+        
+    }
+    
+    ///ShopDropDownViewDelegate
+    func didChoosedFilterType(kindId: Int64) {
+        self.kindId = kindId
+        self.loadShopListData(withKindId: self.kindId)
+        self.shopTableView.reloadData()//重新加载数据
+    }
+    
+    ///ShopDropDownViewDelegate
+    func didChoosedSortType() {
+        //doing
     }
     
     
@@ -197,28 +264,64 @@ class ShopViewController: BaseViewController, UITableViewDataSource, UITableView
  **
  */
     
+    ///商家列表数据
+    func loadShopListData(withKindId kId: Int64) {
+        let URLString = UrlStrType.urlStringWithMerchantStr(kId, offset: 10)
+        NetworkeProcessor.GET(URLString, parameters: nil, progress: nil, success: {
+            [unowned self]//捕获列表，避免循环引用
+            (task: NSURLSessionDataTask, responseObject: AnyObject?) in
+            //print("----获取数据成功----",responseObject)//responseObject 已经是一个字典对象了
+            
+            self.shopCateListModel(withDictionary: responseObject as! NSDictionary)
+            
+            }, failure: {(task: NSURLSessionDataTask?, responseObject: AnyObject)in
+                print("----获取数据失败----",responseObject)
+        })
+    }
+    
+    func shopListModel(withDictionary dictionary: NSDictionary) {
+        self.shopListModel = SP_ShopModel(fromDictionary: dictionary)
+        creatShopTableView()//先加载好数据再创建表格，因为数据是异步加载和在子线程中加载，先创建表格会产生错误，因为还没有数据
+    }
+    
+    
     func creatShopTableView() {
         
-        let shopTableView = UITableView(frame: CGRectMake(0, 64 + 40, SCREENWIDTH, SCREENHEIGHT - 64 - 40), style: UITableViewStyle.Plain)
+        shopTableView = UITableView(frame: CGRectMake(0, 64 + 40, SCREENWIDTH, SCREENHEIGHT - 64 - 40), style: UITableViewStyle.Plain)
+        shopTableView.tag = 304
+        shopTableView.backgroundColor = BACKGROUNDCOLOR
+        shopTableView.separatorInset = UIEdgeInsetsMake(0, -10, 0, 0)
+        shopTableView.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
         shopTableView.delegate = self
         shopTableView.dataSource = self
+        
+        shopTableView.registerNib(UINib(nibName: "ShopTableViewCell.xib", bundle: nil), forCellReuseIdentifier: "ShopCell")
+        
         self.view.addSubview(shopTableView)
-        
-        
-        
-        
-        
         
     }
     
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 20
+        return shopListModel.data.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "ShopCell")
-        cell.textLabel!.text = "Jorn Wu"
+        let dataMode = shopListModel.data[indexPath.row]
+        let cell = ShopTableViewCell.creatCellWithTableView(tableView, reuseIdentify: "ShopCell", indexPath: indexPath)
+        cell.imageView?.sd_setImageWithURL(NSURL(string: dataMode.frontImg), placeholderImage: UIImage(named: "bg_merchant_photo_placeholder_big@2x.png"))
+        cell.titleBL.text = dataMode.name
+        cell.subTitle.text = dataMode.cateName + " " + dataMode.areaName
+        cell.subTitle.textColor = UIColor.grayColor()
+        cell.evaluateLB.text = "\(dataMode.markNumbers)" + "评价"
+        cell.priceLB.text = "人均" + "\(dataMode.avgPrice)"
+        
+        if dataMode.hasGroup! {
+            cell.markImageView1.image = UIImage(named: "icon_merchant_mark_tuan")
+        }else if dataMode.isWaimai! != 0 {
+            cell.markImageView1.image = UIImage(named: "icon_merchant_mark_waimai")
+        }
+        
         return cell
     }
     

@@ -7,7 +7,7 @@ import Foundation
 struct SC_Data{
 
 	var count : Int!
-	var id : Int!
+	var mId : Int64!
 	var index : Int!
 	var list : [SC_List]!
 	var name : String!
@@ -19,7 +19,7 @@ struct SC_Data{
 	 */
 	init(fromDictionary dictionary: NSDictionary){
 		count = dictionary["count"] as? Int
-		id = dictionary["id"] as? Int
+		mId = dictionary["id"] as? Int64
 		index = dictionary["index"] as? Int
 		list = [SC_List]()
 		if let listArray = dictionary["list"] as? [NSDictionary]{
