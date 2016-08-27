@@ -17,42 +17,51 @@
 
 import UIKit
 
-protocol ShopDropDownViewDelegate: NSObjectProtocol {
-    func didChoosedFilterType(kindId: Int64)//选择了过滤的类型
+protocol ShopDropDownViewControllerDelegate: NSObjectProtocol {
+    func didChoosedFilterType(kindId: Int)//选择了过滤的类型
     func didChoosedSortType()//选择了排序的类型
+    func didRevertDropDownViewState()//恢复下拉视图的状态
 }
 
-class ShopDropDownView: UIView, UITableViewDataSource, UITableViewDelegate, ShopViewControllerDelegate {
-    weak var delegate: ShopDropDownViewDelegate!
+class ShopDropDownViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate, ShopViewControllerDelegate {
+    weak var delegate: ShopDropDownViewControllerDelegate!
     
     var shopCateListModel: SC_ShopCateListModel!
     private var selectedTypeIndex: Int!
     
     var sortTypeAr = ["智能排序", "好评优先", "离我最近", "人均最低"]//排序类型数值
     
-    private var typeChoiceBgView: UIView!
     private var typeChoiceView: UIView!
     private var leftTableView: UITableView!
     private var rightTableView: UITableView!
     private var sortTablewView: UITableView!
     
-    convenience init(frame mFrame: CGRect, shopCateListModel model: SC_ShopCateListModel) {
-        self.init(frame: mFrame)
-        
-        
+    convenience init(withFrame frame: CGRect, shopCateListModel: SC_ShopCateListModel) {
+        self.init()
+        setupViewWith(frame: frame, shopCateListModel: shopCateListModel)
+    }
+    
+    override func viewDidLoad() {
+        ///doing
+    }
+    
+    func setupViewWith(frame mFrame: CGRect, shopCateListModel model: SC_ShopCateListModel) {
+        self.view.frame = mFrame
         self.shopCateListModel = model
         self.selectedTypeIndex = 0
         loadAllViews()
+        self.view.hidden = true ///默认为隐藏的
     }
     
     func loadAllViews() {
-        typeChoiceBgView = UIButton(frame: CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT - 105))///
-        typeChoiceBgView.backgroundColor = UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 0.1)
-        self.addSubview(typeChoiceBgView)
+        let typeChoiceBgView = UIButton(frame: CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT - 105))///
+        typeChoiceBgView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.2)
+        typeChoiceBgView.addTarget(self, action: Selector("revertDropDownView"), forControlEvents: UIControlEvents.TouchUpInside)
+        self.view.addSubview(typeChoiceBgView)
         
         typeChoiceView = UIView(frame: CGRectMake(0, 0, SCREENWIDTH, 300))///
         typeChoiceView.backgroundColor = BACKGROUNDCOLOR
-        self.addSubview(typeChoiceView)
+        self.view.addSubview(typeChoiceView)
         
         leftTableView = UITableView(frame: CGRectMake(0, 0, SCREENWIDTH * 2 / 5, 300), style: UITableViewStyle.Plain)
         leftTableView.tag = 301
@@ -65,14 +74,23 @@ class ShopDropDownView: UIView, UITableViewDataSource, UITableViewDelegate, Shop
         rightTableView.dataSource = self
         rightTableView.delegate = self
         
-        sortTablewView = UITableView(frame: CGRectMake(0, 0, SCREENWIDTH, 300), style: UITableViewStyle.Plain)
+        sortTablewView = UITableView(frame: CGRectMake(0, 0, SCREENWIDTH, 160), style: UITableViewStyle.Plain)
         sortTablewView.tag = 303
+        sortTablewView.rowHeight = 40
+        sortTablewView.hidden = true
         sortTablewView.dataSource = self
         sortTablewView.delegate = self
         
         typeChoiceView.addSubview(leftTableView)
         typeChoiceView.addSubview(rightTableView)
-        //typeChoiceView.addSubview(sortTablewView)
+        typeChoiceView.addSubview(sortTablewView)
+    }
+    
+    func revertDropDownView() {
+        self.view.hidden = true
+        if self.delegate?.respondsToSelector(Selector("didRevertDropDownViewState")) != nil {
+            self.delegate?.didRevertDropDownViewState()///恢复所有选择按钮的状态
+        }
     }
     
     
@@ -136,11 +154,13 @@ class ShopDropDownView: UIView, UITableViewDataSource, UITableViewDelegate, Shop
             //让代理执行过滤
             if self.delegate?.respondsToSelector(Selector("didChoosedFilterType:")) != nil {
                 if shopCateListModel.data[selectedTypeIndex].list != nil {
-                    self.delegate.didChoosedFilterType(shopCateListModel.data[selectedTypeIndex].list[indexPath.row].mId)
+                    self.delegate?.didChoosedFilterType(shopCateListModel.data[selectedTypeIndex].list[indexPath.row].mId)
                 }else {
-                    self.delegate.didChoosedFilterType(shopCateListModel.data[selectedTypeIndex].mId)
+                    self.delegate?.didChoosedFilterType(shopCateListModel.data[selectedTypeIndex].mId)
                 }
             }
+            revertDropDownView()///恢复拉视图
+            
         }else {
             cell?.textLabel?.textColor = UIColor.blackColor()
             cell!.imageView?.image  = UIImage(named: "icon_checkbox_unchecked")
@@ -148,8 +168,52 @@ class ShopDropDownView: UIView, UITableViewDataSource, UITableViewDelegate, Shop
     }
     
     ///ShopViewControllerDelegate
-    func didClickChoiceBarButtonItemWith(tag t: Int) {
-        //dong
+    func didClickChoiceBarButtonItemWith(button btn: UIButton) {
+        switch btn.tag {
+        case 200:///类型筛选选择
+            typeChoiceView.extSetHeight(300)
+            self.typeChoiceView.extSetY(-1 * self.typeChoiceView.extHeight())
+            btn.selected = !btn.selected
+            sortTablewView.hidden = true
+            leftTableView.hidden = false
+            rightTableView.hidden = false
+            self.view.hidden = !self.view.hidden
+            
+            UIView.animateWithDuration(0.2, animations: {
+                [unowned self]
+                () -> Void in
+                
+                self.typeChoiceView.transform = CGAffineTransformTranslate(self.typeChoiceView.transform, 0, self.typeChoiceView.extHeight())
+                }, completion: { (isCompletion) -> Void in
+                    
+                    if isCompletion {
+                        // 加载那个数据
+                    }
+            })
+            
+        case 201:///地区筛选选择
+            self.view.hidden = false
+            
+            // doing
+            
+        case 202:///排序类型选择
+            btn.selected = !btn.selected
+            typeChoiceView.extSetHeight(160)
+            self.typeChoiceView.extSetY(-1 * self.typeChoiceView.extHeight())
+            self.view.hidden = false
+            leftTableView.hidden = true
+            rightTableView.hidden = true
+            sortTablewView.hidden = false
+            
+            UIView.animateWithDuration(0.2, animations: {
+                [unowned self]
+                () -> Void in
+                self.typeChoiceView.transform = CGAffineTransformTranslate(self.typeChoiceView.transform, 0, self.typeChoiceView.extHeight())
+            })
+            
+        default:/// other
+            break
+        }
     }
     
     ///ShopViewControllerDelegate

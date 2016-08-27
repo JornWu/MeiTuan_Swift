@@ -57,6 +57,7 @@ class RootTabBarController: UITabBarController {
         }
         
         barView = UIView(frame: self.tabBar.bounds)
+        barView.backgroundColor = UIColor.whiteColor()
         self.tabBar.addSubview(barView)
     }
     

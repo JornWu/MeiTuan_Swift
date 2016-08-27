@@ -10,13 +10,15 @@
 import UIKit
 
 protocol ShopViewControllerDelegate: NSObjectProtocol {
-    func didClickChoiceBarButtonItemWith(tag t: Int)
-    func didChoiceTheTypeWith(id mId: Int64)
+    func didClickChoiceBarButtonItemWith(button btn: UIButton)
 }
 
-class ShopViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate, ShopDropDownViewDelegate {
+class ShopViewController:BaseViewController,
+                         UITableViewDataSource,
+                         UITableViewDelegate,
+                         ShopDropDownViewControllerDelegate {
     
-    weak var choiceFilterDelegate: ShopViewControllerDelegate? //选择过滤类型的delegate
+    var choiceFilterDelegate: ShopViewControllerDelegate! //选择过滤类型的delegate
     
     private var segBtn1: UIButton!
     private var segBtn2: UIButton!
@@ -25,6 +27,8 @@ class ShopViewController: BaseViewController, UITableViewDataSource, UITableView
     ///////////////////////////////
     
     private var shopCateListModel: SC_ShopCateListModel!
+    private var itemAr = [UIButton]()///用来存储所有选择按钮
+    
     private var shopListModel: SP_ShopModel!
     private var kindId: Int64!
     private var shopTableView: UITableView!
@@ -34,12 +38,12 @@ class ShopViewController: BaseViewController, UITableViewDataSource, UITableView
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        addNavigationItems()
         
-        //loadShopCateListData()
+        addNavigationItems()
         
         kindId = -1 ///////
         loadShopListData(withKindId: kindId)
+        loadShopCateListData()
         
         creatChooseBar()
     }
@@ -74,39 +78,47 @@ class ShopViewController: BaseViewController, UITableViewDataSource, UITableView
         
         
         ///segment
-        let segView = UIView(frame: CGRectMake(0, 0, 200, 34))
+        let segView = UIView(frame: CGRectMake(0, 0, 200, 30))
         segView.backgroundColor = UIColor.whiteColor()
-        segView.layer.cornerRadius = 5
         segView.layer.borderColor = THEMECOLOR.CGColor
-        segView.layer.borderWidth = 2
+        
+        let edge = UIEdgeInsetsMake(10, 5, 10, 5)
+            //UIImageResizingModeStretch：拉伸模式，通过拉伸UIEdgeInsets指定的矩形区域来填充图片
+            //UIImageResizingModeTile：平铺模式，通过重复显示UIEdgeInsets指定的矩形区域来填充图
+        var img_1_n = UIImage(named: "btn_banklist_filter_left_normal")
+        img_1_n = img_1_n?.resizableImageWithCapInsets(edge, resizingMode: UIImageResizingMode.Stretch)
+        var img_1_s = UIImage(named: "btn_banklist_filter_left_selected")
+        img_1_s = img_1_s?.resizableImageWithCapInsets(edge, resizingMode: UIImageResizingMode.Stretch)
+        
+        var img_2_n = UIImage(named: "btn_banklist_filter_right_normal")
+        img_2_n = img_2_n?.resizableImageWithCapInsets(edge, resizingMode: UIImageResizingMode.Stretch)
+        var img_2_s = UIImage(named: "btn_banklist_filter_right_selected")
+        img_2_s = img_2_s?.resizableImageWithCapInsets(edge, resizingMode: UIImageResizingMode.Stretch)
         
         segBtn1 = UIButton(type: UIButtonType.Custom)
-        segBtn1.frame = CGRectMake(0, 1, 100, 32)
+        segBtn1.frame = CGRectMake(0, 0, 100, 30)
         segBtn1.setTitle("全部商家", forState: UIControlState.Normal)
         segBtn1.setTitle("全部商家", forState: UIControlState.Selected)
         segBtn1.selected = true
         segBtn1.tag = 1
-        segBtn1.layer.cornerRadius = 5
-//        segBtn1.layer.borderColor = THEMECOLOR.CGColor
-//        segBtn1.layer.borderWidth = 2
         segBtn1.titleLabel?.font = UIFont.systemFontOfSize(15)
         segBtn1.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Selected)
         segBtn1.setTitleColor(THEMECOLOR, forState: UIControlState.Normal)
-        segBtn1.backgroundColor = THEMECOLOR
+        segBtn1.setBackgroundImage(img_1_n, forState: UIControlState.Normal)
+        segBtn1.setBackgroundImage(img_1_s, forState: UIControlState.Selected)
+        segBtn1.contentMode = UIViewContentMode.ScaleAspectFill
         segBtn1.addTarget(self, action: Selector("segBtnAction:"), forControlEvents: UIControlEvents.TouchUpInside)
         
         segBtn2 = UIButton(type: UIButtonType.Custom)
-        segBtn2.frame = CGRectMake(100, 1, 100, 32)
+        segBtn2.frame = CGRectMake(100, 0, 100, 30)
         segBtn2.setTitle("优惠商家", forState: UIControlState.Normal)
         segBtn2.selected = false
         segBtn2.tag = 2
-        segBtn2.layer.cornerRadius = 5
-//        btsegBtn2n2.layer.borderColor = THEMECOLOR.CGColor
-//        segBtn2.layer.borderWidth = 2
         segBtn2.titleLabel?.font = UIFont.systemFontOfSize(15)
         segBtn2.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Selected)
         segBtn2.setTitleColor(THEMECOLOR, forState: UIControlState.Normal)
-        segBtn2.backgroundColor = UIColor.whiteColor()
+        segBtn2.setBackgroundImage(img_2_n, forState: UIControlState.Normal)
+        segBtn2.setBackgroundImage(img_2_s, forState: UIControlState.Selected)
         segBtn2.addTarget(self, action: Selector("segBtnAction:"), forControlEvents: UIControlEvents.TouchUpInside)
         
         currentSelectedBtnTag = 1 //segBtn1
@@ -121,19 +133,8 @@ class ShopViewController: BaseViewController, UITableViewDataSource, UITableView
         if btn.tag != currentSelectedBtnTag {//不是原来的button
             currentSelectedBtnTag = btn.tag
             segBtn1.selected = !segBtn1.selected
-            if segBtn1.selected {
-                segBtn1.backgroundColor = THEMECOLOR
-            }else {
-                segBtn1.backgroundColor = UIColor.whiteColor()
-            }
-            
             segBtn2.selected = !segBtn2.selected
-            if segBtn2.selected {
-                segBtn2.backgroundColor = THEMECOLOR
-            }else {
-                segBtn2.backgroundColor = UIColor.whiteColor()
-            }
-            
+  
             if btn.tag == 1 {
                 //........ data 1 reload tableview
             }else if btn.tag == 2 {
@@ -192,6 +193,8 @@ class ShopViewController: BaseViewController, UITableViewDataSource, UITableView
             btnItem.backgroundColor = UIColor.whiteColor()
             btnItem.addTarget(self, action: Selector("chooseListView:"), forControlEvents: UIControlEvents.TouchUpInside)
             
+            itemAr.append(btnItem)///放到数组中，统一管理
+            
             chooseBar.addSubview(btnItem)
         }
     }
@@ -200,7 +203,7 @@ class ShopViewController: BaseViewController, UITableViewDataSource, UITableView
     func chooseListView(btn: UIButton) {
         
         if (self.choiceFilterDelegate?.respondsToSelector(Selector("didClickChoiceBarButtonItemWith:")) != nil){
-            self.choiceFilterDelegate?.didClickChoiceBarButtonItemWith(tag: btn.tag)
+            self.choiceFilterDelegate?.didClickChoiceBarButtonItemWith(button: btn)
         }
         
     }
@@ -214,16 +217,39 @@ class ShopViewController: BaseViewController, UITableViewDataSource, UITableView
     ///商家分类列表数据
     func loadShopCateListData() {
         let URLString = UrlStrType.CateList.getUrlString()
-        NetworkeProcessor.GET(URLString, parameters: nil, progress: nil, success: {
-            [unowned self]//捕获列表，避免循环引用
-            (task: NSURLSessionDataTask, responseObject: AnyObject?) in
-            //print("----获取数据成功----",responseObject)//responseObject 已经是一个字典对象了
-
-            self.shopCateListModel(withDictionary: responseObject as! NSDictionary)
-            
-            }, failure: {(task: NSURLSessionDataTask?, responseObject: AnyObject)in
-                print("----获取数据失败----",responseObject)
-        })
+        
+        ///加载数据很耗时，放到子线程中
+        dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0)) { () -> Void in
+            NetworkeProcessor.GET(URLString, parameters: nil, progress:
+                {
+                    [unowned self]
+                    (progress: NSProgress) in
+                    
+                    let activityView = UIActivityIndicatorView(frame: CGRectMake(SCREENWIDTH/2-15, SCREENHEIGHT/2-15, 30, 30))
+                    activityView.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
+                    activityView.hidesWhenStopped = true
+                    activityView.startAnimating()///转动
+                    self.view.addSubview(activityView)
+                    self.view.bringSubviewToFront(activityView)
+                    
+                    if progress.fractionCompleted == 1 {//下载完成
+                        activityView.stopAnimating()///停止
+                    }
+                }, success: {
+                    
+                [unowned self]//捕获列表，避免循环引用
+                (task: NSURLSessionDataTask, responseObject: AnyObject?) in
+                //print("----获取数据成功----",responseObject)//responseObject 已经是一个字典对象了
+                
+                ///返回主线程刷新UI
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    self.shopCateListModel(withDictionary: responseObject as! NSDictionary)
+                })
+                
+                }, failure: {(task: NSURLSessionDataTask?, responseObject: AnyObject)in
+                    print("----获取数据失败----",responseObject)
+            })
+        }
     }
     
     func shopCateListModel(withDictionary dictionary: NSDictionary) {
@@ -238,23 +264,29 @@ class ShopViewController: BaseViewController, UITableViewDataSource, UITableView
     
     func creatFilterTypeChoiceView() {
         
-        let filterTypeChoiceView = ShopDropDownView(frame: CGRectMake(0, 64 + 41, SCREENWIDTH, SCREENHEIGHT - 64), shopCateListModel: shopCateListModel)
-        self.choiceFilterDelegate = filterTypeChoiceView
-        filterTypeChoiceView.delegate = self//注意循环引用
-        self.view.addSubview(filterTypeChoiceView)
+        let filterTypeChoiceVC = ShopDropDownViewController(withFrame: CGRectMake(0, 64 + 41, SCREENWIDTH, SCREENHEIGHT - 64), shopCateListModel: shopCateListModel)
+        self.choiceFilterDelegate = filterTypeChoiceVC
+        filterTypeChoiceVC.delegate = self//注意循环引用
+        self.view.addSubview(filterTypeChoiceVC.view)
         
     }
     
     ///ShopDropDownViewDelegate
-    func didChoosedFilterType(kindId: Int64) {
-        self.kindId = kindId
-        self.loadShopListData(withKindId: self.kindId)
-        self.shopTableView.reloadData()//重新加载数据
+    func didChoosedFilterType(kindId: Int) {
+        self.kindId = Int64(kindId)
+        self.loadShopListData(withKindId: self.kindId)///重新加载数据
     }
     
     ///ShopDropDownViewDelegate
     func didChoosedSortType() {
         //doing
+    }
+    
+    //////ShopDropDownViewDelegate
+    func didRevertDropDownViewState() {
+        for index in itemAr {
+            index.selected = false ///恢复左右按钮的状态
+        }
     }
     
     
@@ -263,31 +295,72 @@ class ShopViewController: BaseViewController, UITableViewDataSource, UITableView
  ** 主tableView
  **
  */
+
+/*
+系统同时提供了几种并发队列。这些队列和它们自身的QoS等级相关。QoS等级表示了提交任务的意图，使得GCD可以决定如何制定优先级。
+
+QOS_CLASS_USER_INTERACTIVE： user interactive 等级表示任务需要被立即执行以提供好的用户体验。使用它来更新UI，
+                            响应事件以及需要低延时的小工作量任务。这个等级的工作总量应该保持较小规模。
+QOS_CLASS_USER_INITIATED：   user initiated 等级表示任务由UI发起并且可以异步执行。它应该用在用户需要即时
+                            的结果同时又要求可以继续交互的任务。
+QOS_CLASS_UTILITY：         utility 等级表示需要长时间运行的任务，常常伴随有用户可见的进度指示器。
+                            使用它来做计算，I/O，网络，持续的数据填充等任务。这个等级被设计成节能的。
+QOS_CLASS_BACKGROUND：       background 等级表示那些用户不会察觉的任务。使用它来执行预加载，
+                            维护或是其它不需用户交互和对时间不敏感的任务。
+*/
     
     ///商家列表数据
     func loadShopListData(withKindId kId: Int64) {
         let URLString = UrlStrType.urlStringWithMerchantStr(kId, offset: 10)
-        NetworkeProcessor.GET(URLString, parameters: nil, progress: nil, success: {
-            [unowned self]//捕获列表，避免循环引用
-            (task: NSURLSessionDataTask, responseObject: AnyObject?) in
-            //print("----获取数据成功----",responseObject)//responseObject 已经是一个字典对象了
-            
-            self.shopCateListModel(withDictionary: responseObject as! NSDictionary)
-            
-            }, failure: {(task: NSURLSessionDataTask?, responseObject: AnyObject)in
-                print("----获取数据失败----",responseObject)
-        })
+        
+        ///加载数据很耗时，放到子线程中
+        dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0)) { () -> Void in
+            NetworkeProcessor.GET(URLString, parameters: nil, progress: {
+                [unowned self]
+                (progress: NSProgress) in
+                
+                let activityView = UIActivityIndicatorView(frame: CGRectMake(SCREENWIDTH/2-15, SCREENHEIGHT/2-15, 30, 30))
+                activityView.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
+                activityView.hidesWhenStopped = true
+                activityView.startAnimating()///转动
+                self.view.addSubview(activityView)
+                self.view.bringSubviewToFront(activityView)
+                
+                if progress.fractionCompleted == 1 {//下载完成
+                    activityView.stopAnimating()///停止
+                }
+                
+                }, success: {
+                    
+                [unowned self]//捕获列表，避免循环引用
+                (task: NSURLSessionDataTask, responseObject: AnyObject?) in
+                //print("----获取数据成功----",responseObject)//responseObject 已经是一个字典对象了
+                
+                ///返回主线程刷新UI
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    self.shopListModel(withDictionary: responseObject as! NSDictionary)
+                })
+                
+                }, failure: {(task: NSURLSessionDataTask?, responseObject: AnyObject)in
+                    print("----获取数据失败----",responseObject)
+            })
+        }
+
     }
     
     func shopListModel(withDictionary dictionary: NSDictionary) {
         self.shopListModel = SP_ShopModel(fromDictionary: dictionary)
-        creatShopTableView()//先加载好数据再创建表格，因为数据是异步加载和在子线程中加载，先创建表格会产生错误，因为还没有数据
+        if (shopTableView != nil) {///如果不为nil从新加载数据就好了
+            self.shopTableView.reloadData()//刷新表格
+        }else {
+            creatShopTableView()//先加载好数据再创建表格，因为数据是异步加载和在子线程中加载，先创建表格会产生错误，因为还没有数据
+        }
     }
     
     
     func creatShopTableView() {
         
-        shopTableView = UITableView(frame: CGRectMake(0, 64 + 40, SCREENWIDTH, SCREENHEIGHT - 64 - 40), style: UITableViewStyle.Plain)
+        shopTableView = UITableView(frame: CGRectMake(0, 64 + 41 + 1, SCREENWIDTH, SCREENHEIGHT - 64 - 42 - 49), style: UITableViewStyle.Plain)
         shopTableView.tag = 304
         shopTableView.backgroundColor = BACKGROUNDCOLOR
         shopTableView.separatorInset = UIEdgeInsetsMake(0, -10, 0, 0)
@@ -295,9 +368,9 @@ class ShopViewController: BaseViewController, UITableViewDataSource, UITableView
         shopTableView.delegate = self
         shopTableView.dataSource = self
         
-        shopTableView.registerNib(UINib(nibName: "ShopTableViewCell.xib", bundle: nil), forCellReuseIdentifier: "ShopCell")
+        shopTableView.registerNib(UINib(nibName: "ShopTableViewCell", bundle: nil), forCellReuseIdentifier: "ShopCell")
         
-        self.view.addSubview(shopTableView)
+        self.view.insertSubview(shopTableView, atIndex: 0)
         
     }
     
@@ -307,22 +380,48 @@ class ShopViewController: BaseViewController, UITableViewDataSource, UITableView
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let dataMode = shopListModel.data[indexPath.row]
         let cell = ShopTableViewCell.creatCellWithTableView(tableView, reuseIdentify: "ShopCell", indexPath: indexPath)
-        cell.imageView?.sd_setImageWithURL(NSURL(string: dataMode.frontImg), placeholderImage: UIImage(named: "bg_merchant_photo_placeholder_big@2x.png"))
+        let dataMode = shopListModel.data[indexPath.row]
+        cell.selectionStyle = UITableViewCellSelectionStyle.None
+        
+        cell.mImageView.sd_setImageWithURL(NSURL(string: dataMode.frontImg), placeholderImage: UIImage(named: "bg_merchant_photo_placeholder_big@2x.png"))
         cell.titleBL.text = dataMode.name
         cell.subTitle.text = dataMode.cateName + " " + dataMode.areaName
         cell.subTitle.textColor = UIColor.grayColor()
+        
+        ///临时处理
+        if dataMode.markNumbers != nil {
         cell.evaluateLB.text = "\(dataMode.markNumbers)" + "评价"
+        }else {
+            cell.evaluateLB.hidden = true
+        }
+        
+        if dataMode.avgPrice != nil {
         cell.priceLB.text = "人均" + "\(dataMode.avgPrice)"
+        }else {
+            cell.priceLB.hidden = true
+        }
+        
+        cell.dictanceLB.hidden = true
         
         if dataMode.hasGroup! {
             cell.markImageView1.image = UIImage(named: "icon_merchant_mark_tuan")
-        }else if dataMode.isWaimai! != 0 {
-            cell.markImageView1.image = UIImage(named: "icon_merchant_mark_waimai")
+        }
+        if dataMode.isWaimai! != 0 {
+            cell.markImageView2.image = UIImage(named: "icon_merchant_mark_waimai")
+        }
+        if dataMode.discount != nil {
+            cell.markImageVIew3.image = UIImage(named: "icon_merchant_mark_paybill")
+        }else if dataMode.isQueuing! != 0 {
+            cell.markImageVIew3.image = UIImage(named: "icon_merchant_mark_queque")
         }
         
+        //cell.setNeedsLayout()
         return cell
+    }
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 88
     }
     
     

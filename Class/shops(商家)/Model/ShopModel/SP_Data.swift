@@ -105,13 +105,21 @@ struct SP_Data{
 			}
 		featureMenus = dictionary["featureMenus"] as? String
 		floor = dictionary["floor"] as? String
-		frontImg = dictionary["frontImg"] as? String
+        
+        if dictionary["frontImg"] != nil {
+            frontImg = String.URLStringHttpToHttps(dictionary["frontImg"] as! String)
+        }else {
+            frontImg = dictionary["frontImg"] as? String
+        }
+        
 		groupInfo = dictionary["groupInfo"] as? Int
 		hallTypes = dictionary["hallTypes"] as? [AnyObject]
 		hasGroup = dictionary["hasGroup"] as? Bool
 		historyCouponCount = dictionary["historyCouponCount"] as? Int
 		hourRoomSpan = dictionary["hourRoomSpan"] as? Int
-		iUrl = dictionary["iUrl"] as? String
+        
+        iUrl = dictionary["iUrl"] as? String
+        
 		introduction = dictionary["introduction"] as? String
 		isExclusive = dictionary["isExclusive"] as? Bool
 		isHot = dictionary["isHot"] as? Int

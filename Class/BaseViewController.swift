@@ -15,6 +15,7 @@ class BaseViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         
+        self.view.backgroundColor = BACKGROUNDCOLOR
         self.automaticallyAdjustsScrollViewInsets = false//取消scrollview和tableview上的留白
     }
 
