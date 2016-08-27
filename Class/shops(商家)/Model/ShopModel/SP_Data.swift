@@ -106,7 +106,7 @@ struct SP_Data{
 		featureMenus = dictionary["featureMenus"] as? String
 		floor = dictionary["floor"] as? String
         
-        if dictionary["frontImg"] != nil {
+        if dictionary["frontImg"] != nil && dictionary["frontImg"] as! String != "" {
             frontImg = String.URLStringHttpToHttps(dictionary["frontImg"] as! String)
         }else {
             frontImg = dictionary["frontImg"] as? String

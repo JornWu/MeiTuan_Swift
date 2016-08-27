@@ -28,11 +28,15 @@ class ShopViewController:BaseViewController,
     
     private var shopCateListModel: SC_ShopCateListModel!
     private var itemAr = [UIButton]()///用来存储所有选择按钮
+    private var currentSelectedItem: UIButton!
     
     private var shopListModel: SP_ShopModel!
     private var kindId: Int64!
     private var shopTableView: UITableView!
-
+    
+    private var currentAddressModel: CA_CurrentAddressModel?
+    private var headerView: UIView!
+    private var addressLabel: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,12 +44,13 @@ class ShopViewController:BaseViewController,
         // Do any additional setup after loading the view.
         
         addNavigationItems()
+        creatChooseBar()
         
         kindId = -1 ///////
+        loadCurrenAddressData()
         loadShopListData(withKindId: kindId)
         loadShopCateListData()
         
-        creatChooseBar()
     }
     
 /****************************************************************************************************/
@@ -175,6 +180,8 @@ class ShopViewController:BaseViewController,
         self.view.addSubview(chooseBarTopLineView)
         chooseBar.addSubview(grayLineView)
         
+        currentSelectedItem = nil
+        
         let originTitleAr = ["全部分类", "全城", "智能排序"]
         
         for index in 0 ..< originTitleAr.count {
@@ -201,7 +208,11 @@ class ShopViewController:BaseViewController,
     
     ///控制下拉列表视图的显示
     func chooseListView(btn: UIButton) {
-        
+        if currentSelectedItem == nil {
+            currentSelectedItem = btn
+        }else if currentSelectedItem.tag != btn.tag {//点击另一个按钮
+            currentSelectedItem.selected = false
+        }
         if (self.choiceFilterDelegate?.respondsToSelector(Selector("didClickChoiceBarButtonItemWith:")) != nil){
             self.choiceFilterDelegate?.didClickChoiceBarButtonItemWith(button: btn)
         }
@@ -267,7 +278,7 @@ class ShopViewController:BaseViewController,
         let filterTypeChoiceVC = ShopDropDownViewController(withFrame: CGRectMake(0, 64 + 41, SCREENWIDTH, SCREENHEIGHT - 64), shopCateListModel: shopCateListModel)
         self.choiceFilterDelegate = filterTypeChoiceVC
         filterTypeChoiceVC.delegate = self//注意循环引用
-        self.view.addSubview(filterTypeChoiceVC.view)
+        self.view.insertSubview(filterTypeChoiceVC.view, atIndex: 1)///在主白视图之上就行
         
     }
     
@@ -308,6 +319,81 @@ QOS_CLASS_UTILITY：         utility 等级表示需要长时间运行的任务�
 QOS_CLASS_BACKGROUND：       background 等级表示那些用户不会察觉的任务。使用它来执行预加载，
                             维护或是其它不需用户交互和对时间不敏感的任务。
 */
+    func loadCurrenAddressData() {
+        let URLString = UrlStrType.Address.getUrlString()
+        
+        ///加载数据很耗时，放到子线程中
+        dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0)) { () -> Void in
+            NetworkeProcessor.GET(URLString, parameters: nil, progress: {
+                [unowned self]
+                (progress: NSProgress) in
+                
+                let activityView = UIActivityIndicatorView(frame: CGRectMake(SCREENWIDTH / 2 - 15, SCREENHEIGHT / 2 - 15, 30, 30))
+                activityView.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
+                activityView.hidesWhenStopped = true
+                activityView.startAnimating()///转动
+                self.view.addSubview(activityView)
+                self.view.bringSubviewToFront(activityView)
+                
+                if progress.fractionCompleted == 1 {//下载完成
+                    activityView.stopAnimating()///停止
+                }
+                
+                }, success: {
+                    [unowned self]//捕获列表，避免循环引用
+                    (task: NSURLSessionDataTask, responseObject: AnyObject?) in
+                    //print("----获取数据成功----",responseObject)//responseObject 已经是一个字典对象了
+                    
+                    ///返回主线程刷新UI
+                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        self.currentAddressModel(withDictionary: responseObject as! NSDictionary)
+                    })
+                    
+                }, failure: {(task: NSURLSessionDataTask?, responseObject: AnyObject)in
+                    print("----获取数据失败----",responseObject)
+            })
+        }
+
+    }
+    
+    func currentAddressModel(withDictionary dictionary: NSDictionary) {
+        currentAddressModel = CA_CurrentAddressModel(fromDictionary: dictionary)
+        
+        if headerView == nil {
+            creatheaderView()
+        }else {
+            if currentAddressModel != nil {
+                let dataModel = currentAddressModel!.data
+                addressLabel.text = "当前位置：" + dataModel.province + dataModel.city + dataModel.district + dataModel.detail
+            }else {
+                addressLabel.text = "无法获取当前地址，请检查GPS是否打开或者网络是否打开。"
+            }
+        }
+    }
+    
+    func creatheaderView() {
+        headerView = UIView(frame: CGRectMake(0, 0, SCREENWIDTH, 30))
+        addressLabel = UILabel(frame: CGRectMake(0, 0, headerView.extWidth() - 30, 30))
+        addressLabel.font = UIFont.systemFontOfSize(13)
+        headerView.addSubview(addressLabel)
+        
+        let refreshBtn = UIButton(frame: CGRectMake(addressLabel.extWidth(), 5, 20, 20))
+        refreshBtn.setImage(UIImage(named: "icon_dellist_locate_refresh"), forState: UIControlState.Normal)
+        refreshBtn.contentMode = UIViewContentMode.ScaleAspectFit
+        headerView.addSubview(refreshBtn)
+        refreshBtn.addTarget(self, action: Selector("refreshAddressInfo"), forControlEvents: UIControlEvents.TouchUpInside)
+        
+        if currentAddressModel != nil {
+            let dataModel = currentAddressModel!.data
+            addressLabel.text = "当前位置：" + dataModel.province + dataModel.city + dataModel.district + dataModel.detail
+        }else {
+            addressLabel.text = "无法获取当前地址，请检查GPS是否打开或者网络是否打开。"
+        }
+    }
+    
+    func refreshAddressInfo() {
+        loadCurrenAddressData()//重新加载
+    }
     
     ///商家列表数据
     func loadShopListData(withKindId kId: Int64) {
@@ -367,6 +453,8 @@ QOS_CLASS_BACKGROUND：       background 等级表示那些用户不会察觉的
         shopTableView.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
         shopTableView.delegate = self
         shopTableView.dataSource = self
+        
+        shopTableView.tableHeaderView = headerView///确保headernView先创建
         
         shopTableView.registerNib(UINib(nibName: "ShopTableViewCell", bundle: nil), forCellReuseIdentifier: "ShopCell")
         

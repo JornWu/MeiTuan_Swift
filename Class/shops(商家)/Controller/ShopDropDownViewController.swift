@@ -35,6 +35,7 @@ class ShopDropDownViewController: BaseViewController, UITableViewDataSource, UIT
     private var leftTableView: UITableView!
     private var rightTableView: UITableView!
     private var sortTablewView: UITableView!
+    private var currentSelectedItemTag: Int?
     
     convenience init(withFrame frame: CGRect, shopCateListModel: SC_ShopCateListModel) {
         self.init()
@@ -135,21 +136,21 @@ class ShopDropDownViewController: BaseViewController, UITableViewDataSource, UIT
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let cell = tableView.cellForRowAtIndexPath(indexPath)
         if tableView.tag == 301 {
-            cell?.textLabel?.textColor = THEMECOLOR
-            selectedTypeIndex = indexPath.row
-            rightTableView.reloadData()
-        }else if tableView.tag == 302 {
-            //doing
-        }else {
-            cell?.textLabel?.textColor = THEMECOLOR
-            cell!.imageView?.image  = UIImage(named: "icon_checkbox_checked")
-        }
-    }
-    
-    func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
-        let cell = tableView.cellForRowAtIndexPath(indexPath)
-        if tableView.tag == 301 {
-            cell?.textLabel?.textColor = UIColor.blackColor()
+            if indexPath.row == 0 {///全部
+                //让代理执行过滤
+                if self.delegate?.respondsToSelector(Selector("didChoosedFilterType:")) != nil {
+                    
+                    self.delegate?.didChoosedFilterType(shopCateListModel.data[0].mId)
+                }
+                cell?.textLabel?.textColor = THEMECOLOR
+                selectedTypeIndex = indexPath.row
+                rightTableView.reloadData()
+                revertDropDownView()///恢复拉视图
+            }else {
+                cell?.textLabel?.textColor = THEMECOLOR
+                selectedTypeIndex = indexPath.row
+                rightTableView.reloadData()
+            }
         }else if tableView.tag == 302 {
             //让代理执行过滤
             if self.delegate?.respondsToSelector(Selector("didChoosedFilterType:")) != nil {
@@ -162,6 +163,18 @@ class ShopDropDownViewController: BaseViewController, UITableViewDataSource, UIT
             revertDropDownView()///恢复拉视图
             
         }else {
+            cell?.textLabel?.textColor = THEMECOLOR
+            cell!.imageView?.image  = UIImage(named: "icon_checkbox_checked")
+        }
+    }
+    
+    func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+        let cell = tableView.cellForRowAtIndexPath(indexPath)
+        if tableView.tag == 301 {
+            cell?.textLabel?.textColor = UIColor.blackColor()
+        }else if tableView.tag == 302 {
+            //////
+        }else {
             cell?.textLabel?.textColor = UIColor.blackColor()
             cell!.imageView?.image  = UIImage(named: "icon_checkbox_unchecked")
         }
@@ -169,27 +182,39 @@ class ShopDropDownViewController: BaseViewController, UITableViewDataSource, UIT
     
     ///ShopViewControllerDelegate
     func didClickChoiceBarButtonItemWith(button btn: UIButton) {
+        
+        if currentSelectedItemTag == nil {///从关闭中展开
+            currentSelectedItemTag = btn.tag
+        }else if currentSelectedItemTag != btn.tag {///从展开中切换
+            self.view.hidden = false///先把前面的关闭
+        }
+        
         switch btn.tag {
         case 200:///类型筛选选择
             typeChoiceView.extSetHeight(300)
             self.typeChoiceView.extSetY(-1 * self.typeChoiceView.extHeight())
             btn.selected = !btn.selected
-            sortTablewView.hidden = true
-            leftTableView.hidden = false
-            rightTableView.hidden = false
             self.view.hidden = !self.view.hidden
-            
-            UIView.animateWithDuration(0.2, animations: {
-                [unowned self]
-                () -> Void in
+            if btn.selected {///展开
                 
-                self.typeChoiceView.transform = CGAffineTransformTranslate(self.typeChoiceView.transform, 0, self.typeChoiceView.extHeight())
-                }, completion: { (isCompletion) -> Void in
+                sortTablewView.hidden = true
+                leftTableView.hidden = false
+                rightTableView.hidden = false
+                
+                UIView.animateWithDuration(0.2, animations: {
+                    [unowned self]
+                    () -> Void in
                     
-                    if isCompletion {
-                        // 加载那个数据
-                    }
-            })
+                    self.typeChoiceView.transform = CGAffineTransformTranslate(self.typeChoiceView.transform, 0, self.typeChoiceView.extHeight())
+                    }, completion: { (isCompletion) -> Void in
+                        
+                        if isCompletion {
+                            // 加载那个数据
+                        }
+                })
+            }else {///关闭
+                currentSelectedItemTag = nil
+            }
             
         case 201:///地区筛选选择
             self.view.hidden = false
@@ -198,18 +223,27 @@ class ShopDropDownViewController: BaseViewController, UITableViewDataSource, UIT
             
         case 202:///排序类型选择
             btn.selected = !btn.selected
-            typeChoiceView.extSetHeight(160)
-            self.typeChoiceView.extSetY(-1 * self.typeChoiceView.extHeight())
-            self.view.hidden = false
-            leftTableView.hidden = true
-            rightTableView.hidden = true
-            sortTablewView.hidden = false
+            self.view.hidden = !self.view.hidden
             
-            UIView.animateWithDuration(0.2, animations: {
-                [unowned self]
-                () -> Void in
-                self.typeChoiceView.transform = CGAffineTransformTranslate(self.typeChoiceView.transform, 0, self.typeChoiceView.extHeight())
-            })
+            if btn.selected {
+                
+                typeChoiceView.extSetHeight(160)
+                self.typeChoiceView.extSetY(-1 * self.typeChoiceView.extHeight())
+                self.view.hidden = false
+                leftTableView.hidden = true
+                rightTableView.hidden = true
+                sortTablewView.hidden = false
+                
+                UIView.animateWithDuration(0.2, animations: {
+                    [unowned self]
+                    () -> Void in
+                    self.typeChoiceView.transform = CGAffineTransformTranslate(self.typeChoiceView.transform, 0, self.typeChoiceView.extHeight())
+                    })
+            }else {
+                currentSelectedItemTag = nil
+            }
+            
+            
             
         default:/// other
             break
