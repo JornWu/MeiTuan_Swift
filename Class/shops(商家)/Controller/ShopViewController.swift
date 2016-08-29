@@ -24,6 +24,9 @@ class ShopViewController:BaseViewController,
     private var segBtn2: UIButton!
     private var currentSelectedBtnTag: Int!
     
+    ///
+    private var preferentialView: UIView!
+    
     ///////////////////////////////
     
     private var shopCateListModel: SC_ShopCateListModel!
@@ -44,6 +47,7 @@ class ShopViewController:BaseViewController,
         // Do any additional setup after loading the view.
         
         addNavigationItems()
+        creatPreferentialView()///test
         creatChooseBar()
         
         kindId = -1 ///////
@@ -53,13 +57,16 @@ class ShopViewController:BaseViewController,
         
     }
     
+    override func viewWillAppear(animated: Bool) {
+        self.navigationController!.navigationBar.barTintColor = UIColor.whiteColor()
+    }
+    
 /****************************************************************************************************/
  /**
  ** 添加导航栏按钮
  **
  */
     private func addNavigationItems() {
-        self.navigationController?.navigationBar.barTintColor = UIColor.whiteColor()
         ///map button item
         let lBtn = UIButton(type: UIButtonType.Custom)
         lBtn.frame = CGRectMake(0, 0, 30, 30)
@@ -142,11 +149,51 @@ class ShopViewController:BaseViewController,
   
             if btn.tag == 1 {
                 //........ data 1 reload tableview
+                
+                UIView.transitionWithView(self.view, duration: 2, options: UIViewAnimationOptions.TransitionCurlDown, animations: {
+                    [unowned self]
+                    () -> Void in
+                    self.shopTableView.hidden = false
+                    self.preferentialView.hidden = true
+                    }, completion: { (isCompletion) -> Void in
+                        if isCompletion {
+                            ///doing
+                        }
+                })
+                
+                ///test
+                //UIView.transitionFromView(shopTableView, toView: preferentialView, duration: 0.5, options: UIViewAnimationOptions.CurveEaseIn, completion: nil)
             }else if btn.tag == 2 {
                 //........ data 2 reload tableview
+                ///test
+                
+                UIView.transitionWithView(self.view, duration: 2, options: UIViewAnimationOptions.TransitionCurlUp, animations: {
+                    [unowned self]
+                    () -> Void in
+                    self.shopTableView.hidden = true
+                    self.preferentialView.hidden = false
+                    }, completion: { (isCompletion) -> Void in
+                        if isCompletion {
+                            ///doing
+                        }
+                })
+                //UIView.transitionFromView(preferentialView, toView: shopTableView, duration: 0.5, options: UIViewAnimationOptions.CurveEaseOut, completion: nil)
             }
         }
         
+    }
+    
+    ///test ///优惠商家
+    func creatPreferentialView() {
+        preferentialView = UIView(frame: CGRectMake(0, 105, SCREENWIDTH,SCREENHEIGHT - 41 - 64))
+        preferentialView.backgroundColor = THEMECOLOR
+        let imageView = UIImageView(frame: preferentialView.bounds)
+        imageView.image = UIImage(named: "icon_menu.jpg")
+        imageView.contentMode = UIViewContentMode.ScaleAspectFill
+        
+        preferentialView.addSubview(imageView)
+        preferentialView.hidden = true
+        self.view.addSubview(preferentialView)
     }
     
     
@@ -253,7 +300,9 @@ class ShopViewController:BaseViewController,
                 //print("----获取数据成功----",responseObject)//responseObject 已经是一个字典对象了
                 
                 ///返回主线程刷新UI
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                dispatch_async(dispatch_get_main_queue(), {
+                    [unowned self]
+                    () -> Void in
                     self.shopCateListModel(withDictionary: responseObject as! NSDictionary)
                 })
                 
@@ -345,7 +394,9 @@ QOS_CLASS_BACKGROUND：       background 等级表示那些用户不会察觉的
                     //print("----获取数据成功----",responseObject)//responseObject 已经是一个字典对象了
                     
                     ///返回主线程刷新UI
-                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    dispatch_async(dispatch_get_main_queue(), {
+                        [unowned self]
+                        () -> Void in
                         self.currentAddressModel(withDictionary: responseObject as! NSDictionary)
                     })
                     
@@ -510,6 +561,11 @@ QOS_CLASS_BACKGROUND：       background 等级表示那些用户不会察觉的
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 88
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let SPDVC = ShopDetailViewController()
+        self.navigationController?.pushViewController(SPDVC, animated: true)
     }
     
     

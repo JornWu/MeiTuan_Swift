@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0AD5F6471D73C84E000F3042 /* ShopDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD5F6461D73C84E000F3042 /* ShopDetailViewController.swift */; };
 		43227D571D63505B00C86760 /* AttrJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43227D4F1D63505B00C86760 /* AttrJson.swift */; };
 		43227D581D63505B00C86760 /* Campaign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43227D501D63505B00C86760 /* Campaign.swift */; };
 		43227D591D63505B00C86760 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43227D511D63505B00C86760 /* Data.swift */; };
@@ -1446,6 +1447,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0AD5F6461D73C84E000F3042 /* ShopDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShopDetailViewController.swift; sourceTree = "<group>"; };
 		43227D4F1D63505B00C86760 /* AttrJson.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttrJson.swift; sourceTree = "<group>"; };
 		43227D501D63505B00C86760 /* Campaign.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Campaign.swift; sourceTree = "<group>"; };
 		43227D511D63505B00C86760 /* Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
@@ -3175,6 +3177,7 @@
 				436A7FA11D58DCB20007F956 /* ShopViewController.swift */,
 				43EF763E1D6DDE5C005C36AD /* SearchViewController.swift */,
 				43EF76461D71AE80005C36AD /* ShopDropDownViewController.swift */,
+				0AD5F6461D73C84E000F3042 /* ShopDetailViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -6766,6 +6769,7 @@
 				43227D5A1D63505B00C86760 /* Deal.swift in Sources */,
 				436A7FCE1D5F54920007F956 /* AddressView.swift in Sources */,
 				43EF765C1D71AE8C005C36AD /* SP_Tour.swift in Sources */,
+				0AD5F6471D73C84E000F3042 /* ShopDetailViewController.swift in Sources */,
 				436A7FB61D5B8B2B0007F956 /* CityListViewController.swift in Sources */,
 				43C2D8821D606F9A00E1C7CE /* MineTableViewCell.swift in Sources */,
 				436A7FC71D5F48B70007F956 /* ActivityItem.swift in Sources */,
