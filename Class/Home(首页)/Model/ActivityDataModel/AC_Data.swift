@@ -32,7 +32,13 @@ struct AC_Data{
 		deputytitle = dictionary["deputytitle"] as? String
 		id = dictionary["id"] as? Int
         
-		imageurl = String.URLStringHttpToHttps(dictionary["imageurl"] as! String)
+		//imageurl = String.URLStringHttpToHttps(dictionary["imageurl"] as! String)
+        if dictionary["imageurl"] != nil && dictionary["imageurl"] as! String != "" {
+            imageurl = String.URLStringHttpToHttps(dictionary["imageurl"] as! String)
+            imageurl = String.URLStringW_HTo200_120(imageurl)
+        }else {
+            imageurl = dictionary["imageurl"] as? String
+        }
         
 		maintitle = dictionary["maintitle"] as? String
 		module = dictionary["module"] as? Bool

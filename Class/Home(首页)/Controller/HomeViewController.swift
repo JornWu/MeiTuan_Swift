@@ -272,7 +272,7 @@ class HomeViewController: BaseViewController, AddressViewDelegate, UITableViewDa
      
 /****************************************************************************************************/
 /**
- ** 活动(封面，四个模块)
+ ** 活动(封面，六个模块)
  **
  */
     

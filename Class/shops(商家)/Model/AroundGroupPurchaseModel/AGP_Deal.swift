@@ -94,7 +94,16 @@ struct AGP_Deal{
 		festcanuse = dictionary["festcanuse"] as? Int
 		frontPoiCates = dictionary["frontPoiCates"] as? String
 		id = dictionary["id"] as? Int
-		imgurl = dictionary["imgurl"] as? String
+        
+		//imgurl = dictionary["imgurl"] as? String
+        
+        if dictionary["imgurl"] != nil && dictionary["imgurl"] as! String != "" {
+            imgurl = String.URLStringHttpToHttps(dictionary["imgurl"] as! String)
+            imgurl = String.URLStringW_HTo200_120(imgurl)
+        }else {
+            imgurl = dictionary["frontImg"] as? String
+        }
+        
 		isAvailableToday = dictionary["isAvailableToday"] as? Bool
 		mealcount = dictionary["mealcount"] as? String
 		mlls = dictionary["mlls"] as? String

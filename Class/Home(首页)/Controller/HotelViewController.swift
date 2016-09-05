@@ -138,7 +138,7 @@ class HotelViewController: BaseViewController, UITableViewDataSource, UITableVie
                 
                 let dealModel = hotelDetailModel.data.deals[indexPath.row - 1]
                 
-                cell.ImageView.sd_setImageWithURL(NSURL(), placeholderImage: UIImage(named: "bg_merchant_photo_placeholder_big@2x.png"))
+                cell.ImageView.sd_setImageWithURL(NSURL(string: dealModel.imgurl), placeholderImage: UIImage(named: "bg_merchant_photo_placeholder_big@2x.png"))
                 cell.titleLB.text = dealModel.brandname
                 cell.detailLB.text = "[" + dealModel.range + "]" + dealModel.title
                 cell.priceLB.text = "\(dealModel.price)" + "元"

@@ -108,6 +108,7 @@ struct SP_Data{
         
         if dictionary["frontImg"] != nil && dictionary["frontImg"] as! String != "" {
             frontImg = String.URLStringHttpToHttps(dictionary["frontImg"] as! String)
+            frontImg = String.URLStringW_HTo200_120(frontImg)
         }else {
             frontImg = dictionary["frontImg"] as? String
         }

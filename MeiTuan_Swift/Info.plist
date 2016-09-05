@@ -46,6 +46,20 @@
 		<true/>
 		<key>NSExceptionDomains</key>
 		<dict>
+			<key>p1.meituan.net</key>
+			<dict>
+				<key>NSExceptionRequiresForwardSecrecy</key>
+				<false/>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+			</dict>
+			<key>p0.meituan.net</key>
+			<dict>
+				<key>NSExceptionRequiresForwardSecrecy</key>
+				<false/>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+			</dict>
 			<key>api.meituan.com</key>
 			<dict>
 				<key>NSExceptionRequiresForwardSecrecy</key>

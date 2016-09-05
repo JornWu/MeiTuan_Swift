@@ -45,7 +45,13 @@ struct HD_Deal{
 		festcanuse = dictionary["festcanuse"] as? Int
 		mId = dictionary["id"] as? Int
         
-		imgurl = String.URLStringHttpToHttps(dictionary["imgurl"] as! String)
+		//imgurl = String.URLStringHttpToHttps(dictionary["imgurl"] as! String)
+        if dictionary["imgurl"] != nil && dictionary["imgurl"] as! String != "" {
+            imgurl = String.URLStringHttpToHttps(dictionary["imgurl"] as! String)
+            imgurl = String.URLStringW_HTo200_120(imgurl)
+        }else {
+            imgurl = dictionary["imgurl"] as? String
+        }
         
 		mealcount = dictionary["mealcount"] as? String
 		mlls = dictionary["mlls"] as? String

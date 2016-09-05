@@ -73,6 +73,13 @@ struct Deal{
 		id = dictionary["id"] as? Int
         
         imgurl = String.URLStringHttpToHttps(dictionary["imgurl"] as! String)//改成https
+//        if dictionary["imgurl"] != nil && dictionary["imgurl"] as! String != "" {
+//            imgurl = String.URLStringHttpToHttps(dictionary["imgurl"] as! String)
+//            imgurl = String.URLStringW_HTo200_120(imgurl)
+//        }else {
+//            imgurl = dictionary["imgurl"] as? String
+//        }
+        
         
 		mdcLogoUrl = String.URLStringHttpToHttps(dictionary["mdcLogoUrl"] as! String)//改成https
         

@@ -96,7 +96,13 @@ struct RE_Data{
 		mId = dictionary["id"] as? Int
         
         //imgurl = dictionary["imgurl"] as? String
-		imgurl = String.URLStringHttpToHttps(dictionary["imgurl"] as! String)
+		//imgurl = String.URLStringHttpToHttps(dictionary["imgurl"] as! String)
+        if dictionary["imgurl"] != nil && dictionary["imgurl"] as! String != "" {
+            imgurl = String.URLStringHttpToHttps(dictionary["imgurl"] as! String)
+            imgurl = String.URLStringW_HTo200_120(imgurl)
+        }else {
+            imgurl = dictionary["imgurl"] as? String
+        }
         
 		isAvailableToday = dictionary["isAvailableToday"] as? Bool
 		mealcount = dictionary["mealcount"] as? String
