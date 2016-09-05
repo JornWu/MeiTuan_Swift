@@ -1426,6 +1426,16 @@
 		43EF76601D71AE9A005C36AD /* ShopTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43EF765E1D71AE9A005C36AD /* ShopTableViewCell.xib */; };
 		43EF76641D71CF33005C36AD /* CA_CurrentAddressModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43EF76621D71CF33005C36AD /* CA_CurrentAddressModel.swift */; };
 		43EF76651D71CF33005C36AD /* CA_Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43EF76631D71CF33005C36AD /* CA_Data.swift */; };
+		43EF76711D7D5E2A005C36AD /* AGP_AroundGroupPurchaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43EF76671D7D5E2A005C36AD /* AGP_AroundGroupPurchaseModel.swift */; };
+		43EF76721D7D5E2A005C36AD /* AGP_AttrJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43EF76681D7D5E2A005C36AD /* AGP_AttrJson.swift */; };
+		43EF76731D7D5E2A005C36AD /* AGP_Campaign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43EF76691D7D5E2A005C36AD /* AGP_Campaign.swift */; };
+		43EF76741D7D5E2A005C36AD /* AGP_Catetab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43EF766A1D7D5E2A005C36AD /* AGP_Catetab.swift */; };
+		43EF76751D7D5E2A005C36AD /* AGP_Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43EF766B1D7D5E2A005C36AD /* AGP_Data.swift */; };
+		43EF76761D7D5E2A005C36AD /* AGP_Deal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43EF766C1D7D5E2A005C36AD /* AGP_Deal.swift */; };
+		43EF76771D7D5E2A005C36AD /* AGP_Optionalattr.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43EF766D1D7D5E2A005C36AD /* AGP_Optionalattr.swift */; };
+		43EF76781D7D5E2A005C36AD /* AGP_Pricecalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43EF766E1D7D5E2A005C36AD /* AGP_Pricecalendar.swift */; };
+		43EF76791D7D5E2A005C36AD /* AGP_Stid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43EF766F1D7D5E2A005C36AD /* AGP_Stid.swift */; };
+		43EF767A1D7D5E2A005C36AD /* AGP_Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43EF76701D7D5E2A005C36AD /* AGP_Tag.swift */; };
 		FD6DFBD833E8603E0261D968 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CC7762249A458EC07075EF9 /* Pods.framework */; };
 /* End PBXBuildFile section */
 
@@ -2873,6 +2883,16 @@
 		43EF765E1D71AE9A005C36AD /* ShopTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShopTableViewCell.xib; sourceTree = "<group>"; };
 		43EF76621D71CF33005C36AD /* CA_CurrentAddressModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CA_CurrentAddressModel.swift; sourceTree = "<group>"; };
 		43EF76631D71CF33005C36AD /* CA_Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CA_Data.swift; sourceTree = "<group>"; };
+		43EF76671D7D5E2A005C36AD /* AGP_AroundGroupPurchaseModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AGP_AroundGroupPurchaseModel.swift; sourceTree = "<group>"; };
+		43EF76681D7D5E2A005C36AD /* AGP_AttrJson.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AGP_AttrJson.swift; sourceTree = "<group>"; };
+		43EF76691D7D5E2A005C36AD /* AGP_Campaign.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AGP_Campaign.swift; sourceTree = "<group>"; };
+		43EF766A1D7D5E2A005C36AD /* AGP_Catetab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AGP_Catetab.swift; sourceTree = "<group>"; };
+		43EF766B1D7D5E2A005C36AD /* AGP_Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AGP_Data.swift; sourceTree = "<group>"; };
+		43EF766C1D7D5E2A005C36AD /* AGP_Deal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AGP_Deal.swift; sourceTree = "<group>"; };
+		43EF766D1D7D5E2A005C36AD /* AGP_Optionalattr.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AGP_Optionalattr.swift; sourceTree = "<group>"; };
+		43EF766E1D7D5E2A005C36AD /* AGP_Pricecalendar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AGP_Pricecalendar.swift; sourceTree = "<group>"; };
+		43EF766F1D7D5E2A005C36AD /* AGP_Stid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AGP_Stid.swift; sourceTree = "<group>"; };
+		43EF76701D7D5E2A005C36AD /* AGP_Tag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AGP_Tag.swift; sourceTree = "<group>"; };
 		6CC7762249A458EC07075EF9 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		71FC6062D2EB08D00F7495F1 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		7671895F112058CDFDB6693D /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -3188,6 +3208,7 @@
 				43EF76371D6DDE46005C36AD /* ShopCateListModel */,
 				43EF76481D71AE8C005C36AD /* ShopModel */,
 				43EF76611D71CF33005C36AD /* CurrentAddressModel */,
+				43EF76661D7D5E2A005C36AD /* AroundGroupPurchaseModel */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -5169,6 +5190,23 @@
 			path = CurrentAddressModel;
 			sourceTree = "<group>";
 		};
+		43EF76661D7D5E2A005C36AD /* AroundGroupPurchaseModel */ = {
+			isa = PBXGroup;
+			children = (
+				43EF76671D7D5E2A005C36AD /* AGP_AroundGroupPurchaseModel.swift */,
+				43EF76681D7D5E2A005C36AD /* AGP_AttrJson.swift */,
+				43EF76691D7D5E2A005C36AD /* AGP_Campaign.swift */,
+				43EF766A1D7D5E2A005C36AD /* AGP_Catetab.swift */,
+				43EF766B1D7D5E2A005C36AD /* AGP_Data.swift */,
+				43EF766C1D7D5E2A005C36AD /* AGP_Deal.swift */,
+				43EF766D1D7D5E2A005C36AD /* AGP_Optionalattr.swift */,
+				43EF766E1D7D5E2A005C36AD /* AGP_Pricecalendar.swift */,
+				43EF766F1D7D5E2A005C36AD /* AGP_Stid.swift */,
+				43EF76701D7D5E2A005C36AD /* AGP_Tag.swift */,
+			);
+			path = AroundGroupPurchaseModel;
+			sourceTree = "<group>";
+		};
 		5FDD90D75C9305397C470D6B /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -6702,6 +6740,8 @@
 			files = (
 				43EF76311D6882ED005C36AD /* HD_Data.swift in Sources */,
 				43EF76161D6608FB005C36AD /* RE_Optionalattr.swift in Sources */,
+				43EF76751D7D5E2A005C36AD /* AGP_Data.swift in Sources */,
+				43EF76731D7D5E2A005C36AD /* AGP_Campaign.swift in Sources */,
 				43C2D87C1D6060C900E1C7CE /* HeaderViewVC.swift in Sources */,
 				43EF76641D71CF33005C36AD /* CA_CurrentAddressModel.swift in Sources */,
 				43C2D8B01D61F4C300E1C7CE /* NetworkeProcessor.swift in Sources */,
@@ -6712,9 +6752,11 @@
 				43EF76181D6608FB005C36AD /* RE_Pricecalendar.swift in Sources */,
 				436A7F8A1D58CE3B0007F956 /* BaseTableView.swift in Sources */,
 				436A74901D58CA820007F956 /* AppDelegate.swift in Sources */,
+				43EF76721D7D5E2A005C36AD /* AGP_AttrJson.swift in Sources */,
 				43EF76131D6608FB005C36AD /* RE_AttrJson.swift in Sources */,
 				43EF76021D65ECE9005C36AD /* AC_Paging.swift in Sources */,
 				436A7FD41D5F80A80007F956 /*  ConstantFile.swift in Sources */,
+				43EF767A1D7D5E2A005C36AD /* AGP_Tag.swift in Sources */,
 				43EF76651D71CF33005C36AD /* CA_Data.swift in Sources */,
 				43EF763D1D6DDE46005C36AD /* SC_ShopCateListModel.swift in Sources */,
 				43227D5B1D63505B00C86760 /* Paging.swift in Sources */,
@@ -6739,15 +6781,20 @@
 				43EF76011D65ECE9005C36AD /* AC_Data.swift in Sources */,
 				43EF76341D6882ED005C36AD /* HD_Stid.swift in Sources */,
 				43EF76151D6608FB005C36AD /* RE_Data.swift in Sources */,
+				43EF76761D7D5E2A005C36AD /* AGP_Deal.swift in Sources */,
 				43EF761A1D6608FB005C36AD /* RE_Server.swift in Sources */,
+				43EF76791D7D5E2A005C36AD /* AGP_Stid.swift in Sources */,
 				43EF765A1D71AE8C005C36AD /* SP_ServerInfo.swift in Sources */,
+				43EF76781D7D5E2A005C36AD /* AGP_Pricecalendar.swift in Sources */,
 				43EF765F1D71AE9A005C36AD /* ShopTableViewCell.swift in Sources */,
 				43EF763C1D6DDE46005C36AD /* SC_List.swift in Sources */,
 				43EF76041D65ECE9005C36AD /* AC_Share.swift in Sources */,
+				43EF76741D7D5E2A005C36AD /* AGP_Catetab.swift in Sources */,
 				436A7FD01D5F7B010007F956 /* UrlStrType.swift in Sources */,
 				436A7FAE1D58E2D30007F956 /* BaseNavigationController.swift in Sources */,
 				43EF76001D65ECE9005C36AD /* AC_ActivityDataModel.swift in Sources */,
 				43227D601D636D2000C86760 /* UIviewExtension.swift in Sources */,
+				43EF76711D7D5E2A005C36AD /* AGP_AroundGroupPurchaseModel.swift in Sources */,
 				43EF761D1D6608FB005C36AD /* RE_Tag.swift in Sources */,
 				43227D721D64CECB00C86760 /* URLStringExtension.swift in Sources */,
 				43C2D87F1D606E8A00E1C7CE /* MineDetailViewController.swift in Sources */,
@@ -6771,6 +6818,7 @@
 				43EF765C1D71AE8C005C36AD /* SP_Tour.swift in Sources */,
 				0AD5F6471D73C84E000F3042 /* ShopDetailViewController.swift in Sources */,
 				436A7FB61D5B8B2B0007F956 /* CityListViewController.swift in Sources */,
+				43EF76771D7D5E2A005C36AD /* AGP_Optionalattr.swift in Sources */,
 				43C2D8821D606F9A00E1C7CE /* MineTableViewCell.swift in Sources */,
 				436A7FC71D5F48B70007F956 /* ActivityItem.swift in Sources */,
 				43EF763F1D6DDE5C005C36AD /* SearchViewController.swift in Sources */,

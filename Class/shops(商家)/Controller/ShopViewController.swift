@@ -59,6 +59,7 @@ class ShopViewController:BaseViewController,
     
     override func viewWillAppear(animated: Bool) {
         self.navigationController!.navigationBar.barTintColor = UIColor.whiteColor()
+        self.navigationController!.navigationBar.hidden = false
     }
     
 /****************************************************************************************************/
@@ -342,7 +343,7 @@ class ShopViewController:BaseViewController,
         //doing
     }
     
-    //////ShopDropDownViewDelegate
+    ///ShopDropDownViewDelegate
     func didRevertDropDownViewState() {
         for index in itemAr {
             index.selected = false ///恢复左右按钮的状态
@@ -564,7 +565,8 @@ QOS_CLASS_BACKGROUND：       background 等级表示那些用户不会察觉的
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let SPDVC = ShopDetailViewController()
+        let dataModel = shopListModel.data[indexPath.row]
+        let SPDVC = ShopDetailViewController(withModel: dataModel)
         self.navigationController?.pushViewController(SPDVC, animated: true)
     }
     
