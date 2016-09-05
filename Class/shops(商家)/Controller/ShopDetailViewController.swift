@@ -115,6 +115,7 @@ class ShopDetailViewController: BaseViewController, UITableViewDataSource, UITab
             //doing
         }else {
             //doing
+            btn.selected = !btn.selected
         }
     }
     
@@ -243,6 +244,13 @@ class ShopDetailViewController: BaseViewController, UITableViewDataSource, UITab
             let cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: nil)
             
             //评分
+            let starView = StarView(withRate: CGFloat(dataModel.avgScore), total: 5, starWH: 30, space: 3, starImageFull: UIImage(named: "icon_merchant_star_full")!, starImageEmpty: UIImage(named: "icon_merchant_star_empty")!)
+            starView.extSetY((cell.contentView.extHeight() - starView.extHeight()) / 2 + 3)
+            cell.contentView.addSubview(starView)
+            
+            let ratingLB = UILabel(frame: CGRectMake(CGRectGetMaxX(starView.frame) + 10, starView.extY() + 3, 100, 30))
+            ratingLB.text = "\(dataModel.avgScore)" + "分"
+            cell.contentView.addSubview(ratingLB)
             
             cell.selectionStyle = UITableViewCellSelectionStyle.None
             return cell

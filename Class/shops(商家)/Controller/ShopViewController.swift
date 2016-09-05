@@ -521,38 +521,44 @@ QOS_CLASS_BACKGROUND：       background 等级表示那些用户不会察觉的
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = ShopTableViewCell.creatCellWithTableView(tableView, reuseIdentify: "ShopCell", indexPath: indexPath)
-        let dataMode = shopListModel.data[indexPath.row]
+        
+        let dataModel = shopListModel.data[indexPath.row]
+        
         cell.selectionStyle = UITableViewCellSelectionStyle.None
         
-        cell.mImageView.sd_setImageWithURL(NSURL(string: dataMode.frontImg), placeholderImage: UIImage(named: "bg_merchant_photo_placeholder_big@2x.png"))
-        cell.titleBL.text = dataMode.name
-        cell.subTitle.text = dataMode.cateName + " " + dataMode.areaName
+        cell.mImageView.sd_setImageWithURL(NSURL(string: dataModel.frontImg), placeholderImage: UIImage(named: "bg_merchant_photo_placeholder_big@2x.png"))
+        cell.titleBL.text = dataModel.name
+        cell.subTitle.text = dataModel.cateName + " " + dataModel.areaName
         cell.subTitle.textColor = UIColor.grayColor()
         
+        let starView = StarView(withRate: CGFloat(dataModel.avgScore), total: 5, starWH: 20, space: 1,starImageFull: UIImage(named: "icon_merchant_star_full")!, starImageEmpty: UIImage(named: "icon_merchant_star_empty")!)
+        
+        cell.ratingView.addSubview(starView)
+        
         ///临时处理
-        if dataMode.markNumbers != nil {
-        cell.evaluateLB.text = "\(dataMode.markNumbers)" + "评价"
+        if dataModel.markNumbers != nil {
+        cell.evaluateLB.text = "\(dataModel.markNumbers)" + "评价"
         }else {
             cell.evaluateLB.hidden = true
         }
         
-        if dataMode.avgPrice != nil {
-        cell.priceLB.text = "人均" + "\(dataMode.avgPrice)"
+        if dataModel.avgPrice != nil {
+        cell.priceLB.text = "人均" + "\(dataModel.avgPrice)"
         }else {
             cell.priceLB.hidden = true
         }
         
         cell.dictanceLB.hidden = true
         
-        if dataMode.hasGroup! {
+        if dataModel.hasGroup! {
             cell.markImageView1.image = UIImage(named: "icon_merchant_mark_tuan")
         }
-        if dataMode.isWaimai! != 0 {
+        if dataModel.isWaimai! != 0 {
             cell.markImageView2.image = UIImage(named: "icon_merchant_mark_waimai")
         }
-        if dataMode.discount != nil {
+        if dataModel.discount != nil {
             cell.markImageVIew3.image = UIImage(named: "icon_merchant_mark_paybill")
-        }else if dataMode.isQueuing! != 0 {
+        }else if dataModel.isQueuing! != 0 {
             cell.markImageVIew3.image = UIImage(named: "icon_merchant_mark_queque")
         }
         
