@@ -20,27 +20,18 @@ import AVFoundation ///
 
 class QRCodeScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate, UINavigationControllerDelegate,UIImagePickerControllerDelegate {
     
+    private var session: AVCaptureSession!// 输入输出的中间链接
+    private var maskVeiw: UIView!//蒙版
+    private var scanWindow: UIView!//扫描窗口
+    private var scanNetImageView: UIImageView!//扫描的模拟图
     
-
+    private var isOpenFlash = false
     
-    var session: AVCaptureSession!// 输入输出的中间链接
-    var maskVeiw: UIView!//蒙版
-    var scanWindow: UIView!//扫描窗口
-    var scanNetImageView: UIImageView!//扫描的模拟图
-    
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        self.view.backgroundColor = UIColor.blackColor()
         
         //这个属性必须打开否则返回的时候会出现黑边
         self.view.clipsToBounds = true;
@@ -58,8 +49,6 @@ class QRCodeScanViewController: UIViewController, AVCaptureMetadataOutputObjects
         beginScanning()
     }
     
-    
-    
     /*********相机扫描***********/
     
     let kBorderW = CGFloat(100)
@@ -72,7 +61,7 @@ class QRCodeScanViewController: UIViewController, AVCaptureMetadataOutputObjects
         maskVeiw.layer.borderColor = UIColor(red: CGFloat(0), green: CGFloat(0), blue: CGFloat(0), alpha: CGFloat(0.7)).CGColor
         maskVeiw.layer.borderWidth = kMargin
         
-        let maskViewSize = CGSizeMake(SCREENWIDTH + kBorderW + kMargin , SCREENWIDTH + kBorderW + kMargin)
+        let maskViewSize = CGSizeMake(SCREENWIDTH + (kBorderW + kMargin) , SCREENWIDTH + (kBorderW + kMargin))
         maskVeiw.center = CGPointMake(SCREENWIDTH * 0.5, SCREENHEIGHT * 0.5);
         maskVeiw.frame = CGRectMake(0, 0, maskViewSize.width, maskViewSize.height)
         
@@ -125,6 +114,12 @@ class QRCodeScanViewController: UIViewController, AVCaptureMetadataOutputObjects
     
     func setupNavView() {
         
+        self.navigationController?.navigationBar.barTintColor = UIColor.clearColor()
+        self.title = "二维码/条形码"
+        //设置标题颜色
+        let navigationTitleAttribute = NSDictionary(object: UIColor.whiteColor(), forKey: NSForegroundColorAttributeName)
+        self.navigationController?.navigationBar.titleTextAttributes = navigationTitleAttribute as? [String : AnyObject]
+        
         //1.返回
         let backBtn = UIButton(type: UIButtonType.Custom)
         backBtn.frame = CGRectMake(20, 30, 25, 25);
@@ -132,44 +127,75 @@ class QRCodeScanViewController: UIViewController, AVCaptureMetadataOutputObjects
         backBtn.setBackgroundImage(UIImage(named: "qrcode_scan_titlebar_back_nor"), forState:UIControlState.Normal);
         backBtn.contentMode = UIViewContentMode.ScaleAspectFit
         backBtn.addTarget(self, action: #selector(QRCodeScanViewController.backBtnAction), forControlEvents: UIControlEvents.TouchUpInside)
-        self.view.addSubview(backBtn)
         
-        //2.相册
-        let albumBtn = UIButton(type: UIButtonType.Custom)
-        albumBtn.frame = CGRectMake(0, 0, 35, 49)
-        albumBtn.center = CGPointMake(self.view.bounds.width / 2, 20 + 49 / 2.0)
-        albumBtn.setBackgroundImage(UIImage(named: "qrcode_scan_btn_photo_down"), forState: UIControlState.Normal)
-        albumBtn.contentMode=UIViewContentMode.ScaleAspectFit
-        albumBtn.addTarget(self, action: #selector(QRCodeScanViewController.openAlbum), forControlEvents: UIControlEvents.TouchUpInside)
-        self.view.addSubview(albumBtn)
+        let backItem = UIBarButtonItem(customView: backBtn)
+        self.navigationItem.leftBarButtonItem = backItem
         
-        //3.闪光灯
-        let flashBtn = UIButton(type: UIButtonType.Custom)
-        flashBtn.frame = CGRectMake(self.view.bounds.width - 55, 20, 35, 49)
-        flashBtn.setBackgroundImage(UIImage(named: "qrcode_scan_btn_flash_down"), forState: UIControlState.Normal)
-        flashBtn.contentMode=UIViewContentMode.ScaleAspectFit
-        flashBtn.addTarget(self, action: #selector(QRCodeScanViewController.openFlash(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-        self.view.addSubview(flashBtn)
+        let editItem = UIBarButtonItem(barButtonSystemItem: .Edit, target: self, action: #selector(QRCodeScanViewController.editItemAction))
+        self.navigationItem.rightBarButtonItem = editItem
+        
+//        //2.相册
+//        let albumBtn = UIButton(type: UIButtonType.Custom)
+//        albumBtn.frame = CGRectMake(0, 0, 35, 49)
+//        albumBtn.center = CGPointMake(self.view.bounds.width / 2, 20 + 49 / 2.0)
+//        albumBtn.setBackgroundImage(UIImage(named: "qrcode_scan_btn_photo_down"), forState: UIControlState.Normal)
+//        albumBtn.contentMode=UIViewContentMode.ScaleAspectFit
+//        albumBtn.addTarget(self, action: #selector(QRCodeScanViewController.openAlbum), forControlEvents: UIControlEvents.TouchUpInside)
+//        self.view.addSubview(albumBtn)
+//        
+//        //3.闪光灯
+//        let flashBtn = UIButton(type: UIButtonType.Custom)
+//        flashBtn.frame = CGRectMake(self.view.bounds.width - 55, 20, 35, 49)
+//        flashBtn.setBackgroundImage(UIImage(named: "qrcode_scan_btn_flash_down"), forState: UIControlState.Normal)
+//        flashBtn.contentMode=UIViewContentMode.ScaleAspectFit
+//        flashBtn.addTarget(self, action: #selector(QRCodeScanViewController.openFlash(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+//        self.view.addSubview(flashBtn)
         
         
+    }
+    
+    func editItemAction() {
+        
+        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+        let action1 = UIAlertAction(title: "从相册选取二维码", style: .Default) {
+            [unowned self]
+            (act) in
+            self.openAlbum()
+        }
+        
+        let action2 = UIAlertAction(title: "打开闪光灯", style: .Default) {
+            [unowned self]
+            (act) in
+            self.openFlash()
+        }
+        
+        let action3 = UIAlertAction(title: "输入条形码", style: .Default) { (act) in
+            /////
+        }
+        
+        let action4 = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
+        
+        actionSheet.addAction(action1)
+        actionSheet.addAction(action2)
+        actionSheet.addAction(action3)
+        actionSheet.addAction(action4)
+        
+        self.presentViewController(actionSheet, animated: true, completion: nil)
     }
     
     func backBtnAction() {
         self.navigationController?.popViewControllerAnimated(true)
     }
     
-    func openFlash(button: UIButton) {
-        button.selected = !button.selected
-        if (button.selected) {
+    func openFlash() {
+        isOpenFlash = !isOpenFlash
+        
+        if (isOpenFlash) {
             turnTorchOn(true)
         }
         else{
             turnTorchOn(false)
         }
-    }
-    
-    enum MyError: ErrorType {
-        case deviceLockForConfigurationError
     }
     
 //    class func swiftClassFromString(className: String) -> AnyClass! {
@@ -249,7 +275,7 @@ class QRCodeScanViewController: UIViewController, AVCaptureMetadataOutputObjects
     }
     
     func beginScanning() {
-        setupWork()
+        //setupWork() ///要真机
     }
     
     func setupWork() {
@@ -341,7 +367,11 @@ class QRCodeScanViewController: UIViewController, AVCaptureMetadataOutputObjects
             ///UIAlertView ios9 已废弃
             //let alert = UIAlertView(title: "提示", message: "设备不支持访问相册，请在设置->隐私->照片中进行设置！", delegate: nil, cancelButtonTitle: "确定")
             //alert.show()
+            
             let alertVC = UIAlertController(title: "提示", message: "设备不支持访问相册，请在设置->隐私->照片中进行设置！", preferredStyle: UIAlertControllerStyle.Alert)
+            let action = UIAlertAction(title: "OK", style: .Cancel, handler: nil)
+            alertVC.addAction(action)
+            
             self.presentViewController(alertVC, animated: true, completion: nil)
         
         }
@@ -369,6 +399,9 @@ class QRCodeScanViewController: UIViewController, AVCaptureMetadataOutputObjects
 
             }else {
                 let alertVC = UIAlertController(title: "提示", message: "该图片没有包含一个二维码！", preferredStyle: UIAlertControllerStyle.Alert)
+                let action = UIAlertAction(title: "OK", style: .Cancel, handler: nil)
+                alertVC.addAction(action)
+                
                 self.presentViewController(alertVC, animated: true, completion: nil)
             }
         }

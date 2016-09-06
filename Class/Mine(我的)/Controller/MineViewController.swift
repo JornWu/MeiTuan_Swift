@@ -78,7 +78,9 @@ class MineViewController: BaseViewController, UITableViewDataSource, UITableView
     func headerBtnAction(btn: UIButton) {
         let detailVC = MineDetailViewController()
         detailVC.view.backgroundColor = UIColor.purpleColor()
+        self.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(detailVC, animated: true)
+        self.hidesBottomBarWhenPushed = false
     }
     
     
@@ -103,8 +105,7 @@ class MineViewController: BaseViewController, UITableViewDataSource, UITableView
         mineTableView.dataSource = self
         mineTableView.delegate = self
         
-        //mineTableView.registerNib(UINib(nibName: "MineTableViewCell", bundle: nil), forCellReuseIdentifier: "MineCell")
-        //mineTableView.registerClass(MineTableViewCell.classForCoder(), forCellReuseIdentifier: "MineCell")
+        mineTableView.registerNib(UINib(nibName: "MineTableViewCell", bundle: nil), forCellReuseIdentifier: "MineCell")
         
         self.view.addSubview(mineTableView)
         

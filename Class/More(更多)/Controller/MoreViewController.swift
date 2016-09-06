@@ -22,6 +22,10 @@ class MoreViewController: BaseViewController, UITableViewDataSource, UITableView
         creatTableView()
     }
     
+    override func viewWillAppear(animated: Bool) {
+        self.navigationController?.navigationBar.barTintColor = THEMECOLOR
+    }
+    
     func processingData() {
         dataAr = DataProcessor.arrayWithPlistFileName.dataArrayWithFileName("MoreData.plist") as! NSArray
     }
@@ -66,15 +70,23 @@ class MoreViewController: BaseViewController, UITableViewDataSource, UITableView
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if indexPath.section == 0 {//二维码扫描
+            
+            self.hidesBottomBarWhenPushed = true
             let QRCodeVC = QRCodeScanViewController()
             self.navigationController?.pushViewController(QRCodeVC, animated: true)
+            self.hidesBottomBarWhenPushed = false
+            
         }else if indexPath.section == 2 {//支付帮助
             if indexPath.row == 1 {
+                self.hidesBottomBarWhenPushed = true
                 let urlString = UrlStrType.PayHelp.getUrlString()
                 self.navigationController?.pushViewController(H5ViewController(urlString: urlString), animated: true)
+                self.hidesBottomBarWhenPushed = false
             }else if indexPath.row == 4 {//我要应聘
+                self.hidesBottomBarWhenPushed = true
                 let urlString = UrlStrType.HelpWorking.getUrlString()
                 self.navigationController?.pushViewController(H5ViewController(urlString: urlString), animated: true)
+                self.hidesBottomBarWhenPushed = false
             }
         }
     }
@@ -83,7 +95,6 @@ class MoreViewController: BaseViewController, UITableViewDataSource, UITableView
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
 
     /*
     // MARK: - Navigation

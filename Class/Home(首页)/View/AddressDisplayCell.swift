@@ -26,10 +26,13 @@ class AddressDisplayCell: UITableViewCell {
     }
     
     static func tableViewCell(tableView: UITableView, indexPath:NSIndexPath) -> AddressDisplayCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("addressDisplayCell", forIndexPath: indexPath) as! AddressDisplayCell
-        cell.backgroundColor = UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 0.1)
-        cell.selectionStyle = UITableViewCellSelectionStyle.None
-        return cell
+        var cell = tableView.dequeueReusableCellWithIdentifier("addressDisplayCell", forIndexPath: indexPath) as? AddressDisplayCell
+        if cell == nil {
+            cell = NSBundle.mainBundle().loadNibNamed("AddressDisplayCell", owner: nil, options: nil).last as? AddressDisplayCell
+        }
+        cell!.backgroundColor = UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 0.1)
+        cell!.selectionStyle = UITableViewCellSelectionStyle.None
+        return cell!
     }
 
     override func setSelected(selected: Bool, animated: Bool) {

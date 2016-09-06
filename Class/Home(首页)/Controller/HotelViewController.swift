@@ -39,6 +39,7 @@ class HotelViewController: BaseViewController, UITableViewDataSource, UITableVie
         self.dataModel = model
         self.view.backgroundColor = BACKGROUNDCOLOR
         
+        self.title = "团购详情"
         let backBtn = UIButton(frame: CGRectMake(0, 0, 30, 30))
         backBtn.setImage(UIImage(named: "back@2x.png"), forState: UIControlState.Normal)
         backBtn.addTarget(self, action: #selector(HotelViewController.backBtnAction), forControlEvents: UIControlEvents.TouchUpInside)
@@ -61,19 +62,6 @@ class HotelViewController: BaseViewController, UITableViewDataSource, UITableVie
     func loadOtherHotelData() {
         
         let URLString = UrlStrType.urlStringWithOtherRecommendShop("\(dataModel.mId)")
-        
-//        NetworkeProcessor.GET(URLString, parameters: nil, progress: nil, success: {
-//            [unowned self]//捕获列表，避免循环引用
-//            (task, responseObject) -> Void in
-//            //print("----获取数据成功----",responseObject)
-//            
-//            self.hotelModelWith(responseObject as! NSDictionary)
-//            
-//            }) { (task, error) -> Void in
-//                print("----获取数据失败----",error.localizedDescription)
-//                
-//        }
-        
         ///封装的方法
         NetworkeProcessor.loadNetworkeDate(withTarget: self, URLString: URLString) {
             [unowned self]
@@ -89,7 +77,7 @@ class HotelViewController: BaseViewController, UITableViewDataSource, UITableVie
     }
     
     func creatHotelDetailTableView() {
-        hotelTableView = UITableView(frame: CGRectMake(0, 64, SCREENWIDTH, SCREENHEIGHT - 64 - 49), style: UITableViewStyle.Plain)
+        hotelTableView = UITableView(frame: CGRectMake(0, 64, SCREENWIDTH, SCREENHEIGHT - 64), style: UITableViewStyle.Grouped)
         //cell 相同
         hotelTableView.registerNib(UINib(nibName: "HomeTableViewCell", bundle: nil), forCellReuseIdentifier: "HotelCell")//从xib加载
         
@@ -122,12 +110,39 @@ class HotelViewController: BaseViewController, UITableViewDataSource, UITableVie
                 cell.addSubview(headerImageView)
                 return cell
             }else if indexPath.row == 1 {
-                let cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: nil)
-                //.cell.textLabel?.text = hotelDetailModel.data.title
+                
+                ///只有一个，直接从xib中加载
+                let cell = NSBundle.mainBundle().loadNibNamed("HotelPriceCell", owner: nil, options: nil).last as! HotelPriceCell
+                cell.priceLB.text = "\(dataModel.price)"
+                cell.priceLB.font = UIFont.systemFontOfSize(40)
+                cell.valueLB.textAlignment = .Left
+                
+                cell.valueLB.text = "门市价: ￥" + "\(dataModel.value)"
+                cell.valueLB.font = UIFont.systemFontOfSize(15)
+                cell.valueLB.textAlignment = .Left
+                
+                cell.selectionStyle = .None
+                
                 return cell
             }else {
-                let cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: nil)
-                //cell.textLabel?.text = hotelDetailModel.data.title
+                let cell = UITableViewCell(style: UITableViewCellStyle.Value1, reuseIdentifier: nil)
+                cell.accessoryType = .DisclosureIndicator
+                cell.selectionStyle = .None
+                
+                if dataModel.rating != nil && dataModel.ratecount != nil {
+                    
+                    let starView = StarView(withRate: CGFloat(dataModel.rating), total: 5, starWH: 30, space: 3,starImageFull: UIImage(named: "icon_merchant_star_full")!, starImageEmpty: UIImage(named: "icon_merchant_star_empty")!)
+                    
+                    starView.extSetY((cell.contentView.extHeight() - starView.extHeight()) / 2)
+                    cell.contentView.addSubview(starView)
+                    
+                    cell.detailTextLabel?.text = "\(dataModel.ratecount)" + "人评价"
+                }else {
+                    cell.textLabel?.text = "暂无评分"
+                    cell.textLabel?.font = UIFont.systemFontOfSize(20)
+                }
+
+                
                 return cell
             }
             
@@ -154,7 +169,7 @@ class HotelViewController: BaseViewController, UITableViewDataSource, UITableVie
                 cell.valueLB.text = "门面价：" + "\(dealModel.value)" + "元"
                 cell.valueLB.textColor = UIColor.grayColor()
                 cell.salesLB.text = "已卖" + "\(dealModel.solds)" + "份"
-                cell.salesLB.textColor = UIColor.redColor()
+                cell.salesLB.textColor = THEMECOLOR
                 return cell
             }
         }
@@ -187,8 +202,21 @@ class HotelViewController: BaseViewController, UITableViewDataSource, UITableVie
                 let dataItem = RE_Data(fromDictionary: dealDictionary)
                 
                 let HTVC = HotelViewController(dataModel: dataItem)
+                self.hidesBottomBarWhenPushed = true
                 self.navigationController?.pushViewController(HTVC, animated: true)
             }
+        }
+    }
+    
+    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 0.0001 //0
+    }
+    
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 0 {
+            return 0.0001 //0
+        }else {
+            return 20
         }
     }
 

@@ -71,7 +71,7 @@ class H5ViewController: BaseViewController, UIWebViewDelegate {
     }
     
     func setupWebView() {
-        webView = UIWebView(frame: CGRectMake(0, 64, SCREENWIDTH, SCREENHEIGHT - 64 - 49))
+        webView = UIWebView(frame: CGRectMake(0, 64, SCREENWIDTH, SCREENHEIGHT - 64))
         self.view.addSubview(webView)
         webView.delegate = self
         

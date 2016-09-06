@@ -21,16 +21,18 @@ class MineTableViewCell: UITableViewCell {
     class func tableViewCellWith(modelAArray: [MineTableViewCellModel]!, tableView: UITableView, indexPath: NSIndexPath, reuseIndentify: String) -> MineTableViewCell {
         print(indexPath)
         
-        //let cell = tableView.dequeueReusableCellWithIdentifier(reuseIndentify, forIndexPath: indexPath) as! MineTableViewCell
-        //cell.mImageView.image = modelAArray[Int(indexPath.row)].mImage
-        //cell.mTitleLable.text = modelAArray[Int(indexPath.row)].mTitleText
+        var cell = tableView.dequeueReusableCellWithIdentifier(reuseIndentify, forIndexPath: indexPath) as? MineTableViewCell
+        if cell == nil {
+            cell = NSBundle.mainBundle().loadNibNamed("MineTableViewCell", owner: nil, options: nil).last as? MineTableViewCell
+        }
         
-        let cell = MineTableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: reuseIndentify)
-        cell.imageView?.image = modelAArray[Int(indexPath.row)].mImage
-        cell.textLabel?.text = modelAArray[Int(indexPath.row)].mTitleText
-        cell.selectionStyle = UITableViewCellSelectionStyle.None
-        cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
-        return cell
+        cell!.mImageView.image = modelAArray[Int(indexPath.row)].mImage
+        cell!.mTitleLable.text = modelAArray[Int(indexPath.row)].mTitleText
+
+        cell!.selectionStyle = UITableViewCellSelectionStyle.None
+        cell!.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+        
+        return cell!
     }
     
     

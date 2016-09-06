@@ -22,8 +22,12 @@ class HomeTableViewCell: UITableViewCell {
     }
     
     class func creatCellWith(aTableView: UITableView, indexPath: NSIndexPath, reuseIdentifier: String) -> HomeTableViewCell {
-        let cell = aTableView.dequeueReusableCellWithIdentifier(reuseIdentifier, forIndexPath: indexPath)
-        return cell as! HomeTableViewCell
+        var cell = aTableView.dequeueReusableCellWithIdentifier(reuseIdentifier, forIndexPath: indexPath) as? HomeTableViewCell
+        if cell == nil {
+            cell = NSBundle.mainBundle().loadNibNamed("HomeTableViewCell", owner: nil, options: nil).last as? HomeTableViewCell
+        }
+        
+        return cell!
     }
 
     override func setSelected(selected: Bool, animated: Bool) {

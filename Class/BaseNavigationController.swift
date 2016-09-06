@@ -50,7 +50,7 @@ class BaseNavigationController: UINavigationController {
         self.navigationBar.tintColor = UIColor.whiteColor()
         
         //设置标题颜色
-        let navigationTitleAttribute : NSDictionary = NSDictionary(object: UIColor.blackColor(), forKey: NSForegroundColorAttributeName)
+        let navigationTitleAttribute = NSDictionary(object: UIColor.blackColor(), forKey: NSForegroundColorAttributeName)
         self.navigationBar.titleTextAttributes = navigationTitleAttribute as? [String : AnyObject]
         
 //        let backBtn = UIButton(frame: CGRectMake(0, 0, 40, 40))

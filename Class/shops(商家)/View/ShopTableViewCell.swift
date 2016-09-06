@@ -27,8 +27,12 @@ class ShopTableViewCell: UITableViewCell {
     }
     
     class func creatCellWithTableView(tableView: UITableView, reuseIdentify: String, indexPath: NSIndexPath) -> ShopTableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(reuseIdentify, forIndexPath: indexPath) as! ShopTableViewCell
-        return cell
+        var cell = tableView.dequeueReusableCellWithIdentifier(reuseIdentify, forIndexPath: indexPath) as? ShopTableViewCell
+        if cell == nil {
+            cell = NSBundle.mainBundle().loadNibNamed("ShopTableViewCell", owner: nil, options: nil).last as? ShopTableViewCell
+        }
+        
+        return cell!
     }
     
     

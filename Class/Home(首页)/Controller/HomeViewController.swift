@@ -120,8 +120,10 @@ class HomeViewController: BaseViewController, AddressViewDelegate, UITableViewDa
     
     ///AddressViewDelegate
     func didClickedCellIntoCityList() {
+        self.hidesBottomBarWhenPushed = true
         let cityListVC = CityListViewController()
         self.navigationController?.pushViewController(cityListVC, animated: true)
+        self.hidesBottomBarWhenPushed = false
     }
     
     ///AddressViewDelegate
@@ -249,7 +251,7 @@ class HomeViewController: BaseViewController, AddressViewDelegate, UITableViewDa
             itemBgView.addSubview(itemVC.view)
             
             
-            let deal = dealAr[index] as Deal
+            let deal = dealAr[index]
             itemVC.imageView.sd_setImageWithURL(NSURL(string: deal.imgurl), placeholderImage: UIImage(named: "bg_merchant_photo_placeholder_big@2x.png"))
             
             let valueStr = NSMutableAttributedString(string: "\(deal.value)元")
@@ -269,7 +271,9 @@ class HomeViewController: BaseViewController, AddressViewDelegate, UITableViewDa
     }
     
     func intoRushShoppingDetailView() {
+        self.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(H5ViewController(urlString: UrlStrType.RushBuyWebData.getUrlString()), animated: true)
+        self.hidesBottomBarWhenPushed = false
     }
      
 /****************************************************************************************************/
@@ -357,7 +361,9 @@ class HomeViewController: BaseViewController, AddressViewDelegate, UITableViewDa
         ///进入详情页面
         let dataAr = activityModel.data
         let urlString = dataAr[(btn.tag - 2000)].share.url
+        self.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(H5ViewController(urlString: urlString), animated: true)
+        self.hidesBottomBarWhenPushed = false
     }
      
      
@@ -480,6 +486,7 @@ class HomeViewController: BaseViewController, AddressViewDelegate, UITableViewDa
             
             let cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: nil)
             cell.textLabel!.text = recommentModel.tab.tabTitle + "," + recommentModel.tab.normalTitle
+            cell.textLabel!.textColor = THEMECOLOR
             cell.selectionStyle = UITableViewCellSelectionStyle.None
             return cell
             
@@ -498,7 +505,7 @@ class HomeViewController: BaseViewController, AddressViewDelegate, UITableViewDa
             cell.valueLB.text = "门面价：" + "\(dataItem.value)" + "元"
             cell.valueLB.textColor = UIColor.grayColor()
             cell.salesLB.text = "已卖" + "\(dataItem.solds)" + "份"
-            cell.salesLB.textColor = UIColor.redColor()
+            cell.salesLB.textColor = THEMECOLOR
             return cell 
         }
  
@@ -515,7 +522,9 @@ class HomeViewController: BaseViewController, AddressViewDelegate, UITableViewDa
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let dataItem = recommentModel.data[indexPath.row - 1]
         let HTVC = HotelViewController(dataModel: dataItem)
+        self.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(HTVC, animated: true)
+        self.hidesBottomBarWhenPushed = false
     }
     
     

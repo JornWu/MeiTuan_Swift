@@ -204,7 +204,9 @@ class ShopViewController:BaseViewController,
     
     func openSearchView(btn: UIButton){
         let SHVC = SearchViewController()
+        self.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(SHVC, animated: true)
+        self.hidesBottomBarWhenPushed = false
 
     }
     
@@ -526,7 +528,9 @@ QOS_CLASS_BACKGROUND：       background 等级表示那些用户不会察觉的
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let dataModel = shopListModel.data[indexPath.row]
         let SPDVC = ShopDetailViewController(withModel: dataModel)
+        self.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(SPDVC, animated: true)
+        self.hidesBottomBarWhenPushed = false
     }
     
     
