@@ -19,7 +19,7 @@ class SearchViewController: BaseViewController {
         let backBtn = UIButton(type: UIButtonType.Custom)
         backBtn.frame = CGRectMake(0, 0, 30, 30)
         backBtn.setImage(UIImage(named: "back"), forState: UIControlState.Normal)
-        backBtn.addTarget(self, action: Selector("backBtnAction"), forControlEvents: UIControlEvents.TouchUpInside)
+        backBtn.addTarget(self, action: #selector(SearchViewController.backBtnAction), forControlEvents: UIControlEvents.TouchUpInside)
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backBtn)
     }
     

@@ -68,7 +68,7 @@ class RootTabBarController: UITabBarController {
         let btnW = (self.tabBar.bounds.width * 1.0)/(CGFloat)(itemIconAr.count)
         let btnH = self.tabBar.bounds.height
         
-        for var i = 0; i < itemIconAr.count; i++ {
+        for i in 0 ..< itemIconAr.count {
             
             let btn = UIButton(frame:CGRectMake(btnW * (CGFloat)(i), 0, btnW, btnH))
             btn.tag = i + 100
@@ -77,7 +77,7 @@ class RootTabBarController: UITabBarController {
             }
             btn.setImage(UIImage(named: itemIconAr[i]), forState: UIControlState.Normal)
             btn.setImage(UIImage(named: itemSelectedIconAr[i]), forState: UIControlState.Selected)
-            btn.addTarget(self, action: Selector("btnAction:"), forControlEvents: UIControlEvents.TouchUpInside)
+            btn.addTarget(self, action: #selector(RootTabBarController.btnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
             barView.addSubview(btn)
         }
     }
@@ -103,7 +103,7 @@ class RootTabBarController: UITabBarController {
      */
     func addChildViewControllers() {
         var childVCAr = [BaseNavigationController]()
-        for var i = 0; i < storyboardNameAr.count; i++ {
+        for i in 0 ..< storyboardNameAr.count {
             let aName = storyboardNameAr[i] + "Storyboard"
             let aTitle = titleAr[i]
             let nav = self.stupChildViewController(aName, title: aTitle)

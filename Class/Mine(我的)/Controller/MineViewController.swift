@@ -52,7 +52,7 @@ class MineViewController: BaseViewController, UITableViewDataSource, UITableView
         headerView.frame = CGRectMake(0, 0, SCREENWIDTH, 65)//65是xib的最小值
         
         let headerBtn = UIButton(frame: CGRectMake(0, 0, SCREENWIDTH, 65))//用于响应点击事件(多种方式可实现)
-        headerBtn.addTarget(self, action: Selector("headerBtnAction:"), forControlEvents: UIControlEvents.TouchUpInside)
+        headerBtn.addTarget(self, action: #selector(MineViewController.headerBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         
         headerBgView.addSubview(headerView)
         headerBgView.addSubview(headerBtn)
@@ -91,7 +91,7 @@ class MineViewController: BaseViewController, UITableViewDataSource, UITableView
     func processingData() {
         
         let dataAr = DataProcessor.arrayWithPlistFileName.dataArrayWithFileName("MineInformationData.plist")
-        for var i = 0; i < dataAr.count; i++ {
+        for i in 0 ..< dataAr.count {
             let model = MineTableViewCellModel(imageName: dataAr[i]["image"] as! String, title: dataAr[i]["title"] as! String)
             modelAr.append(model)
         }

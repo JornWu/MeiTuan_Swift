@@ -17,7 +17,7 @@
 
 import UIKit
 
-protocol ShopDropDownViewControllerDelegate: NSObjectProtocol {
+@objc protocol ShopDropDownViewControllerDelegate: NSObjectProtocol {
     func didChoosedFilterType(kindId: Int)//选择了过滤的类型
     func didChoosedSortType()//选择了排序的类型
     func didRevertDropDownViewState()//恢复下拉视图的状态
@@ -57,7 +57,7 @@ class ShopDropDownViewController: BaseViewController, UITableViewDataSource, UIT
     func loadAllViews() {
         let typeChoiceBgView = UIButton(frame: CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT - 105))///
         typeChoiceBgView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.2)
-        typeChoiceBgView.addTarget(self, action: Selector("revertDropDownView"), forControlEvents: UIControlEvents.TouchUpInside)
+        typeChoiceBgView.addTarget(self, action: #selector(ShopDropDownViewController.revertDropDownView), forControlEvents: UIControlEvents.TouchUpInside)
         self.view.addSubview(typeChoiceBgView)
         
         typeChoiceView = UIView(frame: CGRectMake(0, 0, SCREENWIDTH, 300))///
@@ -89,7 +89,7 @@ class ShopDropDownViewController: BaseViewController, UITableViewDataSource, UIT
     
     func revertDropDownView() {
         self.view.hidden = true
-        if self.delegate?.respondsToSelector(Selector("didRevertDropDownViewState")) != nil {
+        if self.delegate?.respondsToSelector(#selector(ShopDropDownViewControllerDelegate.didRevertDropDownViewState)) != nil {
             self.delegate?.didRevertDropDownViewState()///恢复所有选择按钮的状态
         }
     }
@@ -138,7 +138,7 @@ class ShopDropDownViewController: BaseViewController, UITableViewDataSource, UIT
         if tableView.tag == 301 {
             if indexPath.row == 0 {///全部
                 //让代理执行过滤
-                if self.delegate?.respondsToSelector(Selector("didChoosedFilterType:")) != nil {
+                if self.delegate?.respondsToSelector(#selector(ShopDropDownViewControllerDelegate.didChoosedFilterType(_:))) != nil {
                     
                     self.delegate?.didChoosedFilterType(shopCateListModel.data[0].mId)
                 }
@@ -153,7 +153,7 @@ class ShopDropDownViewController: BaseViewController, UITableViewDataSource, UIT
             }
         }else if tableView.tag == 302 {
             //让代理执行过滤
-            if self.delegate?.respondsToSelector(Selector("didChoosedFilterType:")) != nil {
+            if self.delegate?.respondsToSelector(#selector(ShopDropDownViewControllerDelegate.didChoosedFilterType(_:))) != nil {
                 if shopCateListModel.data[selectedTypeIndex].list != nil {
                     self.delegate?.didChoosedFilterType(shopCateListModel.data[selectedTypeIndex].list[indexPath.row].mId)
                 }else {

@@ -30,7 +30,7 @@ class CreatListViewItemTool: NSObject {
         parentView: UIView,
         autoResizeParentView: Bool) {
     
-        for var i = 0; i < count; i++ {
+        for i in 0 ..< count {
             
             let col = Int(i % columns) //所在的列
             let row = Int(i / columns) //所在的行

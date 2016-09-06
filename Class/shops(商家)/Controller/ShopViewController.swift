@@ -9,7 +9,7 @@
 
 import UIKit
 
-protocol ShopViewControllerDelegate: NSObjectProtocol {
+@objc protocol ShopViewControllerDelegate: NSObjectProtocol {
     func didClickChoiceBarButtonItemWith(button btn: UIButton)
 }
 
@@ -74,7 +74,7 @@ class ShopViewController:BaseViewController,
         lBtn.contentMode = UIViewContentMode.ScaleAspectFit
         lBtn.setImage(UIImage(named: "icon_map.png"), forState: UIControlState.Normal)
         lBtn.setImage(UIImage(named: "icon_map_highlighted.png"), forState: UIControlState.Selected)
-        lBtn.addTarget(self, action: Selector("openMapView:"), forControlEvents: UIControlEvents.TouchUpInside)
+        lBtn.addTarget(self, action: #selector(ShopViewController.openMapView(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         let leftItem = UIBarButtonItem(customView: lBtn)
         self.navigationItem.leftBarButtonItem = leftItem
         
@@ -84,7 +84,7 @@ class ShopViewController:BaseViewController,
         rBtn.contentMode = UIViewContentMode.ScaleAspectFit
         rBtn.setImage(UIImage(named: "icon_search.png"), forState: UIControlState.Normal)
         rBtn.setImage(UIImage(named: "icon_search_selected.png"), forState: UIControlState.Selected)
-        rBtn.addTarget(self, action: Selector("openSearchView:"), forControlEvents: UIControlEvents.TouchUpInside)
+        rBtn.addTarget(self, action: #selector(ShopViewController.openSearchView(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         let rightItem = UIBarButtonItem(customView: rBtn)
         self.navigationItem.rightBarButtonItem = rightItem
         
@@ -120,7 +120,7 @@ class ShopViewController:BaseViewController,
         segBtn1.setBackgroundImage(img_1_n, forState: UIControlState.Normal)
         segBtn1.setBackgroundImage(img_1_s, forState: UIControlState.Selected)
         segBtn1.contentMode = UIViewContentMode.ScaleAspectFill
-        segBtn1.addTarget(self, action: Selector("segBtnAction:"), forControlEvents: UIControlEvents.TouchUpInside)
+        segBtn1.addTarget(self, action: #selector(ShopViewController.segBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         
         segBtn2 = UIButton(type: UIButtonType.Custom)
         segBtn2.frame = CGRectMake(100, 0, 100, 30)
@@ -132,7 +132,7 @@ class ShopViewController:BaseViewController,
         segBtn2.setTitleColor(THEMECOLOR, forState: UIControlState.Normal)
         segBtn2.setBackgroundImage(img_2_n, forState: UIControlState.Normal)
         segBtn2.setBackgroundImage(img_2_s, forState: UIControlState.Selected)
-        segBtn2.addTarget(self, action: Selector("segBtnAction:"), forControlEvents: UIControlEvents.TouchUpInside)
+        segBtn2.addTarget(self, action: #selector(ShopViewController.segBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         
         currentSelectedBtnTag = 1 //segBtn1
         segView.addSubview(segBtn1)
@@ -246,7 +246,7 @@ class ShopViewController:BaseViewController,
             btnItem.titleEdgeInsets = UIEdgeInsetsMake(0, -15, 0, 0)
             btnItem.imageEdgeInsets = UIEdgeInsetsMake(0, btnItem.extWidth() - 45, 0, 0)
             btnItem.backgroundColor = UIColor.whiteColor()
-            btnItem.addTarget(self, action: Selector("chooseListView:"), forControlEvents: UIControlEvents.TouchUpInside)
+            btnItem.addTarget(self, action: #selector(ShopViewController.chooseListView(_:)), forControlEvents: UIControlEvents.TouchUpInside)
             
             itemAr.append(btnItem)///放到数组中，统一管理
             
@@ -261,7 +261,7 @@ class ShopViewController:BaseViewController,
         }else if currentSelectedItem.tag != btn.tag {//点击另一个按钮
             currentSelectedItem.selected = false
         }
-        if (self.choiceFilterDelegate?.respondsToSelector(Selector("didClickChoiceBarButtonItemWith:")) != nil){
+        if (self.choiceFilterDelegate?.respondsToSelector(#selector(ShopViewControllerDelegate.didClickChoiceBarButtonItemWith(button:))) != nil){
             self.choiceFilterDelegate?.didClickChoiceBarButtonItemWith(button: btn)
         }
         
@@ -433,7 +433,7 @@ QOS_CLASS_BACKGROUND：       background 等级表示那些用户不会察觉的
         refreshBtn.setImage(UIImage(named: "icon_dellist_locate_refresh"), forState: UIControlState.Normal)
         refreshBtn.contentMode = UIViewContentMode.ScaleAspectFit
         headerView.addSubview(refreshBtn)
-        refreshBtn.addTarget(self, action: Selector("refreshAddressInfo"), forControlEvents: UIControlEvents.TouchUpInside)
+        refreshBtn.addTarget(self, action: #selector(ShopViewController.refreshAddressInfo), forControlEvents: UIControlEvents.TouchUpInside)
         
         if currentAddressModel != nil {
             let dataModel = currentAddressModel!.data

@@ -70,7 +70,7 @@ class ShopDetailViewController: BaseViewController, UITableViewDataSource, UITab
         backBtn.tag = 400
         backBtn.setImage(UIImage(named: "btn_backItem"), forState: UIControlState.Normal)
         backBtn.setImage(UIImage(named: "btn_backItem_highlighted"), forState: UIControlState.Highlighted)
-        backBtn.addTarget(self, action: Selector("navigationBtnAction:"), forControlEvents: UIControlEvents.TouchUpInside)
+        backBtn.addTarget(self, action: #selector(ShopDetailViewController.navigationBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         navigationView.addSubview(backBtn)
         
         massageBtn = UIButton(type: UIButtonType.Custom)
@@ -78,7 +78,7 @@ class ShopDetailViewController: BaseViewController, UITableViewDataSource, UITab
         massageBtn.tag = 401
         massageBtn.setImage(UIImage(named: "icon_merchan_error_normal"), forState: UIControlState.Normal)
         massageBtn.setImage(UIImage(named: "icon_merchan_error_highlighted"), forState: UIControlState.Highlighted)
-        massageBtn.addTarget(self, action: Selector("navigationBtnAction:"), forControlEvents: UIControlEvents.TouchUpInside)
+        massageBtn.addTarget(self, action: #selector(ShopDetailViewController.navigationBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         navigationView.addSubview(massageBtn)
         
         shareBtn = UIButton(type: UIButtonType.Custom)
@@ -86,7 +86,7 @@ class ShopDetailViewController: BaseViewController, UITableViewDataSource, UITab
         shareBtn.tag = 402
         shareBtn.setImage(UIImage(named: "icon_merchant_share_normal"), forState: UIControlState.Normal)
         shareBtn.setImage(UIImage(named: "icon_merchant_share_highlighted"), forState: UIControlState.Highlighted)
-        shareBtn.addTarget(self, action: Selector("navigationBtnAction:"), forControlEvents: UIControlEvents.TouchUpInside)
+        shareBtn.addTarget(self, action: #selector(ShopDetailViewController.navigationBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         navigationView.addSubview(shareBtn)
         
         collectBtn = UIButton(type: UIButtonType.Custom)
@@ -94,7 +94,7 @@ class ShopDetailViewController: BaseViewController, UITableViewDataSource, UITab
         collectBtn.tag = 403
         collectBtn.setImage(UIImage(named: "iocn_merchant_collect_normal"), forState: UIControlState.Normal)
         collectBtn.setImage(UIImage(named: "iocn_merchant_collect_highlighted"), forState: UIControlState.Selected)
-        collectBtn.addTarget(self, action: Selector("navigationBtnAction:"), forControlEvents: UIControlEvents.TouchUpInside)
+        collectBtn.addTarget(self, action: #selector(ShopDetailViewController.navigationBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         navigationView.addSubview(collectBtn)
         
         titleLB = UILabel(frame: CGRectMake(CGRectGetMaxX(backBtn.frame) + 10, 30, CGRectGetMinX(collectBtn.frame) - 10 - (10 + 10 + 25), 25))
@@ -226,6 +226,7 @@ class ShopDetailViewController: BaseViewController, UITableViewDataSource, UITab
                 locationBtn.setTitleColor(UIColor.grayColor(), forState: UIControlState.Normal)
                 locationBtn.titleLabel?.font = UIFont.systemFontOfSize(12)
                 locationBtn.titleLabel?.numberOfLines = 0
+                locationBtn.contentMode = UIViewContentMode.Left
                 leftView.addSubview(locationBtn)
                 
                 let rightView = UIView(frame: CGRectMake(leftView.extWidth() + 1, 0, 70, 60))
@@ -288,7 +289,7 @@ class ShopDetailViewController: BaseViewController, UITableViewDataSource, UITab
                     tabBtn.setTitle(dataModel.catetab[index].name, forState: UIControlState.Normal)
                     tabBtn.setTitleColor(UIColor.grayColor(), forState: UIControlState.Normal)
                     tabBtn.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Highlighted)
-                    tabBtn.addTarget(self, action: Selector("tabBtnAction:"), forControlEvents: UIControlEvents.TouchUpInside)
+                    tabBtn.addTarget(self, action: #selector(ShopDetailViewController.tabBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
                     
                     cell.contentView.addSubview(tabBtn)
                 }

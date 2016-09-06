@@ -17,7 +17,7 @@
 
 import UIKit
 
-protocol AddressViewDelegate: NSObjectProtocol {
+@objc protocol AddressViewDelegate: NSObjectProtocol {
     func listBgViewDidClicked()
     func didClickedButtonWith(title: String)
     func didClickedCellIntoCityList()
@@ -50,7 +50,7 @@ class AddressView: UIView, UITableViewDataSource, UITableViewDelegate {
     }
     
     func listBgButtonAction() {
-        if ((self.delegate?.respondsToSelector(Selector("listBgViewDidClicked"))) != nil) {
+        if ((self.delegate?.respondsToSelector(#selector(AddressViewDelegate.listBgViewDidClicked))) != nil) {
             self.delegate!.listBgViewDidClicked()
         }
     }
@@ -67,7 +67,7 @@ class AddressView: UIView, UITableViewDataSource, UITableViewDelegate {
         listBgView.backgroundColor = UIColor.blackColor()
         listBgView.alpha = 0.5
         transBgView.addSubview(listBgView)
-        listBgView.addTarget(self, action: Selector("listBgButtonAction"), forControlEvents: UIControlEvents.TouchUpInside)
+        listBgView.addTarget(self, action: #selector(AddressView.listBgButtonAction), forControlEvents: UIControlEvents.TouchUpInside)
         
         ///container view
         let containerView = UIView(frame: CGRectMake(0, 0, listBgView.bounds.width, listBgView.bounds.height * 0.5))
@@ -97,7 +97,7 @@ class AddressView: UIView, UITableViewDataSource, UITableViewDelegate {
             areaArray = array as! NSArray
         }
         
-        for var i = 0; i < areaArray.count; i++ {
+        for i in 0 ..< areaArray.count {
             let spa = CGFloat(40.0) //间距
             let colNum = CGFloat(3.0) //列数
             let col = CGFloat(i) % colNum //所在的列
@@ -106,7 +106,7 @@ class AddressView: UIView, UITableViewDataSource, UITableViewDelegate {
             let btnH = CGFloat(30) //button height
             let btn = UIButton(frame: CGRectMake((spa + btnW) * col + spa, (spa + btnH) * CGFloat(row) + spa, btnW, btnH))
             btn.tag = 1000 + i
-            btn.addTarget(self, action: Selector("addressBtnAction:"), forControlEvents: UIControlEvents.TouchUpInside)
+            btn.addTarget(self, action: #selector(AddressView.addressBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
             btn.backgroundColor = UIColor(red: 33.0 / 255.0, green: 192.0 / 255.0, blue: 174.0 / 255.0, alpha: 1)
             btn.titleLabel?.font = UIFont.systemFontOfSize(13)
             btn.setTitle((areaArray[i] as! Dictionary)["areaName"], forState: UIControlState.Normal)
@@ -120,7 +120,7 @@ class AddressView: UIView, UITableViewDataSource, UITableViewDelegate {
     
     func addressBtnAction(btn: UIButton) {
         let areaName = (areaArray[btn.tag - 1000]["areaName"]) as? String
-        if ((self.delegate?.respondsToSelector(Selector("didClickedButtonWith:"))) != nil){
+        if ((self.delegate?.respondsToSelector(#selector(AddressViewDelegate.didClickedButtonWith(_:)))) != nil){
             self.delegate!.didClickedButtonWith(areaName!)
         }
     }
@@ -136,7 +136,7 @@ class AddressView: UIView, UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if ((self.delegate?.respondsToSelector(Selector("didClickedCellIntoCityList"))) != nil) {
+        if ((self.delegate?.respondsToSelector(#selector(AddressViewDelegate.didClickedCellIntoCityList))) != nil) {
             self.delegate?.didClickedCellIntoCityList()
         }
     }

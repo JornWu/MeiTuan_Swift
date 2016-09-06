@@ -79,7 +79,7 @@ class HomeViewController: BaseViewController, AddressViewDelegate, UITableViewDa
         lBtn.setImage(UIImage(named: "icon_homepage_upArrow"), forState: UIControlState.Selected)
         lBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -36, 0, 0)
         lBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 36, 0, 0)
-        lBtn.addTarget(self, action: Selector("leftItemAction:"), forControlEvents: UIControlEvents.TouchUpInside)
+        lBtn.addTarget(self, action: #selector(HomeViewController.leftItemAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         let leftItem = UIBarButtonItem(customView: lBtn)
         self.navigationItem.leftBarButtonItem = leftItem
         
@@ -90,7 +90,7 @@ class HomeViewController: BaseViewController, AddressViewDelegate, UITableViewDa
         rBtn.contentMode = UIViewContentMode.ScaleAspectFit
         rBtn.setImage(UIImage(named: "icon_homepage_map_old"), forState: UIControlState.Normal)
         rBtn.setImage(UIImage(named: "icon_homepage_map_selected_old"), forState: UIControlState.Selected)
-        rBtn.addTarget(self, action: Selector("mapButtonItemAction:"), forControlEvents: UIControlEvents.TouchUpInside)
+        rBtn.addTarget(self, action: #selector(HomeViewController.mapButtonItemAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         let rightItem = UIBarButtonItem(customView: rBtn)
         self.navigationItem.rightBarButtonItem = rightItem
         
@@ -262,7 +262,7 @@ class HomeViewController: BaseViewController, AddressViewDelegate, UITableViewDa
         }
         
         let faceBtn = UIButton(frame: rushShoppingView.bounds)
-        faceBtn.addTarget(self, action: Selector("intoRushShoppingDetailView"), forControlEvents: UIControlEvents.TouchUpInside)
+        faceBtn.addTarget(self, action: #selector(HomeViewController.intoRushShoppingDetailView), forControlEvents: UIControlEvents.TouchUpInside)
         rushShoppingView.addSubview(faceBtn)
     }
     
@@ -341,7 +341,7 @@ class HomeViewController: BaseViewController, AddressViewDelegate, UITableViewDa
             
             let faceBtn = UIButton(frame: CGRectMake(0, 0, w, h)) //覆盖在item上的透明的btn，用于响应事件（Multiple Way）
             faceBtn.tag = 2000 + index
-            faceBtn.addTarget(self, action: Selector("acItemButtonAction:"), forControlEvents: UIControlEvents.TouchUpInside)
+            faceBtn.addTarget(self, action: #selector(HomeViewController.acItemButtonAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
             itemBgView.addSubview(faceBtn)
             
         }

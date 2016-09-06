@@ -47,13 +47,13 @@ class H5ViewController: BaseViewController, UIWebViewDelegate {
         let rBtn = UIButton(type: UIButtonType.System)
         rBtn.frame = CGRectMake(0, 0, 70, 35)
         rBtn.setTitle("适应屏幕", forState: UIControlState.Normal)
-        rBtn.addTarget(self, action: Selector("adjustDisplay:"), forControlEvents: UIControlEvents.TouchUpInside)
+        rBtn.addTarget(self, action: #selector(H5ViewController.adjustDisplay(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         let rightItem = UIBarButtonItem(customView: rBtn)
         self.navigationItem.rightBarButtonItem = rightItem
         
         let backBtn = UIButton(frame: CGRectMake(0, 0, 30, 30))
         backBtn.setImage(UIImage(named: "back@2x.png"), forState: UIControlState.Normal)
-        backBtn.addTarget(self, action: Selector("backBtnAction"), forControlEvents: UIControlEvents.TouchUpInside)
+        backBtn.addTarget(self, action: #selector(H5ViewController.backBtnAction), forControlEvents: UIControlEvents.TouchUpInside)
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backBtn)
         
         

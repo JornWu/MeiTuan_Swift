@@ -41,7 +41,7 @@ class HotelViewController: BaseViewController, UITableViewDataSource, UITableVie
         
         let backBtn = UIButton(frame: CGRectMake(0, 0, 30, 30))
         backBtn.setImage(UIImage(named: "back@2x.png"), forState: UIControlState.Normal)
-        backBtn.addTarget(self, action: Selector("backBtnAction"), forControlEvents: UIControlEvents.TouchUpInside)
+        backBtn.addTarget(self, action: #selector(HotelViewController.backBtnAction), forControlEvents: UIControlEvents.TouchUpInside)
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backBtn)
         
         loadOtherHotelData()

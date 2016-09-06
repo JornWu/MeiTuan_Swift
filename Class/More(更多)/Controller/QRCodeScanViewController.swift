@@ -94,7 +94,7 @@ class QRCodeScanViewController: UIViewController, AVCaptureMetadataOutputObjects
         myCodeBtn.setImage(UIImage(named: "qrcode_scan_btn_myqrcode_down"), forState: UIControlState.Normal)
         
         myCodeBtn.contentMode = UIViewContentMode.ScaleAspectFit;
-        myCodeBtn.addTarget(self, action: Selector("myCodeBtnAction:"), forControlEvents: UIControlEvents.TouchUpInside)
+        myCodeBtn.addTarget(self, action: #selector(QRCodeScanViewController.myCodeBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         
         bottomBar.addSubview(myCodeBtn)
         
@@ -131,7 +131,7 @@ class QRCodeScanViewController: UIViewController, AVCaptureMetadataOutputObjects
         
         backBtn.setBackgroundImage(UIImage(named: "qrcode_scan_titlebar_back_nor"), forState:UIControlState.Normal);
         backBtn.contentMode = UIViewContentMode.ScaleAspectFit
-        backBtn.addTarget(self, action: Selector("disMiss"), forControlEvents: UIControlEvents.TouchUpInside)
+        backBtn.addTarget(self, action: #selector(QRCodeScanViewController.backBtnAction), forControlEvents: UIControlEvents.TouchUpInside)
         self.view.addSubview(backBtn)
         
         //2.相册
@@ -140,7 +140,7 @@ class QRCodeScanViewController: UIViewController, AVCaptureMetadataOutputObjects
         albumBtn.center = CGPointMake(self.view.bounds.width / 2, 20 + 49 / 2.0)
         albumBtn.setBackgroundImage(UIImage(named: "qrcode_scan_btn_photo_down"), forState: UIControlState.Normal)
         albumBtn.contentMode=UIViewContentMode.ScaleAspectFit
-        albumBtn.addTarget(self, action: Selector("openAlbum"), forControlEvents: UIControlEvents.TouchUpInside)
+        albumBtn.addTarget(self, action: #selector(QRCodeScanViewController.openAlbum), forControlEvents: UIControlEvents.TouchUpInside)
         self.view.addSubview(albumBtn)
         
         //3.闪光灯
@@ -148,13 +148,13 @@ class QRCodeScanViewController: UIViewController, AVCaptureMetadataOutputObjects
         flashBtn.frame = CGRectMake(self.view.bounds.width - 55, 20, 35, 49)
         flashBtn.setBackgroundImage(UIImage(named: "qrcode_scan_btn_flash_down"), forState: UIControlState.Normal)
         flashBtn.contentMode=UIViewContentMode.ScaleAspectFit
-        flashBtn.addTarget(self, action: Selector("openFlash:"), forControlEvents: UIControlEvents.TouchUpInside)
+        flashBtn.addTarget(self, action: #selector(QRCodeScanViewController.openFlash(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.view.addSubview(flashBtn)
         
         
     }
     
-    func dismiss() {
+    func backBtnAction() {
         self.navigationController?.popViewControllerAnimated(true)
     }
     

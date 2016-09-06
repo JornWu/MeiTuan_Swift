@@ -57,8 +57,8 @@ class CityListViewController: BaseViewController,UITableViewDataSource,UITableVi
     {
         let tempAr = NSMutableArray(array: aArray)
         var tem:String
-        for var i = 0; i < tempAr.count - 1; i++ {
-            for var j = 0; j < tempAr.count - 1 - i; j++ {
+        for i in 0 ..< tempAr.count - 1 {
+            for j in 0 ..< tempAr.count - 1 - i {
                 if tempAr[i].compare(tempAr[j] as! String) == NSComparisonResult.OrderedAscending {
                     tem = tempAr.objectAtIndex(i) as! String
                     tempAr.replaceObjectAtIndex(i, withObject: aArray[j])
@@ -71,7 +71,7 @@ class CityListViewController: BaseViewController,UITableViewDataSource,UITableVi
     
     func creatHotCityItem(){
         
-        for var i = 0; i < hotCityAr.count; i++ {
+        for i in 0 ..< hotCityAr.count {
             let spa = CGFloat(10.0) //间距
             let colNum = CGFloat(3.0) //列数
             let col = CGFloat(i) % colNum //所在的列
@@ -80,7 +80,7 @@ class CityListViewController: BaseViewController,UITableViewDataSource,UITableVi
             let btnH = CGFloat(30) //button height
             let btn = UIButton(frame: CGRectMake((spa + btnW) * col + spa, (spa + btnH) * CGFloat(row) + spa, btnW, btnH))
             btn.tag = 1000 + i
-            btn.addTarget(self, action: Selector("hotCityBtnAction:"), forControlEvents: UIControlEvents.TouchUpInside)
+            btn.addTarget(self, action: #selector(CityListViewController.hotCityBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
             btn.backgroundColor = UIColor(red: 33.0 / 255.0, green: 192.0 / 255.0, blue: 174.0 / 255.0, alpha: 1)
             btn.titleLabel?.font = UIFont.systemFontOfSize(13)
             btn.setTitle(hotCityAr[i], forState: UIControlState.Normal)
@@ -169,7 +169,7 @@ class CityListViewController: BaseViewController,UITableViewDataSource,UITableVi
     
     func sectionIndexTitlesForTableView(tableView: UITableView) -> [String]? {
         var titleAr = ["热"]
-        for var i = 0; i < keyAr.count; i++ {
+        for i in 0 ..< keyAr.count {
             titleAr.append(keyAr[i] as! String)
         }
         return titleAr

@@ -30,7 +30,7 @@ class MenuView: UIView, UIScrollViewDelegate {
         
         let pathStr = NSBundle.mainBundle().pathForResource("menuData", ofType: "plist")
         let ar = NSArray(contentsOfFile: pathStr!)
-        for var i = 0; i < ar!.count; i++ {
+        for i in 0 ..< ar!.count {
             let titilStr = ar![i]["title"] as! String
             titilAr.append(titilStr)
             let imageName = ar![i]["image"] as! String
@@ -58,7 +58,7 @@ class MenuView: UIView, UIScrollViewDelegate {
         ///first page
         var firstTitleAr = [String]()
         var firstImageAr = [UIImage]()
-        for var i = 0; i < 8; i++ {
+        for i in 0 ..< 8 {
             firstTitleAr.append(titilAr[i])
             firstImageAr.append(imageAr[i])
         }
@@ -72,7 +72,7 @@ class MenuView: UIView, UIScrollViewDelegate {
             titleFont: UIFont.systemFontOfSize(11),
             addtag: true,
             target: self,
-            action: Selector("menuItemAction:"),
+            action: #selector(MenuView.menuItemAction(_:)),
             forControlEvents: UIControlEvents.TouchUpInside,
             backgroundColor: nil,
             imageForNomals: firstImageAr,
@@ -84,7 +84,7 @@ class MenuView: UIView, UIScrollViewDelegate {
         ///second page
         var secondTitleAr = [String]()
         var secondImageAr = [UIImage]()
-        for var i = 8; i < titilAr.count; i++ {
+        for i in 8 ..< titilAr.count {
             secondTitleAr.append(titilAr[i])
             secondImageAr.append(imageAr[i])
         }
@@ -99,7 +99,7 @@ class MenuView: UIView, UIScrollViewDelegate {
             titleFont: UIFont.systemFontOfSize(11),
             addtag: true,
             target: self,
-            action: Selector("menuItemAction:"),
+            action: #selector(MenuView.menuItemAction(_:)),
             forControlEvents: UIControlEvents.TouchUpInside,
             backgroundColor: nil,
             imageForNomals: secondImageAr,
