@@ -193,7 +193,9 @@ class HomeViewController: BaseViewController, AddressViewDelegate, UITableViewDa
             (task: NSURLSessionDataTask, responseObject: AnyObject?) in
             //print("----获取数据成功----",responseObject)//responseObject 已经是一个字典对象了
             
-            self.rushShoppingModel(responseObject as! NSDictionary)
+            dispatch_async(dispatch_get_main_queue(), {///放到主线程中刷新UI
+                self.rushShoppingModel(responseObject as! NSDictionary)
+            })
             
             }, failure: {(task: NSURLSessionDataTask?, responseObject: AnyObject)in
             print("----获取数据失败----",responseObject)
@@ -285,7 +287,10 @@ class HomeViewController: BaseViewController, AddressViewDelegate, UITableViewDa
             [unowned self]//捕获列表，避免循环引用
             (task, responseObject) in
             //print("----获取数据成功----",responseObject)//responseObject 已经是一个字典对象了
-            self.activityModelWith(responseObject as! NSDictionary)
+            
+            dispatch_async(dispatch_get_main_queue(), {///放到主线程中刷新UI
+                self.activityModelWith(responseObject as! NSDictionary)
+            })
             
             }, failure: {(task, error)in
                 print("----获取数据失败----",error.localizedDescription)
@@ -431,7 +436,9 @@ class HomeViewController: BaseViewController, AddressViewDelegate, UITableViewDa
             (task, responseObject) -> Void in
             //print("----获取数据成功----",responseObject)
             
-            self.recommentModelWith(responseObject as! NSDictionary)
+            dispatch_async(dispatch_get_main_queue(), {///放到主线程中刷新UI
+                self.recommentModelWith(responseObject as! NSDictionary)
+            })
             
         }) { (task, error) -> Void in
                 print("----获取数据失败----",error.localizedDescription)

@@ -12,8 +12,8 @@ import AFNetworking
 
 struct NetworkeProcessor {
     
+    ///GET,AFNetworking
     static func GET(URLString: NSString, parameters: AnyObject?, progress: ((progress: NSProgress) -> Void)?, success:(task: NSURLSessionDataTask, responseObject: AnyObject?) -> Void, failure: (task: NSURLSessionDataTask?, error: NSError) -> Void) {
-        
         
         ///ios 9.0 之前
         //let URLStr = URLString.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)//解码，可能包含中文等
@@ -23,25 +23,7 @@ struct NetworkeProcessor {
         ///NSURLSessionConfiguration
         let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
         
-//        ///AFURLSessionManager   ------(way one)------
-//        let manager = AFURLSessionManager(sessionConfiguration: configuration)
-//        ///NSURL
-//        let Url = NSURL(string: URLStr)
-//        ///NSURLRequet
-//        let request = NSURLRequest(URL: Url!)
-//        
-//        ///NSURLSessionDataTask
-//        
-//        let dataTask = manager.dataTaskWithRequest(request, completionHandler: { (response: NSURLResponse, responseObject: AnyObject?, error: NSError?) -> Void in
-//            if ((error) != nil) {
-//                print(error)
-//            } else {
-//                print(response, responseObject)
-//            }
-//        })
-        
-        
-        ///AFHTTPSessionManager  ------(way two)------
+        ///AFHTTPSessionManager
         let httpsManager = AFHTTPSessionManager(sessionConfiguration: configuration)
         
         let security = AFSecurityPolicy.defaultPolicy()
@@ -50,32 +32,12 @@ struct NetworkeProcessor {
         httpsManager.securityPolicy = security
         
         let dataTask = httpsManager.GET(URLString as String, parameters: parameters, progress: progress, success: success, failure: failure)//可以监视进度
-        
-        
-        
-        //******************** deprecated ********************//
-        
-        ///------------分装在内部处理-----------
-//        let dataTask = httpManager.GET(URLString, parameters: parameters, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) -> Void in
-//            
-//                if responseObject != nil {
-//                    
-//                    print("==========获取的数据==========\n", responseObject!)
-//                    
-//                }else {
-//                    print("-------没有数据！ NO DATA！-------")
-//                }
-//            
-//            }) { (task: NSURLSessionDataTask?, error: NSError) -> Void in
-//                print(error)
-//        }
 
         dataTask!.resume()
         
     }
     
-    //////////////////////////
-    
+    ///POST,非AFNetworking
     static func dataWith(URLString: NSString, parameters: AnyObject?, completionHandler hander: (NSData?, NSURLResponse?, NSError?) -> Void) {
         
         let URLStr = URLString.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!//编码
@@ -97,6 +59,22 @@ struct NetworkeProcessor {
         
         dataTask.resume()
     }
+    
+    
+    
+    
+    /*
+     系统同时提供了几种并发队列。这些队列和它们自身的QoS等级相关。QoS等级表示了提交任务的意图，使得GCD可以决定如何制定优先级。
+     
+     QOS_CLASS_USER_INTERACTIVE： user interactive 等级表示任务需要被立即执行以提供好的用户体验。使用它来更新UI，
+     响应事件以及需要低延时的小工作量任务。这个等级的工作总量应该保持较小规模。
+     QOS_CLASS_USER_INITIATED：   user initiated 等级表示任务由UI发起并且可以异步执行。它应该用在用户需要即时
+     的结果同时又要求可以继续交互的任务。
+     QOS_CLASS_UTILITY：         utility 等级表示需要长时间运行的任务，常常伴随有用户可见的进度指示器。
+     使用它来做计算，I/O，网络，持续的数据填充等任务。这个等级被设计成节能的。
+     QOS_CLASS_BACKGROUND：       background 等级表示那些用户不会察觉的任务。使用它来执行预加载，
+     维护或是其它不需用户交互和对时间不敏感的任务。
+     */
     
     ///封装的子线程异步加载网络数据方法
     static func loadNetworkeDate(withTarget target: UIViewController, URLString: String, result: (dictionary: NSDictionary) -> Void) {

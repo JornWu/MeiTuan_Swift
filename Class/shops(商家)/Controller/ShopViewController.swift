@@ -276,41 +276,13 @@ class ShopViewController:BaseViewController,
     ///商家分类列表数据
     func loadShopCateListData() {
         let URLString = UrlStrType.CateList.getUrlString()
-        
-        ///加载数据很耗时，放到子线程中
-        dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0)) { () -> Void in
-            NetworkeProcessor.GET(URLString, parameters: nil, progress:
-                {
-                    [unowned self]
-                    (progress: NSProgress) in
-                    
-                    let activityView = UIActivityIndicatorView(frame: CGRectMake(SCREENWIDTH/2-15, SCREENHEIGHT/2-15, 30, 30))
-                    activityView.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
-                    activityView.hidesWhenStopped = true
-                    activityView.startAnimating()///转动
-                    self.view.addSubview(activityView)
-                    self.view.bringSubviewToFront(activityView)
-                    
-                    if progress.fractionCompleted == 1 {//下载完成
-                        activityView.stopAnimating()///停止
-                    }
-                }, success: {
-                    
-                [unowned self]//捕获列表，避免循环引用
-                (task: NSURLSessionDataTask, responseObject: AnyObject?) in
-                //print("----获取数据成功----",responseObject)//responseObject 已经是一个字典对象了
-                
-                ///返回主线程刷新UI
-                dispatch_async(dispatch_get_main_queue(), {
-                    [unowned self]
-                    () -> Void in
-                    self.shopCateListModel(withDictionary: responseObject as! NSDictionary)
-                })
-                
-                }, failure: {(task: NSURLSessionDataTask?, responseObject: AnyObject)in
-                    print("----获取数据失败----",responseObject)
-            })
+        ///封装的方法
+        NetworkeProcessor.loadNetworkeDate(withTarget: self, URLString: URLString) {
+            [unowned self]
+            (dictionary) in
+            self.shopCateListModel(withDictionary: dictionary)
         }
+        
     }
     
     func shopCateListModel(withDictionary dictionary: NSDictionary) {
@@ -371,39 +343,47 @@ QOS_CLASS_BACKGROUND：       background 等级表示那些用户不会察觉的
 */
     func loadCurrenAddressData() {
         let URLString = UrlStrType.Address.getUrlString()
+     
+        ///未封装方法
+//        ///加载数据很耗时，放到子线程中
+//        dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0)) { () -> Void in
+//            NetworkeProcessor.GET(URLString, parameters: nil, progress: {
+//                [unowned self]
+//                (progress: NSProgress) in
+//                
+//                let activityView = UIActivityIndicatorView(frame: CGRectMake(SCREENWIDTH / 2 - 15, SCREENHEIGHT / 2 - 15, 30, 30))
+//                activityView.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
+//                activityView.hidesWhenStopped = true
+//                activityView.startAnimating()///转动
+//                self.view.addSubview(activityView)
+//                self.view.bringSubviewToFront(activityView)
+//                
+//                if progress.fractionCompleted == 1 {//下载完成
+//                    activityView.stopAnimating()///停止
+//                }
+//                
+//                }, success: {
+//                    [unowned self]//捕获列表，避免循环引用
+//                    (task: NSURLSessionDataTask, responseObject: AnyObject?) in
+//                    //print("----获取数据成功----",responseObject)//responseObject 已经是一个字典对象了
+//                    
+//                    ///返回主线程刷新UI
+//                    dispatch_async(dispatch_get_main_queue(), {
+//                        [unowned self]
+//                        () -> Void in
+//                        self.currentAddressModel(withDictionary: responseObject as! NSDictionary)
+//                    })
+//                    
+//                }, failure: {(task: NSURLSessionDataTask?, responseObject: AnyObject)in
+//                    print("----获取数据失败----",responseObject)
+//            })
+//        }
         
-        ///加载数据很耗时，放到子线程中
-        dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0)) { () -> Void in
-            NetworkeProcessor.GET(URLString, parameters: nil, progress: {
-                [unowned self]
-                (progress: NSProgress) in
-                
-                let activityView = UIActivityIndicatorView(frame: CGRectMake(SCREENWIDTH / 2 - 15, SCREENHEIGHT / 2 - 15, 30, 30))
-                activityView.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
-                activityView.hidesWhenStopped = true
-                activityView.startAnimating()///转动
-                self.view.addSubview(activityView)
-                self.view.bringSubviewToFront(activityView)
-                
-                if progress.fractionCompleted == 1 {//下载完成
-                    activityView.stopAnimating()///停止
-                }
-                
-                }, success: {
-                    [unowned self]//捕获列表，避免循环引用
-                    (task: NSURLSessionDataTask, responseObject: AnyObject?) in
-                    //print("----获取数据成功----",responseObject)//responseObject 已经是一个字典对象了
-                    
-                    ///返回主线程刷新UI
-                    dispatch_async(dispatch_get_main_queue(), {
-                        [unowned self]
-                        () -> Void in
-                        self.currentAddressModel(withDictionary: responseObject as! NSDictionary)
-                    })
-                    
-                }, failure: {(task: NSURLSessionDataTask?, responseObject: AnyObject)in
-                    print("----获取数据失败----",responseObject)
-            })
+        ///封装的方法
+        NetworkeProcessor.loadNetworkeDate(withTarget: self, URLString: URLString) {
+            [unowned self]
+            (dictionary) in
+            self.currentAddressModel(withDictionary: dictionary)
         }
 
     }
@@ -450,38 +430,11 @@ QOS_CLASS_BACKGROUND：       background 等级表示那些用户不会察觉的
     ///商家列表数据
     func loadShopListData(withKindId kId: Int64) {
         let URLString = UrlStrType.urlStringWithMerchantStr(kId, offset: 10)
-        
-        ///加载数据很耗时，放到子线程中
-        dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0)) { () -> Void in
-            NetworkeProcessor.GET(URLString, parameters: nil, progress: {
-                [unowned self]
-                (progress: NSProgress) in
-                
-                let activityView = UIActivityIndicatorView(frame: CGRectMake(SCREENWIDTH/2-15, SCREENHEIGHT/2-15, 30, 30))
-                activityView.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
-                activityView.hidesWhenStopped = true
-                activityView.startAnimating()///转动
-                self.view.addSubview(activityView)
-                self.view.bringSubviewToFront(activityView)
-                
-                if progress.fractionCompleted == 1 {//下载完成
-                    activityView.stopAnimating()///停止
-                }
-                
-                }, success: {
-                    
-                [unowned self]//捕获列表，避免循环引用
-                (task: NSURLSessionDataTask, responseObject: AnyObject?) in
-                //print("----获取数据成功----",responseObject)//responseObject 已经是一个字典对象了
-                
-                ///返回主线程刷新UI
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    self.shopListModel(withDictionary: responseObject as! NSDictionary)
-                })
-                
-                }, failure: {(task: NSURLSessionDataTask?, responseObject: AnyObject)in
-                    print("----获取数据失败----",responseObject)
-            })
+        ///封装的方法
+        NetworkeProcessor.loadNetworkeDate(withTarget: self, URLString: URLString) {
+            [unowned self]
+            (dictionary) in
+            self.shopListModel(withDictionary: dictionary)
         }
 
     }

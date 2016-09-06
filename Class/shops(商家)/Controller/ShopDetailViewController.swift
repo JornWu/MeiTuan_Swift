@@ -128,40 +128,13 @@ class ShopDetailViewController: BaseViewController, UITableViewDataSource, UITab
     }
     
     
-    ///可以直接使用封装的方法
     func loadAroundGroupPurchaseData() {
-        let URLString = UrlStrType.urlStringWithMerchantAroundGroupPurchaseData(dataModel.poiid)
-        ///加载数据很耗时，放到子线程中
-        dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0)) { () -> Void in
-            NetworkeProcessor.GET(URLString, parameters: nil, progress: {
-                [unowned self]
-                (progress: NSProgress) in
-                
-                let activityView = UIActivityIndicatorView(frame: CGRectMake(SCREENWIDTH/2-15, SCREENHEIGHT/2-15, 30, 30))
-                activityView.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
-                activityView.hidesWhenStopped = true
-                activityView.startAnimating()///转动
-                self.view.addSubview(activityView)
-                self.view.bringSubviewToFront(activityView)
-                
-                if progress.fractionCompleted == 1 {//下载完成
-                    activityView.stopAnimating()///停止
-                }
-                
-                }, success: {
-                    
-                    [unowned self]//捕获列表，避免循环引用
-                    (task: NSURLSessionDataTask, responseObject: AnyObject?) in
-                    //print("----获取数据成功----",responseObject)//responseObject 已经是一个字典对象了
-                    
-                    ///返回主线程刷新UI
-                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                        self.aroundGroupPurchaseModel(withDictionary: responseObject as! NSDictionary)
-                    })
-                    
-                }, failure: {(task: NSURLSessionDataTask?, responseObject: AnyObject)in
-                    print("----获取数据失败----",responseObject)
-            })
+        let URLString = UrlStrType.urlStringWithMerchantAroundGroupPurchaseData(dataModel.poiid)        
+        ///封装的方法
+        NetworkeProcessor.loadNetworkeDate(withTarget: self, URLString: URLString) {
+            [unowned self]
+            (dictionary) in
+            self.aroundGroupPurchaseModel(withDictionary: dictionary)
         }
     }
     

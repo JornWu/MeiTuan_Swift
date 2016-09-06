@@ -62,16 +62,23 @@ class HotelViewController: BaseViewController, UITableViewDataSource, UITableVie
         
         let URLString = UrlStrType.urlStringWithOtherRecommendShop("\(dataModel.mId)")
         
-        NetworkeProcessor.GET(URLString, parameters: nil, progress: nil, success: {
-            [unowned self]//捕获列表，避免循环引用
-            (task, responseObject) -> Void in
-            //print("----获取数据成功----",responseObject)
-            
-            self.hotelModelWith(responseObject as! NSDictionary)
-            
-            }) { (task, error) -> Void in
-                print("----获取数据失败----",error.localizedDescription)
-                
+//        NetworkeProcessor.GET(URLString, parameters: nil, progress: nil, success: {
+//            [unowned self]//捕获列表，避免循环引用
+//            (task, responseObject) -> Void in
+//            //print("----获取数据成功----",responseObject)
+//            
+//            self.hotelModelWith(responseObject as! NSDictionary)
+//            
+//            }) { (task, error) -> Void in
+//                print("----获取数据失败----",error.localizedDescription)
+//                
+//        }
+        
+        ///封装的方法
+        NetworkeProcessor.loadNetworkeDate(withTarget: self, URLString: URLString) {
+            [unowned self]
+            (dictionary) in
+            self.hotelModelWith(dictionary)
         }
         
     }
