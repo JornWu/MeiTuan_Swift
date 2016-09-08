@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		0AD5F6471D73C84E000F3042 /* ShopDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD5F6461D73C84E000F3042 /* ShopDetailViewController.swift */; };
+		0AEF8B671D81405800C71409 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AEF8B661D81405800C71409 /* MapViewController.swift */; };
+		0AEF8B691D81566900C71409 /* AroundMerchantAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AEF8B681D81566900C71409 /* AroundMerchantAnnotationView.swift */; };
 		43227D571D63505B00C86760 /* AttrJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43227D4F1D63505B00C86760 /* AttrJson.swift */; };
 		43227D581D63505B00C86760 /* Campaign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43227D501D63505B00C86760 /* Campaign.swift */; };
 		43227D591D63505B00C86760 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43227D511D63505B00C86760 /* Data.swift */; };
@@ -1460,6 +1462,8 @@
 
 /* Begin PBXFileReference section */
 		0AD5F6461D73C84E000F3042 /* ShopDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShopDetailViewController.swift; sourceTree = "<group>"; };
+		0AEF8B661D81405800C71409 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		0AEF8B681D81566900C71409 /* AroundMerchantAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AroundMerchantAnnotationView.swift; sourceTree = "<group>"; };
 		43227D4F1D63505B00C86760 /* AttrJson.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttrJson.swift; sourceTree = "<group>"; };
 		43227D501D63505B00C86760 /* Campaign.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Campaign.swift; sourceTree = "<group>"; };
 		43227D511D63505B00C86760 /* Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
@@ -5089,6 +5093,8 @@
 				436A7F9B1D58D4050007F956 /* RootTabBarController.swift */,
 				43EF76421D6DE74C005C36AD /* H5ViewController.swift */,
 				43EF767B1D7DB56B005C36AD /* StarView.swift */,
+				0AEF8B661D81405800C71409 /* MapViewController.swift */,
+				0AEF8B681D81566900C71409 /* AroundMerchantAnnotationView.swift */,
 			);
 			name = MainFile;
 			sourceTree = "<group>";
@@ -6765,6 +6771,7 @@
 				434827AD1D7ED11B00018C99 /* HotelPriceCell.swift in Sources */,
 				436A7FD41D5F80A80007F956 /*  ConstantFile.swift in Sources */,
 				43EF767A1D7D5E2A005C36AD /* AGP_Tag.swift in Sources */,
+				0AEF8B691D81566900C71409 /* AroundMerchantAnnotationView.swift in Sources */,
 				43EF76651D71CF33005C36AD /* CA_Data.swift in Sources */,
 				43EF763D1D6DDE46005C36AD /* SC_ShopCateListModel.swift in Sources */,
 				43227D5B1D63505B00C86760 /* Paging.swift in Sources */,
@@ -6810,6 +6817,7 @@
 				43EF76571D71AE8C005C36AD /* SP_Ktv.swift in Sources */,
 				43227D581D63505B00C86760 /* Campaign.swift in Sources */,
 				43EF765B1D71AE8C005C36AD /* SP_ShopModel.swift in Sources */,
+				0AEF8B671D81405800C71409 /* MapViewController.swift in Sources */,
 				436A7FA21D58DCB20007F956 /* ShopViewController.swift in Sources */,
 				43C2D8851D6073E500E1C7CE /* MineTableViewCellModel.swift in Sources */,
 				43EF76561D71AE8C005C36AD /* SP_Extra.swift in Sources */,

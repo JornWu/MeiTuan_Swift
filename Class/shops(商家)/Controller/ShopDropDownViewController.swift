@@ -18,7 +18,7 @@
 import UIKit
 
 @objc protocol ShopDropDownViewControllerDelegate: NSObjectProtocol {
-    func didChoosedFilterType(kindId: Int)//选择了过滤的类型
+    func didChoosedFilterType(kindId: Int, kindName: String)//选择了过滤的类型
     func didChoosedSortType()//选择了排序的类型
     func didRevertDropDownViewState()//恢复下拉视图的状态
 }
@@ -138,9 +138,9 @@ class ShopDropDownViewController: BaseViewController, UITableViewDataSource, UIT
         if tableView.tag == 301 {
             if indexPath.row == 0 {///全部
                 //让代理执行过滤
-                if self.delegate?.respondsToSelector(#selector(ShopDropDownViewControllerDelegate.didChoosedFilterType(_:))) != nil {
+                if self.delegate?.respondsToSelector(#selector(ShopDropDownViewControllerDelegate.didChoosedFilterType(_: kindName:))) != nil {
                     
-                    self.delegate?.didChoosedFilterType(shopCateListModel.data[0].mId)
+                    self.delegate?.didChoosedFilterType(shopCateListModel.data[0].mId, kindName: shopCateListModel.data[0].name)
                 }
                 cell?.textLabel?.textColor = THEMECOLOR
                 selectedTypeIndex = indexPath.row
@@ -153,11 +153,11 @@ class ShopDropDownViewController: BaseViewController, UITableViewDataSource, UIT
             }
         }else if tableView.tag == 302 {
             //让代理执行过滤
-            if self.delegate?.respondsToSelector(#selector(ShopDropDownViewControllerDelegate.didChoosedFilterType(_:))) != nil {
+            if self.delegate?.respondsToSelector(#selector(ShopDropDownViewControllerDelegate.didChoosedFilterType(_: kindName:))) != nil {
                 if shopCateListModel.data[selectedTypeIndex].list != nil {
-                    self.delegate?.didChoosedFilterType(shopCateListModel.data[selectedTypeIndex].list[indexPath.row].mId)
+                    self.delegate?.didChoosedFilterType(shopCateListModel.data[selectedTypeIndex].list[indexPath.row].mId, kindName: shopCateListModel.data[selectedTypeIndex].list[indexPath.row].name)
                 }else {
-                    self.delegate?.didChoosedFilterType(shopCateListModel.data[selectedTypeIndex].mId)
+                    self.delegate?.didChoosedFilterType(shopCateListModel.data[selectedTypeIndex].mId, kindName: shopCateListModel.data[selectedTypeIndex].name)
                 }
             }
             revertDropDownView()///恢复拉视图

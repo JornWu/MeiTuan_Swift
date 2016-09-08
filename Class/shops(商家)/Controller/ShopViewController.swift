@@ -33,8 +33,9 @@ class ShopViewController:BaseViewController,
     private var itemAr = [UIButton]()///用来存储所有选择按钮
     private var currentSelectedItem: UIButton!
     
-    private var shopListModel: SP_ShopModel!
+    private var shopListModel: SP_ShopModel!///商家列表数据
     private var kindId: Int64!
+    private var kindName: String!
     private var shopTableView: UITableView!
     
     private var currentAddressModel: CA_CurrentAddressModel?
@@ -199,7 +200,15 @@ class ShopViewController:BaseViewController,
     
     
     func openMapView(btn: UIButton) {
-        print("open map View")
+        
+        let mapVC = MapViewController()
+        mapVC.kindName = self.kindName
+        mapVC.kindId = self.kindId
+        
+        self.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(mapVC, animated: true)
+        self.hidesBottomBarWhenPushed = false
+        
     }
     
     func openSearchView(btn: UIButton){
@@ -307,8 +316,9 @@ class ShopViewController:BaseViewController,
     }
     
     ///ShopDropDownViewDelegate
-    func didChoosedFilterType(kindId: Int) {
+    func didChoosedFilterType(kindId: Int, kindName: String) {
         self.kindId = Int64(kindId)
+        self.kindName = kindName
         self.loadShopListData(withKindId: self.kindId)///重新加载数据
     }
     

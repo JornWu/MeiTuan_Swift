@@ -143,9 +143,11 @@ class HomeViewController: BaseViewController, AddressViewDelegate, UITableViewDa
  **
  */
     func mapButtonItemAction(btn: UIButton) {
-        //btn.selected = !btn.selected
-        print("-----------open map-----------")
         
+//        self.hidesBottomBarWhenPushed = true
+//        let mapVC = MapViewController()
+//        self.navigationController?.pushViewController(mapVC, animated: true)
+//        self.hidesBottomBarWhenPushed = false
     }
 /****************************************************************************************************/
 /**
