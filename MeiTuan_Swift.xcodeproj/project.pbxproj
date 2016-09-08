@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		0AD5F6471D73C84E000F3042 /* ShopDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD5F6461D73C84E000F3042 /* ShopDetailViewController.swift */; };
-		0AEF8B671D81405800C71409 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AEF8B661D81405800C71409 /* MapViewController.swift */; };
-		0AEF8B691D81566900C71409 /* AroundMerchantAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AEF8B681D81566900C71409 /* AroundMerchantAnnotationView.swift */; };
 		43227D571D63505B00C86760 /* AttrJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43227D4F1D63505B00C86760 /* AttrJson.swift */; };
 		43227D581D63505B00C86760 /* Campaign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43227D501D63505B00C86760 /* Campaign.swift */; };
 		43227D591D63505B00C86760 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43227D511D63505B00C86760 /* Data.swift */; };
@@ -29,6 +27,16 @@
 		43227D721D64CECB00C86760 /* URLStringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43227D711D64CECB00C86760 /* URLStringExtension.swift */; };
 		434827AD1D7ED11B00018C99 /* HotelPriceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434827AB1D7ED11B00018C99 /* HotelPriceCell.swift */; };
 		434827AE1D7ED11B00018C99 /* HotelPriceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 434827AC1D7ED11B00018C99 /* HotelPriceCell.xib */; };
+		434827B41D818AEB00018C99 /* MerchantAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434827B31D818AEB00018C99 /* MerchantAnnotation.swift */; };
+		434827BD1D819F2F00018C99 /* AM_AroundMerchantModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434827B61D819F2F00018C99 /* AM_AroundMerchantModel.swift */; };
+		434827BE1D819F2F00018C99 /* AM_AttrJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434827B71D819F2F00018C99 /* AM_AttrJson.swift */; };
+		434827BF1D819F2F00018C99 /* AM_Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434827B81D819F2F00018C99 /* AM_Data.swift */; };
+		434827C01D819F2F00018C99 /* AM_Paging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434827B91D819F2F00018C99 /* AM_Paging.swift */; };
+		434827C11D819F2F00018C99 /* AM_Rdploc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434827BA1D819F2F00018C99 /* AM_Rdploc.swift */; };
+		434827C21D819F2F00018C99 /* AM_Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434827BB1D819F2F00018C99 /* AM_Server.swift */; };
+		434827C31D819F2F00018C99 /* AM_Stid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434827BC1D819F2F00018C99 /* AM_Stid.swift */; };
+		434827C61D81D44600018C99 /* AroundMerchantAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434827C51D81D44600018C99 /* AroundMerchantAnnotationView.swift */; };
+		434827C81D81D45100018C99 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434827C71D81D45100018C99 /* MapViewController.swift */; };
 		436A74901D58CA820007F956 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436A748F1D58CA820007F956 /* AppDelegate.swift */; };
 		436A74971D58CA820007F956 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 436A74961D58CA820007F956 /* Assets.xcassets */; };
 		436A749A1D58CA820007F956 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 436A74981D58CA820007F956 /* LaunchScreen.storyboard */; };
@@ -1462,8 +1470,6 @@
 
 /* Begin PBXFileReference section */
 		0AD5F6461D73C84E000F3042 /* ShopDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShopDetailViewController.swift; sourceTree = "<group>"; };
-		0AEF8B661D81405800C71409 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
-		0AEF8B681D81566900C71409 /* AroundMerchantAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AroundMerchantAnnotationView.swift; sourceTree = "<group>"; };
 		43227D4F1D63505B00C86760 /* AttrJson.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttrJson.swift; sourceTree = "<group>"; };
 		43227D501D63505B00C86760 /* Campaign.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Campaign.swift; sourceTree = "<group>"; };
 		43227D511D63505B00C86760 /* Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
@@ -1483,6 +1489,16 @@
 		43227D711D64CECB00C86760 /* URLStringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLStringExtension.swift; sourceTree = "<group>"; };
 		434827AB1D7ED11B00018C99 /* HotelPriceCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HotelPriceCell.swift; sourceTree = "<group>"; };
 		434827AC1D7ED11B00018C99 /* HotelPriceCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HotelPriceCell.xib; sourceTree = "<group>"; };
+		434827B31D818AEB00018C99 /* MerchantAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MerchantAnnotation.swift; path = ../Model/MerchantAnnotation.swift; sourceTree = "<group>"; };
+		434827B61D819F2F00018C99 /* AM_AroundMerchantModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AM_AroundMerchantModel.swift; sourceTree = "<group>"; };
+		434827B71D819F2F00018C99 /* AM_AttrJson.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AM_AttrJson.swift; sourceTree = "<group>"; };
+		434827B81D819F2F00018C99 /* AM_Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AM_Data.swift; sourceTree = "<group>"; };
+		434827B91D819F2F00018C99 /* AM_Paging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AM_Paging.swift; sourceTree = "<group>"; };
+		434827BA1D819F2F00018C99 /* AM_Rdploc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AM_Rdploc.swift; sourceTree = "<group>"; };
+		434827BB1D819F2F00018C99 /* AM_Server.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AM_Server.swift; sourceTree = "<group>"; };
+		434827BC1D819F2F00018C99 /* AM_Stid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AM_Stid.swift; sourceTree = "<group>"; };
+		434827C51D81D44600018C99 /* AroundMerchantAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AroundMerchantAnnotationView.swift; path = "Class/shops(商家)/View/AroundMerchantAnnotationView.swift"; sourceTree = SOURCE_ROOT; };
+		434827C71D81D45100018C99 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		436A748C1D58CA820007F956 /* MeiTuan_Swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MeiTuan_Swift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		436A748F1D58CA820007F956 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = ../MeiTuan_Swift/AppDelegate.swift; sourceTree = "<group>"; };
 		436A74961D58CA820007F956 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -2968,6 +2984,32 @@
 			path = BaiduMap_IOSSDK_v3;
 			sourceTree = "<group>";
 		};
+		434827B51D819F2F00018C99 /* AroundMerchantModel */ = {
+			isa = PBXGroup;
+			children = (
+				434827B61D819F2F00018C99 /* AM_AroundMerchantModel.swift */,
+				434827B71D819F2F00018C99 /* AM_AttrJson.swift */,
+				434827B81D819F2F00018C99 /* AM_Data.swift */,
+				434827B91D819F2F00018C99 /* AM_Paging.swift */,
+				434827BA1D819F2F00018C99 /* AM_Rdploc.swift */,
+				434827BB1D819F2F00018C99 /* AM_Server.swift */,
+				434827BC1D819F2F00018C99 /* AM_Stid.swift */,
+			);
+			name = AroundMerchantModel;
+			path = ../Model/AroundMerchantModel;
+			sourceTree = "<group>";
+		};
+		434827C41D81D39500018C99 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				434827C71D81D45100018C99 /* MapViewController.swift */,
+				434827C51D81D44600018C99 /* AroundMerchantAnnotationView.swift */,
+				434827B31D818AEB00018C99 /* MerchantAnnotation.swift */,
+				434827B51D819F2F00018C99 /* AroundMerchantModel */,
+			);
+			name = Map;
+			sourceTree = "<group>";
+		};
 		436A74831D58CA820007F956 = {
 			isa = PBXGroup;
 			children = (
@@ -3207,6 +3249,7 @@
 				43EF763E1D6DDE5C005C36AD /* SearchViewController.swift */,
 				43EF76461D71AE80005C36AD /* ShopDropDownViewController.swift */,
 				0AD5F6461D73C84E000F3042 /* ShopDetailViewController.swift */,
+				434827C41D81D39500018C99 /* Map */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -5093,8 +5136,6 @@
 				436A7F9B1D58D4050007F956 /* RootTabBarController.swift */,
 				43EF76421D6DE74C005C36AD /* H5ViewController.swift */,
 				43EF767B1D7DB56B005C36AD /* StarView.swift */,
-				0AEF8B661D81405800C71409 /* MapViewController.swift */,
-				0AEF8B681D81566900C71409 /* AroundMerchantAnnotationView.swift */,
 			);
 			name = MainFile;
 			sourceTree = "<group>";
@@ -6752,6 +6793,7 @@
 			files = (
 				43EF76311D6882ED005C36AD /* HD_Data.swift in Sources */,
 				43EF76161D6608FB005C36AD /* RE_Optionalattr.swift in Sources */,
+				434827C61D81D44600018C99 /* AroundMerchantAnnotationView.swift in Sources */,
 				43EF76751D7D5E2A005C36AD /* AGP_Data.swift in Sources */,
 				43EF76731D7D5E2A005C36AD /* AGP_Campaign.swift in Sources */,
 				43C2D87C1D6060C900E1C7CE /* HeaderViewVC.swift in Sources */,
@@ -6771,7 +6813,8 @@
 				434827AD1D7ED11B00018C99 /* HotelPriceCell.swift in Sources */,
 				436A7FD41D5F80A80007F956 /*  ConstantFile.swift in Sources */,
 				43EF767A1D7D5E2A005C36AD /* AGP_Tag.swift in Sources */,
-				0AEF8B691D81566900C71409 /* AroundMerchantAnnotationView.swift in Sources */,
+				434827B41D818AEB00018C99 /* MerchantAnnotation.swift in Sources */,
+				434827BF1D819F2F00018C99 /* AM_Data.swift in Sources */,
 				43EF76651D71CF33005C36AD /* CA_Data.swift in Sources */,
 				43EF763D1D6DDE46005C36AD /* SC_ShopCateListModel.swift in Sources */,
 				43227D5B1D63505B00C86760 /* Paging.swift in Sources */,
@@ -6779,9 +6822,12 @@
 				43EF76171D6608FB005C36AD /* RE_Paging.swift in Sources */,
 				436A7F881D58CDE80007F956 /* BaseViewController.swift in Sources */,
 				43EF76591D71AE8C005C36AD /* SP_PayInfo.swift in Sources */,
+				434827C31D819F2F00018C99 /* AM_Stid.swift in Sources */,
 				43227D5D1D63505B00C86760 /* Server.swift in Sources */,
 				43EF76531D71AE8C005C36AD /* SP_Abstract.swift in Sources */,
+				434827C01D819F2F00018C99 /* AM_Paging.swift in Sources */,
 				43EF76431D6DE74C005C36AD /* H5ViewController.swift in Sources */,
+				434827C81D81D45100018C99 /* MapViewController.swift in Sources */,
 				43C2D8871D60AEEC00E1C7CE /* QRCodeScanViewController.swift in Sources */,
 				43227D591D63505B00C86760 /* Data.swift in Sources */,
 				43EF76471D71AE80005C36AD /* ShopDropDownViewController.swift in Sources */,
@@ -6797,6 +6843,7 @@
 				43EF76151D6608FB005C36AD /* RE_Data.swift in Sources */,
 				43EF76761D7D5E2A005C36AD /* AGP_Deal.swift in Sources */,
 				43EF761A1D6608FB005C36AD /* RE_Server.swift in Sources */,
+				434827C21D819F2F00018C99 /* AM_Server.swift in Sources */,
 				43EF76791D7D5E2A005C36AD /* AGP_Stid.swift in Sources */,
 				43EF765A1D71AE8C005C36AD /* SP_ServerInfo.swift in Sources */,
 				43EF76781D7D5E2A005C36AD /* AGP_Pricecalendar.swift in Sources */,
@@ -6817,15 +6864,16 @@
 				43EF76571D71AE8C005C36AD /* SP_Ktv.swift in Sources */,
 				43227D581D63505B00C86760 /* Campaign.swift in Sources */,
 				43EF765B1D71AE8C005C36AD /* SP_ShopModel.swift in Sources */,
-				0AEF8B671D81405800C71409 /* MapViewController.swift in Sources */,
 				436A7FA21D58DCB20007F956 /* ShopViewController.swift in Sources */,
 				43C2D8851D6073E500E1C7CE /* MineTableViewCellModel.swift in Sources */,
 				43EF76561D71AE8C005C36AD /* SP_Extra.swift in Sources */,
 				436A7F8C1D58CEBB0007F956 /* HomeViewController.swift in Sources */,
+				434827BD1D819F2F00018C99 /* AM_AroundMerchantModel.swift in Sources */,
 				43EF76551D71AE8C005C36AD /* SP_Data.swift in Sources */,
 				43EF763B1D6DDE46005C36AD /* SC_Data.swift in Sources */,
 				436A7FB81D5CCF840007F956 /* MenuView.swift in Sources */,
 				43EF76331D6882ED005C36AD /* HD_HotelDetailModel.swift in Sources */,
+				434827BE1D819F2F00018C99 /* AM_AttrJson.swift in Sources */,
 				43EF76141D6608FB005C36AD /* RE_Campaign.swift in Sources */,
 				43EF76061D65FB42005C36AD /* UIColorExtension.swift in Sources */,
 				43227D5A1D63505B00C86760 /* Deal.swift in Sources */,
@@ -6841,6 +6889,7 @@
 				436A7F9E1D58DC860007F956 /* MineViewController.swift in Sources */,
 				43227D571D63505B00C86760 /* AttrJson.swift in Sources */,
 				43227D5E1D63505B00C86760 /* Share.swift in Sources */,
+				434827C11D819F2F00018C99 /* AM_Rdploc.swift in Sources */,
 				43EF76581D71AE8C005C36AD /* SP_PayAbstract.swift in Sources */,
 				436A7FC41D5F46870007F956 /* RushShoppingItem.swift in Sources */,
 			);
@@ -6983,6 +7032,8 @@
 			baseConfigurationReference = 71FC6062D2EB08D00F7495F1 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Class/ThirdLib/BaiduMap_IOSSDK_v3",
@@ -6992,6 +7043,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "JW.MeiTuan-Swift";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/Class/Other/Bridging-Header.h";
 			};
@@ -7002,6 +7054,8 @@
 			baseConfigurationReference = 7671895F112058CDFDB6693D /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Class/ThirdLib/BaiduMap_IOSSDK_v3",
@@ -7011,6 +7065,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "JW.MeiTuan-Swift";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/Class/Other/Bridging-Header.h";
 			};

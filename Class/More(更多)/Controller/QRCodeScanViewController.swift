@@ -275,7 +275,7 @@ class QRCodeScanViewController: UIViewController, AVCaptureMetadataOutputObjects
     }
     
     func beginScanning() {
-        //setupWork() ///要真机
+        setupWork() ///要真机
     }
     
     func setupWork() {
@@ -286,14 +286,12 @@ class QRCodeScanViewController: UIViewController, AVCaptureMetadataOutputObjects
          * AVCaptureMetadataOutput 创建输出了
          */
         
-        let device = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)//Swift 2 以上 中所有的同步 Cocoa API 的 NSError 都已经被 throw 关键字取代
-        let input: AVCaptureDeviceInput
+        let device = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
+        var input: AVCaptureDeviceInput?
         do {
             
             input = try AVCaptureDeviceInput(device: device)
             
-            ///add input
-            session.addInput(input)
         }catch let error as NSError {
             // 发生了错误
             print(error.localizedDescription)
@@ -301,6 +299,8 @@ class QRCodeScanViewController: UIViewController, AVCaptureMetadataOutputObjects
         catch {
             print("--input未知错误--")
         }
+        ///add input
+        session.addInput(input)
         
         let output = AVCaptureMetadataOutput()
         ///add delegate

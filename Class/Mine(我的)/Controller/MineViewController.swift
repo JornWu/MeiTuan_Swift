@@ -15,15 +15,6 @@ class MineViewController: BaseViewController, UITableViewDataSource, UITableView
     private var headerBgView: UIView!
     var individualityTextLable: UILabel!//个性签名
     var modelAr = [MineTableViewCellModel]()
-    
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        //fatalError("init(coder:) has not been implemented")
-        super.init(coder: aDecoder)
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,9 +28,6 @@ class MineViewController: BaseViewController, UITableViewDataSource, UITableView
         
         
         //self.view.addSubview(headerView as! UIView)
-        
-        
-        
         
     }
     
@@ -128,7 +116,7 @@ class MineViewController: BaseViewController, UITableViewDataSource, UITableView
         return 150.0
     }
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 40.0
+        return 50.0
     }
     
     

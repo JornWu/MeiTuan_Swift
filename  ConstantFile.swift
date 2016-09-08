@@ -24,7 +24,7 @@ public let LATITUDE_DEFAULT = 39.983497
 public let LONGITUDE_DEFAULT = 116.318042
 
 //系统版本
-public let IOS_VERSION = UIDevice.currentDevice().systemVersion
+public let IOS_VERSION = UIDevice.currentDevice().systemVersion///9.3.1 ///是String
 
 //颜色
 public func colorWithRGBA(r: Double, g: Double, b: Double, a: Double) -> UIColor {

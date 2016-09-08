@@ -10,11 +10,15 @@ import UIKit
 
 class HotelPriceCell: UITableViewCell {
 
+    @IBOutlet weak var rushBuyBtn: UIButton!
     @IBOutlet weak var valueLB: UILabel!
     @IBOutlet weak var priceLB: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
+        rushBuyBtn.clipsToBounds = true
+        rushBuyBtn.layer.cornerRadius = 3
     }
 
     @IBAction func rushBuyBtnAction(sender: UIButton) {

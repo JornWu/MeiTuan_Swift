@@ -33,40 +33,70 @@ class MapViewController: BaseViewController,MKMapViewDelegate, CLLocationManager
 
         // Do any additional setup after loading the view.
         
+        setupNavigationBar()
+        
         loadMapView()
         locating()
         
+    }
+    
+    func setupNavigationBar() {
+        
+        self.navigationController?.navigationBar.hidden = true
+        let barView = UIView(frame: CGRectMake(0, 0, SCREENWIDTH, 64))
+        barView.backgroundColor = UIColor.clearColor()
+        
+        let backBtn = UIButton(frame: CGRectMake(0, 30, 70, 30))
+        backBtn.setImage(UIImage(named: "back@2x.png"), forState: UIControlState.Normal)
+        backBtn.setTitle(kindName, forState: UIControlState.Normal)
+        backBtn.contentMode = .ScaleAspectFit
+        backBtn.addTarget(self, action: #selector(HotelViewController.backBtnAction), forControlEvents: UIControlEvents.TouchUpInside)
+        
+        barView.addSubview(backBtn)
+        self.view.addSubview(barView)
+    }
+    
+    func backBtnAction() {
+        self.navigationController?.popToRootViewControllerAnimated(true)
     }
     
     ///获取附近商家数据
     func loadAroundMerchantData() {
         
         ///默认类型为全部，数量20
-        let URLString = UrlStrType.urlStringWithAroundMerchantData(withwithPosition: CLLocationCoordinate2D(latitude: latitude, longitude: longitude),type: kindId, offset: 20)
+        let URLString = UrlStrType.xxxxxxx()
+//        let URLString = UrlStrType.urlStringWithAroundMerchantData(withwithPosition: CLLocationCoordinate2D(latitude: latitude, longitude: longitude),type: kindId, offset: 20)
         ///封装的方法
         NetworkeProcessor.loadNetworkeDate(withTarget: self, URLString: URLString) {
             [unowned self]
             (dictionary) in
+            
             self.aroundMerchantModel(withDictionary: dictionary)
         }
     }
     
     func aroundMerchantModel(withDictionary dictionary: NSDictionary) {
-        let aroundMerchantModel = SP_ShopModel(fromDictionary: dictionary)///数据类型是一样的
-        
-        for index in 0 ..< aroundMerchantModel.data.count {
-            
-        }
+        let aroundMerchantModel = AM_AroundMerchantModel(fromDictionary: dictionary)///数据类型是一样的
+        //for index in aroundMerchantModel.data {
+            let mIndex = aroundMerchantModel.data.last
+                for tempModel in mIndex!.rdplocs {
+                    
+                    let merchantAnnotation = MerchantAnnotation(withModel: tempModel)
+                    mapView.addAnnotation(merchantAnnotation)
+                    
+                }
+       // }
     }
     
 
     func loadMapView() {
-        mapView = MKMapView(frame: self.view.bounds)
+        
+        mapView = MKMapView(frame: UIScreen.mainScreen().bounds)
         mapView.showsUserLocation = true ///
         mapView.mapType = MKMapType.Standard /// 地图类型， 卫星，标准， 混合
         mapView.delegate = self
         
-        self.view.addSubview(mapView)
+        self.view.insertSubview(mapView, atIndex: 0)
     }
     
     func locating() {
@@ -74,7 +104,8 @@ class MapViewController: BaseViewController,MKMapViewDelegate, CLLocationManager
         
         ///ios8+以上要授权，并且在plist文件中添加NSLocationWhenInUseUsageDescription，
         ///NSLocationAlwaysUsageDescription，值可以为空
-        if (Double(IOS_VERSION) > 8.0) {
+        let index = IOS_VERSION.startIndex.advancedBy(3)///9.3.1 to 9.3
+        if (Double(IOS_VERSION.substringToIndex(index)) > 8.0) {
             locationManager.requestWhenInUseAuthorization()//请求授权
         }
         locationManager.desiredAccuracy = kCLLocationAccuracyBest//精度(使用电池供电时的最高精度)
@@ -105,22 +136,31 @@ class MapViewController: BaseViewController,MKMapViewDelegate, CLLocationManager
     }
     
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
-        if annotation is MKUserLocation {
+        if annotation is MKUserLocation { ///当前位置
             return nil
         }
         
         //MKPinAnnotationView
-        var pinView = mapView.dequeueReusableAnnotationViewWithIdentifier("PinView") as? MKPinAnnotationView
+//        var pinView = mapView.dequeueReusableAnnotationViewWithIdentifier("PinView") as? MKPinAnnotationView
+//        
+//        if pinView == nil {
+//            pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "PinView")
+//            pinView!.pinTintColor = UIColor.redColor()
+//            pinView!.animatesDrop = true ///动画
+//            pinView!.canShowCallout = true ///显示标题
+//            pinView!.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure)///辅助视图
+//        }
+//        
+//        return pinView
         
-        if pinView == nil {
-            pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "PinView")
-            pinView!.pinTintColor = UIColor.redColor()
-            pinView!.animatesDrop = true ///动画
-            pinView!.canShowCallout = true ///显示标题
-            pinView!.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure)///辅助视图
+        var annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier("MerchantView") as? AroundMerchantAnnotationView
+        if annotationView == nil {
+            annotationView = AroundMerchantAnnotationView(annotation: annotation, reuseIdentifier: "MerchantView")
         }
         
-        return pinView
+        annotationView!.mMerchantAnnotation = annotation as! MerchantAnnotation
+        
+        return annotationView
         
     }
     
