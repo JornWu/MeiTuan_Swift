@@ -202,8 +202,17 @@ class ShopViewController:BaseViewController,
     func openMapView(btn: UIButton) {
         
         let mapVC = MapViewController()
-        mapVC.kindName = self.kindName
-        mapVC.kindId = self.kindId
+        if self.kindName == nil {
+            mapVC.kindName = "全部分类"
+        }else {
+            mapVC.kindName = self.kindName
+        }
+        
+        if self.kindId == nil {
+            mapVC.kindId = -1
+        }else {
+            mapVC.kindId = self.kindId
+        }
         
         self.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(mapVC, animated: true)

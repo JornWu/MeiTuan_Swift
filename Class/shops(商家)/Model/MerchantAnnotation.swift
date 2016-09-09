@@ -11,7 +11,7 @@ import MapKit
 
 public class MerchantAnnotation: NSObject, MKAnnotation  {
     
-    var merchantDataModel: AM_Rdploc
+    var merchantDataModel: AM_Rdploc ///外面需要访问
 
     ///包含在MKAnnotation中
     public var coordinate: CLLocationCoordinate2D {
