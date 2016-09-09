@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>MJRefresh.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -27,12 +32,27 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>29DD99664D189A7CA206368F493B1E0B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>5227C3C048E463D383666F80C7D39856</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>69560BF639AA7D839140A7E8476D0DBE</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>6E81ADF5C607FC19CA87F59D6D43C518</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>7819FBA1ABC47841740B189DDC2E126E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
