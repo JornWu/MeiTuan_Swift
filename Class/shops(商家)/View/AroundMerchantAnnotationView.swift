@@ -10,7 +10,7 @@ import UIKit
 import MapKit
 
 @objc protocol AroundMerchantAnnotationViewDelegate: NSObjectProtocol {
-    func findRoute(withDestination to: CLLocationCoordinate2D)
+    func startFindRoute(withDestination to: CLLocationCoordinate2D)
 }
 
 class AroundMerchantAnnotationView: MKAnnotationView {
@@ -70,8 +70,8 @@ class AroundMerchantAnnotationView: MKAnnotationView {
     func findRoute() {
         ///让地图视图去执行相关操作
         
-        if self.delegate!.respondsToSelector( #selector(AroundMerchantAnnotationViewDelegate.findRoute(withDestination:))) {
-            self.delegate!.findRoute(withDestination: mMerchantAnnotation.coordinate)
+        if self.delegate!.respondsToSelector( #selector(AroundMerchantAnnotationViewDelegate.startFindRoute(withDestination:))) {
+            self.delegate!.startFindRoute(withDestination: mMerchantAnnotation.coordinate)
         }
     }
     

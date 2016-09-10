@@ -23,8 +23,7 @@ class MapViewController: BaseViewController,MKMapViewDelegate, CLLocationManager
     var kindName: String!
     
     private var locationManager: CLLocationManager!
-    private var latitude: Double! ///=CLLocationDegrees
-    private var longitude: Double!
+    private var coordinate: CLLocationCoordinate2D!
 
     private var mapView: MKMapView!
     private var locateBtn: UIButton!
@@ -96,8 +95,17 @@ class MapViewController: BaseViewController,MKMapViewDelegate, CLLocationManager
     }
     
     func locateAction() {
-        if mapView.userTrackingMode != MKUserTrackingMode.Follow {//追踪模式
-            mapView.setUserTrackingMode(.Follow, animated: true)
+        
+        /*
+         
+         MKUserTrackingModeNone = 0, 不追踪，不准确
+         MKUserTrackingModeFollow, 追踪并显示当前位置
+         MKUserTrackingModeFollowWithHeading,  追踪并且获取用户方向
+         
+         */
+        
+        if mapView.userTrackingMode != MKUserTrackingMode.Follow {///追踪模式
+            mapView.setUserTrackingMode(.Follow, animated: true) ///追踪并显示当前位置
         }
         
         searchNearby()///搜索附近
@@ -160,18 +168,18 @@ class MapViewController: BaseViewController,MKMapViewDelegate, CLLocationManager
     
     ///CLLocationManagerDelegate
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let location = locations.last//CLLocation
-        let coordinate = location?.coordinate;//CLLocationCoordinate2D
-        manager.stopUpdatingLocation()//停止定位
         
+        let location = locations.last//CLLocation ///获得经纬度
+        
+      
         ///获得数据
-        latitude = (coordinate?.latitude)!
-        longitude = (coordinate?.longitude)!
+        coordinate = location?.coordinate//CLLocationCoordinate2D
+        
+        manager.stopUpdatingLocation()//停止定位
         
         loadAroundMerchantData()///先定位在加载数据
         
 //        let center = coordinate
-        
         let center = CLLocationCoordinate2DMake(LATITUDE_DEFAULT, LONGITUDE_DEFAULT)///test
         
         //MKCoordinateSpan
@@ -179,6 +187,40 @@ class MapViewController: BaseViewController,MKMapViewDelegate, CLLocationManager
         //MKCoordinateRegion
         let region = MKCoordinateRegion(center: center, span: span)
         mapView.setRegion(region, animated: true)
+ 
+        
+//        ///地理信息编码
+//        ///CLGeocoder
+//        let geocoder = CLGeocoder()
+//        geocoder.reverseGeocodeLocation(location!) {///逆向地理编码 ///通过经纬度获取地址信息，给annotation设置标题，本app自定义annotation，用不到
+//            [unowned self]
+//            (placemarks: [CLPlacemark]?, error: NSError?) in
+//            if error != nil {
+//                print(error?.localizedDescription)
+//            }else {
+//                if placemarks?.count > 0 {
+//                    let placemark = placemarks?.first
+//                    let newLocation = placemark?.location
+//                    self.coordinate = newLocation?.coordinate
+//                    
+//                    manager.stopUpdatingLocation()//停止定位
+//                    
+//                    self.loadAroundMerchantData()///先定位在加载数据
+//                    
+//                    //        let center = coordinate
+//                    
+//                    let center = CLLocationCoordinate2DMake(LATITUDE_DEFAULT, LONGITUDE_DEFAULT)///test
+//                    
+//                    //MKCoordinateSpan
+//                    let span = MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
+//                    //MKCoordinateRegion
+//                    let region = MKCoordinateRegion(center: center, span: span)
+//                    self.mapView.setRegion(region, animated: true)
+//
+//                    //然后创建annotation对象，设置标题，mapview添加annotation
+//                }
+//            }
+//        }
         
     }
     
@@ -232,7 +274,7 @@ class MapViewController: BaseViewController,MKMapViewDelegate, CLLocationManager
     
     ///周边信息
     func searchNearby() {
-        let center = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        let center = coordinate///当前位置
         let region = MKCoordinateRegionMakeWithDistance(center, 2000, 2000)///周围1000米的范围
         
         let adjustRegion = mapView.regionThatFits(region)///显示该区域
@@ -242,12 +284,16 @@ class MapViewController: BaseViewController,MKMapViewDelegate, CLLocationManager
         requst.naturalLanguageQuery = "place";//想要的信息
         let localSearch = MKLocalSearch(request: requst)
         
-        localSearch.startWithCompletionHandler { (response, error) in
+        localSearch.startWithCompletionHandler {
+            //[unowned self]
+            (response, error) in
             if error != nil {
                 print(error?.localizedDescription)
             }else {
                 
                 //response?.mapItems///包含所需信息
+                
+                //self.findRoute(fromUserLocation: (response?.mapItems.first)!, toDestination: (response?.mapItems.last)!)
             }
         }
         
@@ -262,12 +308,12 @@ class MapViewController: BaseViewController,MKMapViewDelegate, CLLocationManager
         }
     }
     
-    
     ///查找路线的代理 ///AroundMerchantAnnotationViewDelegate
-    func findRoute(withDestination to: CLLocationCoordinate2D) {
+    func startFindRoute(withDestination to: CLLocationCoordinate2D) {
         ///MKPlacemark
-        let fromPlacemark = MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: latitude, longitude: longitude), addressDictionary: nil)///test
+        let fromPlacemark = MKPlacemark(coordinate: coordinate, addressDictionary: nil)
         
+        //let fromPlacemark = MKPlacemark(coordinate: CLLocationCoordinate2DMake(LATITUDE_DEFAULT, LONGITUDE_DEFAULT), addressDictionary: nil)///test
         
         let toPlacemark = MKPlacemark(coordinate: to, addressDictionary: nil)
         
@@ -275,9 +321,9 @@ class MapViewController: BaseViewController,MKMapViewDelegate, CLLocationManager
         let fromItem = MKMapItem(placemark: fromPlacemark)
         let toItem = MKMapItem(placemark: toPlacemark)
         
-        mapView.removeOverlays(mapView.overlays)///先清除之前的所有路线在添加新的路线
+        self.mapView.removeOverlays(self.mapView.overlays)///先清除之前的所有路线在添加新的路线
         
-        findRoute(fromUserLocation: fromItem, toDestination: toItem)
+        self.findRoute(fromUserLocation: fromItem, toDestination: toItem)
     }
     
     
@@ -293,7 +339,7 @@ class MapViewController: BaseViewController,MKMapViewDelegate, CLLocationManager
         if (Double(IOS_VERSION.substringToIndex(index)) > 7.0) { ///7.0以上
             request.requestsAlternateRoutes = true ///可以绘制路线
         }
-        
+    
         ///MKDirections
         let directions = MKDirections(request: request)
         
@@ -305,6 +351,33 @@ class MapViewController: BaseViewController,MKMapViewDelegate, CLLocationManager
             }else {
                 ///MKRoute
                 let route = response?.routes[0]///多条路线
+                
+                /*
+                 public class MKRoute : NSObject {
+                 
+                 ///路线的描述
+                 public var name: String { get } // localized description of the route's significant feature, e.g. "US-101"
+                 
+                 ///通告
+                 public var advisoryNotices: [String] { get } // localized notices of route conditions. e.g. "Avoid during winter storms"
+                 
+                 ///距离
+                 public var distance: CLLocationDistance { get } // overall route distance in meters
+                 
+                 ///估计用时
+                 public var expectedTravelTime: NSTimeInterval { get }
+                 
+                 ///交通类型
+                 public var transportType: MKDirectionsTransportType { get } // overall route transport type
+                 
+                 ///路线
+                 public var polyline: MKPolyline { get } // detailed route geometry
+                 
+                 ///过程
+                 public var steps: [MKRouteStep] { get }
+                 
+                 }
+                */
                 self.mapView.addOverlay((route?.polyline)!)///地图上显示路线
             }
         }
@@ -312,11 +385,11 @@ class MapViewController: BaseViewController,MKMapViewDelegate, CLLocationManager
     
     ///路线样式设置
     func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
-        //MKOverlayPathRenderer ///路线的渲染对象
-        let renderer = MKOverlayPathRenderer(overlay: overlay)
+        ///路径的渲染对象
+        let renderer = MKPolylineRenderer(overlay: overlay)///MKPolylineRenderer 注意是这个类，要不可能显示不出线路，Polyline地图上的多段线
         renderer.lineCap = .Round
-        renderer.lineWidth = 10.0
-        renderer.fillColor = THEMECOLOR
+        renderer.lineWidth = 4.0
+        renderer.strokeColor = THEMECOLOR
         
         return renderer
     }

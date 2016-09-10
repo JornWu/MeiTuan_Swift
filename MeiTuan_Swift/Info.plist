@@ -37,9 +37,9 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>开始定位</string>
+	<string>YES</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>开始定位</string>
+	<string>YES</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
