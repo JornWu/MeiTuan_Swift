@@ -2838,7 +2838,7 @@
 		436A7FCD1D5F54920007F956 /* AddressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressView.swift; sourceTree = "<group>"; };
 		436A7FCF1D5F7B010007F956 /* UrlStrType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UrlStrType.swift; sourceTree = "<group>"; };
 		436A7FD31D5F80A80007F956 /*  ConstantFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = " ConstantFile.swift"; path = "../../ ConstantFile.swift"; sourceTree = "<group>"; };
-		436A7FDB1D5FB7F20007F956 /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
+		436A7FDB1D5FB7F20007F956 /* Bridging_Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Bridging_Header.h; sourceTree = "<group>"; };
 		43C2D86C1D60431600E1C7CE /* readme.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = readme.txt; sourceTree = "<group>"; };
 		43C2D87A1D6060C900E1C7CE /* HeaderViewVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderViewVC.swift; sourceTree = "<group>"; };
 		43C2D87B1D6060C900E1C7CE /* HeaderViewVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HeaderViewVC.xib; path = ../Controller/HeaderViewVC.xib; sourceTree = "<group>"; };
@@ -3227,7 +3227,7 @@
 				436A7FB91D5CD4480007F956 /* CreatListViewItemTool.swift */,
 				436A7FCF1D5F7B010007F956 /* UrlStrType.swift */,
 				43C2D8AF1D61F4C300E1C7CE /* NetworkeProcessor.swift */,
-				436A7FDB1D5FB7F20007F956 /* Bridging-Header.h */,
+				436A7FDB1D5FB7F20007F956 /* Bridging_Header.h */,
 				43227D5F1D636D2000C86760 /* UIviewExtension.swift */,
 				43EF767D1D7DC6C7005C36AD /* UIImageExtension.swift */,
 				43227D711D64CECB00C86760 /* URLStringExtension.swift */,
@@ -7053,7 +7053,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_INCLUDE_PATHS = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/Class/Other/Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/Class/Other/Bridging_Header.h";
 			};
 			name = Debug;
 		};
@@ -7075,7 +7075,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_INCLUDE_PATHS = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/Class/Other/Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/Class/Other/Bridging_Header.h";
 			};
 			name = Release;
 		};

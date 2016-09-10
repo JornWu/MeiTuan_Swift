@@ -37,6 +37,8 @@ class HomeViewController: BaseViewController, AddressViewDelegate, UITableViewDa
     private var recommentModel: RE_RecommentDataModel!
     private var homeTableView: UITableView!
     private var headerView: UIView!//头视图
+    private var isRefresh = false
+    private var offset: Int64 = 0///请求数据的偏移量（从第几条获取）
     
     
     
@@ -60,6 +62,8 @@ class HomeViewController: BaseViewController, AddressViewDelegate, UITableViewDa
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
+        
+        creatAddressView()//确保地址栏放在最上面
         loadHeaderView()//头视图
         
     }
@@ -114,7 +118,7 @@ class HomeViewController: BaseViewController, AddressViewDelegate, UITableViewDa
         addressView.delegate = self
         addressView.currentCity = self.currentCity
         addressView.hidden = true
-        self.view.insertSubview(addressView, aboveSubview: homeTableView)
+        self.view.addSubview(addressView)
     }
      
     
@@ -210,6 +214,7 @@ class HomeViewController: BaseViewController, AddressViewDelegate, UITableViewDa
         
         rushShoppingModel = RushShoppingDataModel(fromDictionary: dictionary)
         creatRushShoppingView()
+        
     }
     
     func creatRushShoppingView() {
@@ -301,23 +306,13 @@ class HomeViewController: BaseViewController, AddressViewDelegate, UITableViewDa
             }, failure: {(task, error)in
                 print("----获取数据失败----",error.localizedDescription)
         })
-        
-//        ///热门排队
-//        let hotQueueURLString = UrlStrType.HotQueue.getUrlString()
-//        NetworkeProcessor.GET(hotQueueURLString, parameters: nil, progress: nil, success: {
-//           // [unowned self]//捕获列表，避免循环引用
-//            (task, responseObject) -> Void in
-//            print("----获取数据成功----",responseObject)
-//            }) { (task, error) -> Void in
-//                 print("----获取数据失败----",error.localizedDescription)
-//        }
-        
     }
     
     func activityModelWith(dictionary: NSDictionary) {
         
         activityModel = AC_ActivityDataModel(fromDictionary: dictionary)
         creatActivityView()
+
     }
     
     func creatActivityView() {
@@ -433,9 +428,6 @@ class HomeViewController: BaseViewController, AddressViewDelegate, UITableViewDa
         
     }
     
-    
-    
-    
     func loadRecommentData() {
         ///推荐
         let recommentURLString = UrlStrType.Recomment.getUrlString()
@@ -458,8 +450,13 @@ class HomeViewController: BaseViewController, AddressViewDelegate, UITableViewDa
     func recommentModelWith(dictionary: NSDictionary) {
         
         recommentModel = RE_RecommentDataModel(fromDictionary: dictionary)
-        creatHomeTableView()
-        creatAddressView()//确保地址栏放在最上面
+        if !isRefresh {
+            creatHomeTableView()
+        }else {
+            homeTableView.reloadData()
+            isRefresh = false///还原
+        }
+
     }
     
     func creatHomeTableView(){
@@ -468,16 +465,142 @@ class HomeViewController: BaseViewController, AddressViewDelegate, UITableViewDa
         homeTableView.backgroundColor = colorWithRGBA(210, g: 210, b: 210, a: 1)
         homeTableView.dataSource = self
         homeTableView.delegate = self
-        self.view.addSubview(homeTableView)
-        
+        self.view.insertSubview(homeTableView, atIndex: 0)
         
         ///添加头视图
         homeTableView.tableHeaderView = headerView
         
-        
+        ///添加上拉加载和下拉刷新视图
+        addRefreshView()
+
         homeTableView.registerNib(UINib(nibName: "HomeTableViewCell", bundle: nil), forCellReuseIdentifier: "HomeCell")//从xib加载
         
     }
+    
+    func addRefreshView() {///添加刷新视图
+        
+        ///refresh视图
+        let header = MJRefreshGifHeader(refreshingTarget: self, refreshingAction: #selector(loadNewData))
+        
+        ///设置普通状态的动画图片
+        var idleImages = [UIImage]() ///创建数字对象
+        for i in 1 ... 60 {
+            let image = UIImage(named: "dropdown_anim__000\(i)")
+            idleImages.append(image!)
+        }
+        
+        header.setImages(idleImages, forState: .Idle)
+        
+        //设置即将刷新状态的动画图片
+        var refreshingImages = [UIImage]()
+        for i in 1 ... 3 {
+            let image = UIImage(named: "dropdown_loading_0\(i)")
+            refreshingImages.append(image!)
+        }
+        
+//        // 隐藏时间
+//        header.lastUpdatedTimeLabel.hidden = true
+//        // 隐藏状态
+//        header.stateLabel.hidden = true
+        
+        header.setImages(idleImages, forState: .Idle)///正常
+        header.setImages(refreshingImages, forState: .Pulling)///下拉过程
+        header.setImages(refreshingImages, forState: .Refreshing)///刷新过程
+        
+        header.setTitle("下拉刷新", forState: .Idle)
+        header.setTitle("释放开始刷新", forState: .Pulling)
+        header.setTitle("正在刷新数据中...", forState: .Refreshing)
+        
+        ///设置文字样式，footer类似
+//        header.stateLabel.font
+//        header.stateLabel.textColor
+//        header.lastUpdatedTimeLabel.font
+//        header.lastUpdatedTimeLabel.textColor
+        
+        homeTableView.mj_header = header
+        
+        let footer = MJRefreshAutoGifFooter(refreshingTarget: self, refreshingAction: #selector(loadMoreData))
+        footer.setImages(refreshingImages, forState: .Refreshing)///加载过程
+        homeTableView.mj_footer = footer
+    }
+    
+    ///下拉刷新
+    func loadNewData() {
+        
+        ///直接调用上面的代码重新获取新数据
+        isRefresh = true
+        
+        let OP1 = NSBlockOperation {
+            [unowned self]
+            () -> Void in
+            self.loadRushShoppingData()///重装数据
+        }
+        
+        let OP2 = NSBlockOperation {
+            [unowned self]
+            () -> Void in
+            self.loadActivityData()///重装数据
+        }
+        
+        let OP3 = NSBlockOperation {
+            [unowned self]
+            () -> Void in
+            self.loadRecommentData()///重装数据
+        }
+        
+        OP1.addDependency(OP2)
+        OP2.addDependency(OP3)//确保前面的视图都创建完成再创建表视图
+        
+        let QE = NSOperationQueue()
+        QE.addOperation(OP1)
+        QE.addOperation(OP2)
+        QE.addOperation(OP3)
+        
+        QE.waitUntilAllOperationsAreFinished()///全部加载完成
+        self.homeTableView.mj_header.endRefreshing()///停止刷新
+
+    }
+    
+    ///上拉加载
+    func loadMoreData() {
+        offset += 10///每次上来添加10条
+        
+        ///新建一个缓冲数组接受新数据，然后再添加到原数组后面，然后再reload表格（因接口原因，在此没法实现了）
+        
+        ///推荐
+        let recommentURLString = UrlStrType.urlStringWithRecommentStr(0)///offset
+        
+        dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0)) { () -> Void in
+            
+            NetworkeProcessor.GET(recommentURLString, parameters: nil, progress: {
+                
+                [unowned self]
+                (progress: NSProgress) in
+                
+                if progress.fractionCompleted == 1 {//下载完成
+                    self.homeTableView.mj_footer.endRefreshing()///停止刷新
+                }
+                
+                }, success: {
+                    (task: NSURLSessionDataTask, responseObject: AnyObject?) in
+                    //print("----获取数据成功----",responseObject)//responseObject 已经是一个字典对象了
+                    
+                    ///返回主线程刷新UI
+                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        
+                        self.isRefresh = true
+                        self.recommentModelWith(responseObject as! NSDictionary)/// test
+                        self.homeTableView.reloadData()///刷新表格数据
+                        
+                    })
+                    
+                }, failure: {(task: NSURLSessionDataTask?, responseObject: AnyObject)in
+                    print("----获取数据失败----",responseObject)
+            })
+        }
+    }
+    
+    
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return recommentModel.data.count + 1

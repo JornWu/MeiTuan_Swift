@@ -9,6 +9,8 @@
 import UIKit
 
 class BaseTableView: UITableView {
+    
+    
 
     /*
     // Only override drawRect: if you perform custom drawing.

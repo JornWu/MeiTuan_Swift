@@ -356,22 +356,22 @@ class MapViewController: BaseViewController,MKMapViewDelegate, CLLocationManager
                  public class MKRoute : NSObject {
                  
                  ///路线的描述
-                 public var name: String { get } // localized description of the route's significant feature, e.g. "US-101"
+                 public var name: String { get }
                  
                  ///通告
-                 public var advisoryNotices: [String] { get } // localized notices of route conditions. e.g. "Avoid during winter storms"
+                 public var advisoryNotices: [String] { get }
                  
                  ///距离
-                 public var distance: CLLocationDistance { get } // overall route distance in meters
+                 public var distance: CLLocationDistance { get }
                  
                  ///估计用时
                  public var expectedTravelTime: NSTimeInterval { get }
                  
                  ///交通类型
-                 public var transportType: MKDirectionsTransportType { get } // overall route transport type
+                 public var transportType: MKDirectionsTransportType { get }
                  
                  ///路线
-                 public var polyline: MKPolyline { get } // detailed route geometry
+                 public var polyline: MKPolyline { get }
                  
                  ///过程
                  public var steps: [MKRouteStep] { get }

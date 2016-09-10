@@ -38,6 +38,9 @@ class ShopViewController:BaseViewController,
     private var kindName: String!
     private var shopTableView: UITableView!
     
+    private var isRefresh = false
+    private var offset: Int64 = 0
+    
     private var currentAddressModel: CA_CurrentAddressModel?
     private var headerView: UIView!
     private var addressLabel: UILabel!
@@ -309,8 +312,6 @@ class ShopViewController:BaseViewController,
         
         self.shopCateListModel = SC_ShopCateListModel(fromDictionary: dictionary)
         
-        //self.kindId = shopCateListModel.data[0].mId
-        
         //创建分类列表（下拉列表）
         creatFilterTypeChoiceView()
     }
@@ -482,11 +483,94 @@ QOS_CLASS_BACKGROUND：       background 等级表示那些用户不会察觉的
         
         shopTableView.tableHeaderView = headerView///确保headernView先创建
         
+        addRefreshView()///添加刷新视图
+        
         shopTableView.registerNib(UINib(nibName: "ShopTableViewCell", bundle: nil), forCellReuseIdentifier: "ShopCell")
         
         self.view.insertSubview(shopTableView, atIndex: 0)
         
     }
+    
+    
+    func addRefreshView() {///添加刷新视图
+        
+        ///refresh视图
+        let header = MJRefreshGifHeader(refreshingTarget: self, refreshingAction: #selector(loadNewData))
+        
+        ///设置普通状态的动画图片
+        var idleImages = [UIImage]() ///创建数字对象
+        for i in 1 ... 60 {
+            let image = UIImage(named: "dropdown_anim__000\(i)")
+            idleImages.append(image!)
+        }
+        
+        header.setImages(idleImages, forState: .Idle)
+        
+        //设置即将刷新状态的动画图片
+        var refreshingImages = [UIImage]()
+        for i in 1 ... 3 {
+            let image = UIImage(named: "dropdown_loading_0\(i)")
+            refreshingImages.append(image!)
+        }
+        
+        header.setImages(idleImages, forState: .Idle)///正常
+        header.setImages(refreshingImages, forState: .Pulling)///下拉过程
+        header.setImages(refreshingImages, forState: .Refreshing)///刷新过程
+        
+        header.setTitle("下拉刷新", forState: .Idle)
+        header.setTitle("释放开始刷新", forState: .Pulling)
+        header.setTitle("正在刷新数据中...", forState: .Refreshing)
+        
+        shopTableView.mj_header = header
+        
+        let footer = MJRefreshAutoGifFooter(refreshingTarget: self, refreshingAction: #selector(loadMoreData))
+        footer.setImages(refreshingImages, forState: .Refreshing)///加载过程
+        shopTableView.mj_footer = footer
+    }
+    
+    ///下拉刷新
+    func loadNewData() {
+        
+        ///直接调用上面的代码重新获取新数据
+        isRefresh = true
+        
+        loadShopListData(withKindId: kindId)///注意新的数量（在此忽略了）
+        self.shopTableView.mj_header.endRefreshing()
+    }
+    
+    ///上拉加载
+    func loadMoreData() {
+        offset += 10///每次上来添加10条 (10为每次请求的数量，在此为测试值)
+        
+        ///新建一个缓冲数组接受新数据，然后再添加到原数组后面，然后再reload表格（因接口原因，在此没法实现了）
+        
+        let URLString = UrlStrType.urlStringWithMerchantStr(kindId, offset: offset)
+        ///封装的方法
+        NetworkeProcessor.loadNetworkeDate(withTarget: self, URLString: URLString) {
+            [unowned self]
+            (dictionary) in
+            
+            self.isRefresh = true
+            let newModel = SP_ShopModel(fromDictionary: dictionary) ///新的数据
+            
+            /* ///SP_ShopModel
+            var count : Int!
+            var ctPoi : String!
+            var ctPois : [SP_CtPoi]!
+            var data : [SP_Data]!
+            var serverInfo : SP_ServerInfo!
+            */
+            
+            ///把新的数据添加到原数据的后面
+            self.shopListModel.data.appendContentsOf(newModel.data)
+            self.shopListModel.ctPois.appendContentsOf(newModel.ctPois)
+            self.shopListModel.count! += newModel.count!
+            
+            self.shopTableView.mj_footer.endRefreshing()
+            self.shopTableView.reloadData()///刷新表格数据
+        }
+    }
+    
     
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

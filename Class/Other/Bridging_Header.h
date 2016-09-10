@@ -11,6 +11,6 @@
 #ifndef Bridging_Header_h
 #define Bridging_Header_h
 
+@import MJRefresh;
 
 #endif /* Bridging_Header_h */
-///Users/jornwu/Desktop/MeiTuan_Swift/Pods/SDWebImage/SDWebImage/UIImageView+WebCache.h

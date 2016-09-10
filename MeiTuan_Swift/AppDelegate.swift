@@ -35,7 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         }
         
         ///定位
-       //locating()
+       locating()
         
         return true
     }
