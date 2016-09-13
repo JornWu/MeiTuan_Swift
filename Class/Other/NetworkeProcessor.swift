@@ -9,6 +9,7 @@
 import UIKit
 import SDWebImage
 import AFNetworking
+import Foundation
 
 struct NetworkeProcessor {
     
@@ -22,14 +23,20 @@ struct NetworkeProcessor {
         
         ///NSURLSessionConfiguration
         let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
-        
+
         ///AFHTTPSessionManager
         let httpsManager = AFHTTPSessionManager(sessionConfiguration: configuration)
         
-        let security = AFSecurityPolicy.defaultPolicy()
+        let security = AFSecurityPolicy.defaultPolicy()///安全策略
         security.allowInvalidCertificates = true
         security.validatesDomainName = false
         httpsManager.securityPolicy = security
+        
+        ///httpsManager.responseSerializer = AFHTTPResponseSerializer()
+        ///添加这行代码，获得的数据将是二进制形式，然后再转成想要的格式
+        ///默认会自动转为相应的格式，如Dictionary
+        
+        httpsManager.requestSerializer.timeoutInterval = 15///超时时长
         
         let dataTask = httpsManager.GET(URLString as String, parameters: parameters, progress: progress, success: success, failure: failure)//可以监视进度
 
@@ -37,7 +44,7 @@ struct NetworkeProcessor {
         
     }
     
-    ///POST,非AFNetworking
+    ///GET,非AFNetworking
     static func dataWith(URLString: NSString, parameters: AnyObject?, completionHandler hander: (NSData?, NSURLResponse?, NSError?) -> Void) {
         
         let URLStr = URLString.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!//编码
@@ -52,7 +59,9 @@ struct NetworkeProcessor {
         ///NSURLRequet
         let request = NSMutableURLRequest(URL: Url!, cachePolicy: NSURLRequestCachePolicy.UseProtocolCachePolicy, timeoutInterval: 6)
         //NSURLRequest(URL: Url!)
-        request.HTTPMethod = "POST"
+        request.HTTPMethod = "GET"
+        request.timeoutInterval = 15
+        ////当然还可以添加更多参数（来自parameters）///request.setValue(<#T##value: AnyObject?##AnyObject?#>, forKey: <#T##String#>)
 
         ///NSURLSessionDataTask
         let dataTask = session.dataTaskWithRequest(request, completionHandler: hander)
@@ -76,33 +85,22 @@ struct NetworkeProcessor {
      维护或是其它不需用户交互和对时间不敏感的任务。
      */
     
-    ///封装的子线程异步加载网络数据方法
+    ///自封装
     static func loadNetworkeDate(withTarget target: UIViewController, URLString: String, result: (dictionary: NSDictionary) -> Void) {
-        ///加载数据很耗时，放到子线程中
-        dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0)) { () -> Void in
+        ///封装放到子线中去
+        dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0)) {
+
             NetworkeProcessor.GET(URLString, parameters: nil, progress: {
-                [unowned target]
-                (progress: NSProgress) in
-                
-                let activityView = UIActivityIndicatorView(frame: CGRectMake(SCREENWIDTH/2-15, SCREENHEIGHT/2-15, 30, 30))
-                activityView.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
-                activityView.hidesWhenStopped = true
-                activityView.startAnimating()///转动
-                target.view.addSubview(activityView)
-                target.view.bringSubviewToFront(activityView)
-                
-                if progress.fractionCompleted == 1 {//下载完成
-                    activityView.stopAnimating()///停止
-                }
-                
+                (progress: NSProgress) in ///想了解progress的进度，可以用KVO来监视，但是这里不能再Struct中实现，要放在@objc class中
+                    ///doing 
                 }, success: {
                     (task: NSURLSessionDataTask, responseObject: AnyObject?) in
                     //print("----获取数据成功----",responseObject)//responseObject 已经是一个字典对象了
-                    
+                
                     ///返回主线程刷新UI
                     dispatch_async(dispatch_get_main_queue(), { () -> Void in
                         
-                        result(dictionary: responseObject as! NSDictionary)
+                        result(dictionary: responseObject as! NSDictionary)///闭包回调
                     })
                     
                 }, failure: {(task: NSURLSessionDataTask?, responseObject: AnyObject)in

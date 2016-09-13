@@ -627,9 +627,9 @@
 		436A7CAF1D58CB460007F956 /* ic_sold@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 436A779E1D58CB400007F956 /* ic_sold@2x.png */; };
 		436A7CB01D58CB460007F956 /* ic_sold_large.png in Resources */ = {isa = PBXBuildFile; fileRef = 436A779F1D58CB400007F956 /* ic_sold_large.png */; };
 		436A7CB11D58CB460007F956 /* ic_supportOnlineReservation@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 436A77A01D58CB400007F956 /* ic_supportOnlineReservation@2x.png */; };
-		436A7CB21D58CB460007F956 /* Icon-120.png in Resources */ = {isa = PBXBuildFile; fileRef = 436A77A11D58CB400007F956 /* Icon-120.png */; };
-		436A7CB31D58CB460007F956 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 436A77A21D58CB400007F956 /* Icon.png */; };
-		436A7CB41D58CB460007F956 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 436A77A31D58CB400007F956 /* Icon@2x.png */; };
+		436A7CB21D58CB460007F956 /* icon_120.png in Resources */ = {isa = PBXBuildFile; fileRef = 436A77A11D58CB400007F956 /* icon_120.png */; };
+		436A7CB31D58CB460007F956 /* icon_57.png in Resources */ = {isa = PBXBuildFile; fileRef = 436A77A21D58CB400007F956 /* icon_57.png */; };
+		436A7CB41D58CB460007F956 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 436A77A31D58CB400007F956 /* icon.png */; };
 		436A7CB51D58CB460007F956 /* icon_about_meituan.png in Resources */ = {isa = PBXBuildFile; fileRef = 436A77A41D58CB400007F956 /* icon_about_meituan.png */; };
 		436A7CB61D58CB460007F956 /* icon_AD_close.png in Resources */ = {isa = PBXBuildFile; fileRef = 436A77A51D58CB400007F956 /* icon_AD_close.png */; };
 		436A7CB71D58CB460007F956 /* icon_address_merchant_detail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 436A77A61D58CB400007F956 /* icon_address_merchant_detail@2x.png */; };
@@ -2097,9 +2097,9 @@
 		436A779E1D58CB400007F956 /* ic_sold@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_sold@2x.png"; sourceTree = "<group>"; };
 		436A779F1D58CB400007F956 /* ic_sold_large.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_sold_large.png; sourceTree = "<group>"; };
 		436A77A01D58CB400007F956 /* ic_supportOnlineReservation@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_supportOnlineReservation@2x.png"; sourceTree = "<group>"; };
-		436A77A11D58CB400007F956 /* Icon-120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-120.png"; sourceTree = "<group>"; };
-		436A77A21D58CB400007F956 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
-		436A77A31D58CB400007F956 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
+		436A77A11D58CB400007F956 /* icon_120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_120.png; sourceTree = "<group>"; };
+		436A77A21D58CB400007F956 /* icon_57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_57.png; sourceTree = "<group>"; };
+		436A77A31D58CB400007F956 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		436A77A41D58CB400007F956 /* icon_about_meituan.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_about_meituan.png; sourceTree = "<group>"; };
 		436A77A51D58CB400007F956 /* icon_AD_close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_AD_close.png; sourceTree = "<group>"; };
 		436A77A61D58CB400007F956 /* icon_address_merchant_detail@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_address_merchant_detail@2x.png"; sourceTree = "<group>"; };
@@ -4398,9 +4398,9 @@
 				436A779E1D58CB400007F956 /* ic_sold@2x.png */,
 				436A779F1D58CB400007F956 /* ic_sold_large.png */,
 				436A77A01D58CB400007F956 /* ic_supportOnlineReservation@2x.png */,
-				436A77A11D58CB400007F956 /* Icon-120.png */,
-				436A77A21D58CB400007F956 /* Icon.png */,
-				436A77A31D58CB400007F956 /* Icon@2x.png */,
+				436A77A11D58CB400007F956 /* icon_120.png */,
+				436A77A21D58CB400007F956 /* icon_57.png */,
+				436A77A31D58CB400007F956 /* icon.png */,
 				436A77A41D58CB400007F956 /* icon_about_meituan.png */,
 				436A77A51D58CB400007F956 /* icon_AD_close.png */,
 				436A77A61D58CB400007F956 /* icon_address_merchant_detail@2x.png */,
@@ -5848,7 +5848,7 @@
 				436A7B451D58CB460007F956 /* bg_dropdown_section@2x.png in Resources */,
 				436A7F721D58CB460007F956 /* icon_tabbar_misc@2x.png in Resources */,
 				436A7BAE1D58CB460007F956 /* bg_myCoupon_sideShadow.png in Resources */,
-				436A7CB21D58CB460007F956 /* Icon-120.png in Resources */,
+				436A7CB21D58CB460007F956 /* icon_120.png in Resources */,
 				436A7C491D58CB460007F956 /* btn_hoteldeal_buy_highlighted@2x.png in Resources */,
 				436A7A6F1D58CB460007F956 /* Contents.json in Resources */,
 				436A7B0C1D58CB460007F956 /* bg_back_merchant_detail_map@2x.png in Resources */,
@@ -6034,7 +6034,7 @@
 				436A7F051D58CB460007F956 /* input_textField_disabled@2x.png in Resources */,
 				436A7C5C1D58CB460007F956 /* btn_orange_highlighted.png in Resources */,
 				436A7BCE1D58CB460007F956 /* bg_recommend_dish_selected@2x.png in Resources */,
-				436A7CB31D58CB460007F956 /* Icon.png in Resources */,
+				436A7CB31D58CB460007F956 /* icon_57.png in Resources */,
 				436A7BFA1D58CB460007F956 /* bg_vouchers_grey.png in Resources */,
 				436A7B731D58CB460007F956 /* bg_keyboard5_selected@2x.png in Resources */,
 				436A7DA71D58CB460007F956 /* icon_KTVOrder_clock@2x.png in Resources */,
@@ -6373,7 +6373,7 @@
 				436A7B2F1D58CB460007F956 /* bg_deal_buyActionDiffPrice@2x.png in Resources */,
 				436A7BC01D58CB460007F956 /* bg_orderReview_nodeImage_highlighted.png in Resources */,
 				436A7B851D58CB460007F956 /* bg_merchant_checkRoute_highlighted@2x.png in Resources */,
-				436A7CB41D58CB460007F956 /* Icon@2x.png in Resources */,
+				436A7CB41D58CB460007F956 /* icon.png in Resources */,
 				436A7EA91D58CB460007F956 /* icon_route_car.png in Resources */,
 				436A7DEA1D58CB460007F956 /* icon_merchant_share_normal.png in Resources */,
 				436A7B781D58CB460007F956 /* bg_keyboard8@2x.png in Resources */,

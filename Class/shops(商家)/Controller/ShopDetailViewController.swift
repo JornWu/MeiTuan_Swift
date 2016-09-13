@@ -129,12 +129,17 @@ class ShopDetailViewController: BaseViewController, UITableViewDataSource, UITab
     
     
     func loadAroundGroupPurchaseData() {
+        
+        self.view.bringSubviewToFront(self.activityIndicatorView)
+        self.activityIndicatorView.hidden = false ///让activityView显示
+        
         let URLString = UrlStrType.urlStringWithMerchantAroundGroupPurchaseData(dataModel.poiid)        
         ///封装的方法
         NetworkeProcessor.loadNetworkeDate(withTarget: self, URLString: URLString) {
             [unowned self]
             (dictionary) in
             self.aroundGroupPurchaseModel(withDictionary: dictionary)
+            self.activityIndicatorView.hidden = true ///让activityView隐藏
         }
     }
     

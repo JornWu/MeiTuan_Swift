@@ -298,14 +298,19 @@ class ShopViewController:BaseViewController,
  */
     ///商家分类列表数据
     func loadShopCateListData() {
+
+        self.view.bringSubviewToFront(self.activityIndicatorView)///放在最上面
+        self.activityIndicatorView.hidden = false ///让activityView显示
+        
         let URLString = UrlStrType.CateList.getUrlString()
         ///封装的方法
         NetworkeProcessor.loadNetworkeDate(withTarget: self, URLString: URLString) {
             [unowned self]
             (dictionary) in
             self.shopCateListModel(withDictionary: dictionary)
+            self.activityIndicatorView.hidden = true ///让activityView隐藏
         }
-        
+
     }
     
     func shopCateListModel(withDictionary dictionary: NSDictionary) {
@@ -372,7 +377,7 @@ QOS_CLASS_BACKGROUND：       background 等级表示那些用户不会察觉的
 //            NetworkeProcessor.GET(URLString, parameters: nil, progress: {
 //                [unowned self]
 //                (progress: NSProgress) in
-//                
+//                ///要用KVO监视progress的进度可以在这里添加
 //                let activityView = UIActivityIndicatorView(frame: CGRectMake(SCREENWIDTH / 2 - 15, SCREENHEIGHT / 2 - 15, 30, 30))
 //                activityView.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
 //                activityView.hidesWhenStopped = true
@@ -451,12 +456,15 @@ QOS_CLASS_BACKGROUND：       background 等级表示那些用户不会察觉的
     
     ///商家列表数据
     func loadShopListData(withKindId kId: Int64) {
+        self.view.bringSubviewToFront(self.activityIndicatorView)
+        self.activityIndicatorView.hidden = false ///让activityView显示
         let URLString = UrlStrType.urlStringWithMerchantStr(kId, offset: 10)
         ///封装的方法
         NetworkeProcessor.loadNetworkeDate(withTarget: self, URLString: URLString) {
             [unowned self]
             (dictionary) in
             self.shopListModel(withDictionary: dictionary)
+            self.activityIndicatorView.hidden = true ///让activityView隐藏
         }
 
     }
@@ -487,7 +495,7 @@ QOS_CLASS_BACKGROUND：       background 等级表示那些用户不会察觉的
         
         shopTableView.registerNib(UINib(nibName: "ShopTableViewCell", bundle: nil), forCellReuseIdentifier: "ShopCell")
         
-        self.view.insertSubview(shopTableView, atIndex: 0)
+        self.view.insertSubview(shopTableView, atIndex: 0)///放在最下面
         
     }
     

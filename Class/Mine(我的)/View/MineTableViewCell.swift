@@ -19,7 +19,6 @@ class MineTableViewCell: UITableViewCell {
     }
     
     class func tableViewCellWith(modelAArray: [MineTableViewCellModel]!, tableView: UITableView, indexPath: NSIndexPath, reuseIndentify: String) -> MineTableViewCell {
-        print(indexPath)
         
         var cell = tableView.dequeueReusableCellWithIdentifier(reuseIndentify, forIndexPath: indexPath) as? MineTableViewCell
         if cell == nil {

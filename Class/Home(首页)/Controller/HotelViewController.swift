@@ -60,6 +60,8 @@ class HotelViewController: BaseViewController, UITableViewDataSource, UITableVie
     }
     
     func loadOtherHotelData() {
+        self.view.bringSubviewToFront(self.activityIndicatorView)
+        self.activityIndicatorView.hidden = false ///让activityView显示
         
         let URLString = UrlStrType.urlStringWithOtherRecommendShop("\(dataModel.mId)")
         ///封装的方法
@@ -67,6 +69,7 @@ class HotelViewController: BaseViewController, UITableViewDataSource, UITableVie
             [unowned self]
             (dictionary) in
             self.hotelModelWith(dictionary)
+            self.activityIndicatorView.hidden = true ///让activityView隐藏
         }
         
     }
@@ -83,7 +86,7 @@ class HotelViewController: BaseViewController, UITableViewDataSource, UITableVie
         
         hotelTableView.dataSource = self
         hotelTableView.delegate = self
-        self.view.addSubview(hotelTableView)
+        self.view.insertSubview(hotelTableView, atIndex: 0)
         
     }
     

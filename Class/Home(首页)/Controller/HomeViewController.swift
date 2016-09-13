@@ -48,6 +48,7 @@ class HomeViewController: BaseViewController, AddressViewDelegate, UITableViewDa
         
         addNavigationItems()
         self.automaticallyAdjustsScrollViewInsets = false
+        
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -56,6 +57,7 @@ class HomeViewController: BaseViewController, AddressViewDelegate, UITableViewDa
         super.init(coder: aDecoder)
         
         addNavigationItems()
+        
     }
 
     override func viewDidLoad() {
@@ -65,7 +67,6 @@ class HomeViewController: BaseViewController, AddressViewDelegate, UITableViewDa
         
         creatAddressView()//确保地址栏放在最上面
         loadHeaderView()//头视图
-        
     }
     
 /****************************************************************************************************/
@@ -134,6 +135,8 @@ class HomeViewController: BaseViewController, AddressViewDelegate, UITableViewDa
     func didClickedButtonWith(title: String) {
         lBtn.setTitle(title, forState: UIControlState.Normal)
         leftItemAction(lBtn)
+        
+        ///还要重新加载数据
     }
     
     ///AddressViewDelegate
@@ -169,30 +172,6 @@ class HomeViewController: BaseViewController, AddressViewDelegate, UITableViewDa
  ** 名店抢购(封面)
  **
  */
-    /*
-     ///如果非使用AFNetworking的话数据要自己解析
-    class func dictionaryWith(jsonString: NSString?) -> NSDictionary? {
-        if jsonString == nil {
-            return nil
-        }
-        
-        ///NSData
-        let jsonData = jsonString?.dataUsingEncoding(NSUTF8StringEncoding)
-        
-        ///dic
-        let dic: NSDictionary
-        do {
-            dic = try NSJSONSerialization.JSONObjectWithData(jsonData!, options: NSJSONReadingOptions.MutableContainers) as! NSDictionary
-            return dic
-        }catch let error as NSError {
-            print(error.localizedDescription)
-        }catch {
-            print("解析未知错误")
-        }
-        
-        return nil
-    }
-    */
     
     func loadRushShoppingData() {
         let URLString = UrlStrType.RushShopping.getUrlString()
@@ -372,6 +351,8 @@ class HomeViewController: BaseViewController, AddressViewDelegate, UITableViewDa
  */
     
     func loadHeaderView() {
+        self.view.bringSubviewToFront(self.activityIndicatorView)
+        self.activityIndicatorView.hidden = false ///让activityView显示///首页可能被启动页面遮住
         
         headerView = UIView(frame: CGRectMake(0, 0, SCREENWIDTH, 212 + 190 + 120 + 30 + 50 + 10))
         headerView.backgroundColor =  colorWithRGBA(210, g: 210, b: 210, a: 1)
@@ -418,14 +399,16 @@ class HomeViewController: BaseViewController, AddressViewDelegate, UITableViewDa
             self.loadRecommentData()
         }
         
-        OP1.addDependency(OP2)
-        OP2.addDependency(OP3)//确保前面的视图都创建完成再创建表视图
+        OP3.addDependency(OP2)
+        OP2.addDependency(OP1)//确保前面的视图都创建完成再创建表视图
         
         let QE = NSOperationQueue()
         QE.addOperation(OP1)
         QE.addOperation(OP2)
         QE.addOperation(OP3)
         
+        QE.waitUntilAllOperationsAreFinished()
+        self.activityIndicatorView.hidden = true ///让activityView隐藏
     }
     
     func loadRecommentData() {
@@ -526,7 +509,7 @@ class HomeViewController: BaseViewController, AddressViewDelegate, UITableViewDa
     
     ///下拉刷新
     func loadNewData() {
-        
+
         ///直接调用上面的代码重新获取新数据
         isRefresh = true
         
@@ -548,8 +531,8 @@ class HomeViewController: BaseViewController, AddressViewDelegate, UITableViewDa
             self.loadRecommentData()///重装数据
         }
         
-        OP1.addDependency(OP2)
-        OP2.addDependency(OP3)//确保前面的视图都创建完成再创建表视图
+        OP3.addDependency(OP2)
+        OP2.addDependency(OP1)//确保前面的视图都创建完成再创建表视图
         
         let QE = NSOperationQueue()
         QE.addOperation(OP1)
@@ -558,7 +541,6 @@ class HomeViewController: BaseViewController, AddressViewDelegate, UITableViewDa
         
         QE.waitUntilAllOperationsAreFinished()///全部加载完成
         self.homeTableView.mj_header.endRefreshing()///停止刷新
-
     }
     
     ///上拉加载

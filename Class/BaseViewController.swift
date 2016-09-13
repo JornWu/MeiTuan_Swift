@@ -9,6 +9,13 @@
 import UIKit
 
 class BaseViewController: UIViewController {
+    
+    lazy internal var activityIndicatorView: UIView = {///懒加载，并不是所有的view都用到activityIndicatorView
+        let AIView = BaseViewController.setupActivutyView()
+        self.view.addSubview(AIView)
+        return AIView
+    }()
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -17,6 +24,26 @@ class BaseViewController: UIViewController {
         
         self.view.backgroundColor = BACKGROUNDCOLOR
         self.automaticallyAdjustsScrollViewInsets = false//取消scrollview和tableview上的留白
+    }
+    
+    private class func setupActivutyView() -> UIView {
+        ///封装activityView视图
+        let bgView = UIView(frame: CGRectMake(SCREENWIDTH/2-15, SCREENHEIGHT/2-15, 40, 40))
+        bgView.tag = 101010 ///要在外面停止
+        bgView.backgroundColor = UIColor.grayColor()
+        bgView.layer.cornerRadius = 5
+        bgView.hidden = true///默认为隐藏状态
+        
+        let activityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(5, 5, 30, 30))///真正的UIActivityIndicatorView
+        activityIndicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
+        activityIndicatorView.hidesWhenStopped = true
+        activityIndicatorView.startAnimating()///转动
+        ///activityIndicatorView.activityIndicatorViewStyle = .WhiteLarge ///大白色
+        activityIndicatorView.color = THEMECOLOR
+        
+        bgView.addSubview(activityIndicatorView)
+        
+        return bgView ///
     }
 
     override func didReceiveMemoryWarning() {
