@@ -7,8 +7,6 @@
 //
 
 import UIKit
-import SDWebImage
-import AFNetworking
 import Foundation
 
 struct NetworkeProcessor {
@@ -52,7 +50,7 @@ struct NetworkeProcessor {
         ///NSURLSessionConfiguration
         let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
         
-        ///AFURLSessionManager   ------(way one)------
+        ///AFURLSessionManager
         let session = NSURLSession(configuration: configuration)
         ///NSURL
         let Url = NSURL(string: URLStr)

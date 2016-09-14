@@ -10,7 +10,7 @@ import UIKit
 import SDWebImage
 import AFNetworking
 
-class HomeViewController: BaseViewController, AddressViewDelegate, UITableViewDataSource, UITableViewDelegate{
+class HomeViewController: BaseViewController, AddressViewDelegate, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate{
     
     private var lBtn: UIButton!
     private var addressView: AddressView!
@@ -84,29 +84,47 @@ class HomeViewController: BaseViewController, AddressViewDelegate, UITableViewDa
         lBtn.setImage(UIImage(named: "icon_homepage_upArrow"), forState: UIControlState.Selected)
         lBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -36, 0, 0)
         lBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 36, 0, 0)
-        lBtn.addTarget(self, action: #selector(HomeViewController.leftItemAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        lBtn.addTarget(self, action: #selector(leftItemAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         let leftItem = UIBarButtonItem(customView: lBtn)
         self.navigationItem.leftBarButtonItem = leftItem
         
         ///right button item
         let rBtn = UIButton(type: UIButtonType.Custom)
         rBtn.backgroundColor = UIColor.clearColor()
-        rBtn.frame = CGRectMake(0, 0, 50, 35)
+        rBtn.frame = CGRectMake(0, 0, 35, 35)
         rBtn.contentMode = UIViewContentMode.ScaleAspectFit
-        rBtn.setImage(UIImage(named: "icon_homepage_map_old"), forState: UIControlState.Normal)
-        rBtn.setImage(UIImage(named: "icon_homepage_map_selected_old"), forState: UIControlState.Selected)
-        rBtn.addTarget(self, action: #selector(HomeViewController.mapButtonItemAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        rBtn.setImage(UIImage(named: "icon_homepage_shoppingCategory"), forState: UIControlState.Normal)
+        rBtn.addTarget(self, action: #selector(shoppingCartButtonItemAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         let rightItem = UIBarButtonItem(customView: rBtn)
         self.navigationItem.rightBarButtonItem = rightItem
         
-//        let backBtn = UIButton(frame: CGRectMake(0, 0, 50, 50))
-//        backBtn.setImage(UIImage(named: "back@2x,png"), forState: UIControlState.Normal)
-//        self.navigationItem.backBarButtonItem = UIBarButtonItem(customView: backBtn)
+        ///search test field
+        let searchField = UITextField(frame: CGRectMake(0, 0, SCREENWIDTH * 0.5, 25))
+        searchField.clipsToBounds = true
+        searchField.layer.cornerRadius = searchField.extHeight() * 0.5
+        searchField.borderStyle = .None
+        searchField.backgroundColor = UIColor.whiteColor()
+        
+        let lView = UIImageView(frame: CGRectMake(5, 5, 15, 15))
+        lView.image = UIImage(named: "icon_textfield_search")
+        let lBgView = UIView(frame: CGRectMake(0, 0, 25, 25))
+        lBgView.addSubview(lView)
+        searchField.leftView = lBgView
+        searchField.leftViewMode = .Always
+        
+        searchField.placeholder = "输入商家、品类、商圈"
+        searchField.font = UIFont.systemFontOfSize(12)
+        self.navigationItem.titleView = searchField
+        
+        searchField.delegate = self
+
     }
     
-    func leftItemAction(btn: UIButton) {
-        btn.selected = !btn.selected
-        addressView.hidden = !addressView.hidden
+    ///UITextFieldDelegate
+    func textFieldDidBeginEditing(textField: UITextField) {
+        hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(SearchViewController(), animated: true)
+        hidesBottomBarWhenPushed = false
     }
     
 /****************************************************************************************************/
@@ -114,6 +132,11 @@ class HomeViewController: BaseViewController, AddressViewDelegate, UITableViewDa
  ** 左边地址选择
  **
  */
+    func leftItemAction(btn: UIButton) {
+        btn.selected = !btn.selected
+        addressView.hidden = !addressView.hidden
+    }
+    
     func creatAddressView() {
         addressView = AddressView(frame: self.view.bounds)
         addressView.delegate = self
@@ -146,15 +169,16 @@ class HomeViewController: BaseViewController, AddressViewDelegate, UITableViewDa
     
 /****************************************************************************************************/
 /**
- ** 右边地图视图
+ ** 右边购物车视图
  **
  */
-    func mapButtonItemAction(btn: UIButton) {
+    func  shoppingCartButtonItemAction(btn: UIButton) {
         
-//        self.hidesBottomBarWhenPushed = true
-//        let mapVC = MapViewController()
-//        self.navigationController?.pushViewController(mapVC, animated: true)
-//        self.hidesBottomBarWhenPushed = false
+        self.hidesBottomBarWhenPushed = true
+        let shoppingCartVC = ShoppingCartViewController()
+        self.navigationController?.pushViewController(shoppingCartVC, animated: true)
+        self.hidesBottomBarWhenPushed = false
+        
     }
 /****************************************************************************************************/
 /**
