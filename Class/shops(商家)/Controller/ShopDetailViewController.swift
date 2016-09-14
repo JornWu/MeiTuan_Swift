@@ -212,6 +212,7 @@ class ShopDetailViewController: BaseViewController, UITableViewDataSource, UITab
                 let callBtn = UIButton(frame: rightView.bounds)
                 callBtn.setImage(UIImage(named: "icon_deal_phone"), forState: UIControlState.Normal)
                 callBtn.tintColor = UIColor.grayColor()
+                callBtn.addTarget(self, action: #selector(callBtnAction), forControlEvents: .TouchUpInside)
                 rightView.addSubview(callBtn)
                 
                 containView.addSubview(rightView)
@@ -267,6 +268,7 @@ class ShopDetailViewController: BaseViewController, UITableViewDataSource, UITab
                     tabBtn.setTitle(dataModel.catetab[index].name, forState: UIControlState.Normal)
                     tabBtn.setTitleColor(UIColor.grayColor(), forState: UIControlState.Normal)
                     tabBtn.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Highlighted)
+                    tabBtn.titleLabel?.font = UIFont.systemFontOfSize(15)
                     tabBtn.addTarget(self, action: #selector(ShopDetailViewController.tabBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
                     
                     cell.contentView.addSubview(tabBtn)
@@ -293,9 +295,42 @@ class ShopDetailViewController: BaseViewController, UITableViewDataSource, UITab
         }
     }
     
+    ///拨打电话
+    func callBtnAction() {
+        let actionSheetVC = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+        
+        let numbers = dataModel.phone.componentsSeparatedByString("/")
+        
+        for index in numbers {///可能不只有一个电话
+            let action = UIAlertAction(title: index, style: .Default) {
+                [unowned self]
+                (action) in
+                self.call(withNumber: action.title!)
+            }
+            actionSheetVC.addAction(action)
+        }
+
+        let cancelAction = UIAlertAction(title: "取消", style: .Cancel) { (action) in
+            print("取消了拨打电话")
+        }
+        actionSheetVC.addAction(cancelAction)
+        
+        self.presentViewController(actionSheetVC, animated: true) { 
+            print("是否拨打电话？")
+        }
+    }
+    
+    func call(withNumber number: String) {
+        let numberURL = NSURL(string: "telprompt://" + number)
+        ///还可以用tel: ...的形势，但是打完电话不会回到改app，而且点击之后立即拨打，没有对话框，建议使用上方式
+        
+        UIApplication.sharedApplication().openURL(numberURL!) ///发短息，打电话，发邮件等，都只要一个URL就可以
+    }
+    
     ///四个标签的响应
     func tabBtnAction(btn: UIButton) {
         ///
+        print("点击了:",btn.titleLabel?.text)
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {

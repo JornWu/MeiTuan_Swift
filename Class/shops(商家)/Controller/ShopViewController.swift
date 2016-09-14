@@ -74,7 +74,7 @@ class ShopViewController:BaseViewController,
     private func addNavigationItems() {
         ///map button item
         let lBtn = UIButton(type: UIButtonType.Custom)
-        lBtn.frame = CGRectMake(0, 0, 30, 30)
+        lBtn.frame = CGRectMake(0, 0, 25, 25)
         lBtn.contentMode = UIViewContentMode.ScaleAspectFit
         lBtn.setImage(UIImage(named: "icon_map.png"), forState: UIControlState.Normal)
         lBtn.setImage(UIImage(named: "icon_map_highlighted.png"), forState: UIControlState.Selected)
@@ -84,7 +84,7 @@ class ShopViewController:BaseViewController,
         
         ///search button item
         let rBtn = UIButton(type: UIButtonType.Custom)
-        rBtn.frame = CGRectMake(0, 0, 30, 30)
+        rBtn.frame = CGRectMake(0, 0, 25, 25)
         rBtn.contentMode = UIViewContentMode.ScaleAspectFit
         rBtn.setImage(UIImage(named: "icon_search.png"), forState: UIControlState.Normal)
         rBtn.setImage(UIImage(named: "icon_search_selected.png"), forState: UIControlState.Selected)
@@ -255,7 +255,7 @@ class ShopViewController:BaseViewController,
         
         let originTitleAr = ["全部分类", "全城", "智能排序"]
         
-        for index in 0 ..< originTitleAr.count {
+        for index in 0 ..< originTitleAr.count {///这里btnItem类建议自定义，要不图片和文字位置不好控制
             let btnItem = UIButton(type: UIButtonType.Custom)
             btnItem.tag = index + 200
             let btnWidth = (SCREENWIDTH - 2) / 3
@@ -267,9 +267,11 @@ class ShopViewController:BaseViewController,
             btnItem.setImage(UIImage(named: "icon_arrow_dropdown_selected"), forState: UIControlState.Selected)
             btnItem.contentMode = UIViewContentMode.ScaleAspectFit
             btnItem.titleEdgeInsets = UIEdgeInsetsMake(0, -15, 0, 0)
-            btnItem.imageEdgeInsets = UIEdgeInsetsMake(0, btnItem.extWidth() - 45, 0, 0)
+            
+            btnItem.imageEdgeInsets = UIEdgeInsetsMake(0, btnItem.extWidth() - 20, 0, 0)
             btnItem.backgroundColor = UIColor.whiteColor()
             btnItem.addTarget(self, action: #selector(ShopViewController.chooseListView(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+            
             
             itemAr.append(btnItem)///放到数组中，统一管理
             

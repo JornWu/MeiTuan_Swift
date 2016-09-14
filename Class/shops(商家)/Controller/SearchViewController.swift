@@ -36,14 +36,22 @@ class SearchViewController: BaseViewController, UITextFieldDelegate, UITableView
         searchField.hidden = true///隐藏
     }
     
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        searchField.resignFirstResponder()
+    }
+    
+    func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+        searchField.resignFirstResponder()
+    }
+    
     func setupNavigationBar() {
         
         self.navigationController?.navigationBar.barTintColor = UIColor.whiteColor()
         
         let backBtn = UIButton(type: UIButtonType.Custom)
-        backBtn.frame = CGRectMake(0, 0, 30, 30)
+        backBtn.frame = CGRectMake(0, 0, 25, 25)
         backBtn.setImage(UIImage(named: "btn_backItem"), forState: UIControlState.Normal)
-        backBtn.setImage(UIImage(named: "btn_backItem_highlighted"), forState: UIControlState.Highlighted)
+        backBtn.setImage(UIImage(named: "btn_backItem.highlighted"), forState: UIControlState.Highlighted)
         backBtn.addTarget(self, action: #selector(SearchViewController.backBtnAction), forControlEvents: UIControlEvents.TouchUpInside)
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backBtn)
         
@@ -69,6 +77,11 @@ class SearchViewController: BaseViewController, UITextFieldDelegate, UITableView
         self.navigationController?.navigationBar.addSubview(searchField)
         
         searchField.delegate = self
+    }
+    
+    func backBtnAction() {
+        searchField.resignFirstResponder()
+        self.navigationController?.popToRootViewControllerAnimated(true)
     }
     
     func setupSearchTableView() {
@@ -108,6 +121,7 @@ class SearchViewController: BaseViewController, UITextFieldDelegate, UITableView
     
     func itemAction(btn: UIButton) {
         ///doing
+        searchField.resignFirstResponder()
         print("点击了tag为\(btn.tag)的按钮")
     }
     
@@ -150,9 +164,7 @@ class SearchViewController: BaseViewController, UITextFieldDelegate, UITableView
     }
     
     
-    func backBtnAction() {
-        self.navigationController?.popToRootViewControllerAnimated(true)
-    }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

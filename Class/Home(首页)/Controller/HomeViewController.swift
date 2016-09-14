@@ -91,7 +91,7 @@ class HomeViewController: BaseViewController, AddressViewDelegate, UITableViewDa
         ///right button item
         let rBtn = UIButton(type: UIButtonType.Custom)
         rBtn.backgroundColor = UIColor.clearColor()
-        rBtn.frame = CGRectMake(0, 0, 35, 35)
+        rBtn.frame = CGRectMake(0, 0, 30, 30)
         rBtn.contentMode = UIViewContentMode.ScaleAspectFit
         rBtn.setImage(UIImage(named: "icon_homepage_shoppingCategory"), forState: UIControlState.Normal)
         rBtn.addTarget(self, action: #selector(shoppingCartButtonItemAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
@@ -121,10 +121,17 @@ class HomeViewController: BaseViewController, AddressViewDelegate, UITableViewDa
     }
     
     ///UITextFieldDelegate
-    func textFieldDidBeginEditing(textField: UITextField) {
+//    func textFieldDidBeginEditing(textField: UITextField) {
+//        
+//    }
+    
+    
+    func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
         hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(SearchViewController(), animated: true)
         hidesBottomBarWhenPushed = false
+        
+        return false
     }
     
 /****************************************************************************************************/
@@ -132,6 +139,11 @@ class HomeViewController: BaseViewController, AddressViewDelegate, UITableViewDa
  ** 左边地址选择
  **
  */
+    
+    override func viewWillAppear(animated: Bool) {
+        addressView.hidden = true
+    }
+    
     func leftItemAction(btn: UIButton) {
         btn.selected = !btn.selected
         addressView.hidden = !addressView.hidden
@@ -651,11 +663,13 @@ class HomeViewController: BaseViewController, AddressViewDelegate, UITableViewDa
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let dataItem = recommentModel.data[indexPath.row - 1]
-        let HTVC = HotelViewController(dataModel: dataItem)
-        self.hidesBottomBarWhenPushed = true
-        self.navigationController?.pushViewController(HTVC, animated: true)
-        self.hidesBottomBarWhenPushed = false
+        if indexPath.row != 0 {///第一个不能点///title
+            let dataItem = recommentModel.data[indexPath.row - 1]
+            let HTVC = HotelViewController(dataModel: dataItem)
+            self.hidesBottomBarWhenPushed = true
+            self.navigationController?.pushViewController(HTVC, animated: true)
+            self.hidesBottomBarWhenPushed = false
+        }
     }
     
     
