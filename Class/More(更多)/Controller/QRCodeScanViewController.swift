@@ -16,16 +16,24 @@
 /****************************************************************************************************/
 
 import UIKit
-import AVFoundation ///
+import AVFoundation ///用到摄像头
+import CoreImage ///生成二维码
 
-class QRCodeScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate, UINavigationControllerDelegate,UIImagePickerControllerDelegate {
+
+class QRCodeScanViewController: UIViewController,
+                                AVCaptureMetadataOutputObjectsDelegate,
+                                UINavigationControllerDelegate,
+                                UIImagePickerControllerDelegate,
+                                UITextFieldDelegate{
     
     private var session: AVCaptureSession!// 输入输出的中间链接
-    private var maskVeiw: UIView!//蒙版
+    private var maskView: UIView!//蒙版
     private var scanWindow: UIView!//扫描窗口
     private var scanNetImageView: UIImageView!//扫描的模拟图
     
     private var isOpenFlash = false
+    
+    private var textInfo: String?///要生成二维码的信息
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,27 +53,45 @@ class QRCodeScanViewController: UIViewController, AVCaptureMetadataOutputObjects
         setupNavView()
         //5.扫描区域
         setupScanWindowView()
-        //6.开始动画
+        //6.开始扫描
         beginScanning()
+        
     }
     
     /*********相机扫描***********/
     
-    let kBorderW = CGFloat(100)
-    let kMargin = CGFloat(30)
+    let kMargin = CGFloat(50)
     
     
     func setupMaskView() {
         
-        maskVeiw = UIView()
-        maskVeiw.layer.borderColor = UIColor(red: CGFloat(0), green: CGFloat(0), blue: CGFloat(0), alpha: CGFloat(0.7)).CGColor
-        maskVeiw.layer.borderWidth = kMargin
+        maskView = UIView()
+        maskView.layer.borderColor = UIColor(red: CGFloat(0), green: CGFloat(0), blue: CGFloat(0), alpha: CGFloat(0.7)).CGColor
+        maskView.layer.borderWidth = kMargin
         
-        let maskViewSize = CGSizeMake(SCREENWIDTH + (kBorderW + kMargin) , SCREENWIDTH + (kBorderW + kMargin))
-        maskVeiw.center = CGPointMake(SCREENWIDTH * 0.5, SCREENHEIGHT * 0.5);
-        maskVeiw.frame = CGRectMake(0, 0, maskViewSize.width, maskViewSize.height)
+        let maskViewSize = CGSizeMake(self.view.extWidth(), self.view.extWidth())///正方形，下面会露出来，还要添加补充遮罩
+        maskView.frame = CGRectMake(0, 64, maskViewSize.width, maskViewSize.height)
+        self.view.addSubview(maskView)
         
-        self.view.addSubview(maskVeiw)
+        ///补充遮罩
+        let mask = UIView(frame: CGRectMake(0, maskView.extY() + maskView.extHeight(), SCREENWIDTH, SCREENHEIGHT - (maskView.extY() + maskView.extHeight())))
+        mask.backgroundColor = UIColor(red: CGFloat(0), green: CGFloat(0), blue: CGFloat(0), alpha: CGFloat(0.7))
+        self.view.addSubview(mask)
+        
+    }
+    
+    func setupTipTitleView() {
+        
+        ///操作提示
+        let tipLabel = UILabel(frame: CGRectMake(0, CGRectGetMaxY(maskView.frame) + 30, self.view.extWidth(), 100))
+        tipLabel.text = "将取景框对准二维码，即可自动扫描"
+        tipLabel.textColor = UIColor.whiteColor()
+        tipLabel.textAlignment = NSTextAlignment.Center
+        tipLabel.lineBreakMode = NSLineBreakMode.ByCharWrapping
+        tipLabel.numberOfLines = 0
+        tipLabel.font=UIFont.systemFontOfSize(12)
+        tipLabel.backgroundColor = UIColor.clearColor()
+        self.view.addSubview(tipLabel)
         
     }
     
@@ -78,7 +104,7 @@ class QRCodeScanViewController: UIViewController, AVCaptureMetadataOutputObjects
         
         //2.我的二维码
         let myCodeBtn = UIButton(type: UIButtonType.System)
-        myCodeBtn.frame = CGRectMake(0, 0, SCREENHEIGHT * 0.1 * 35 / 49, SCREENHEIGHT * 0.1)
+        myCodeBtn.frame = CGRectMake(0, 0, SCREENHEIGHT * 0.1 * (35 / 49), SCREENHEIGHT * 0.1)
         myCodeBtn.center=CGPointMake(SCREENWIDTH / 2, SCREENHEIGHT * 0.1 / 2);
         myCodeBtn.setImage(UIImage(named: "qrcode_scan_btn_myqrcode_down"), forState: UIControlState.Normal)
         
@@ -90,27 +116,12 @@ class QRCodeScanViewController: UIViewController, AVCaptureMetadataOutputObjects
     }
     
     func myCodeBtnAction(btn: UIButton) {
-        //
+        ///doing 
+        ///打开图片
+        
     }
     
-    func setupTipTitleView() {
-        //1.补充遮罩
-        let mask = UIView(frame: CGRectMake(0, maskVeiw.frame.origin.y + maskVeiw.frame.height, SCREENWIDTH, kBorderW))
-        mask.backgroundColor = UIColor(red: CGFloat(0), green: CGFloat(0), blue: CGFloat(0), alpha: CGFloat(0.7))
-        self.view.addSubview(mask)
-        
-        //2.操作提示
-        let tipLabel = UILabel(frame: CGRectMake(0, self.view.bounds.height * 0.9 - kBorderW * 2, self.view.bounds.width, kBorderW))
-        tipLabel.text = "将取景框对准二维码，即可自动扫描"
-        tipLabel.textColor = UIColor.whiteColor()
-        tipLabel.textAlignment = NSTextAlignment.Center
-        tipLabel.lineBreakMode = NSLineBreakMode.ByCharWrapping
-        tipLabel.numberOfLines = 2
-        tipLabel.font=UIFont.systemFontOfSize(12)
-        tipLabel.backgroundColor = UIColor.clearColor()
-        self.view.addSubview(tipLabel)
-   
-    }
+    
     
     func setupNavView() {
         
@@ -134,6 +145,9 @@ class QRCodeScanViewController: UIViewController, AVCaptureMetadataOutputObjects
         let editItem = UIBarButtonItem(barButtonSystemItem: .Edit, target: self, action: #selector(QRCodeScanViewController.editItemAction))
         self.navigationItem.rightBarButtonItem = editItem
         
+        
+        
+        //  deprecated  //
 //        //2.相册
 //        let albumBtn = UIButton(type: UIButtonType.Custom)
 //        albumBtn.frame = CGRectMake(0, 0, 35, 49)
@@ -169,8 +183,46 @@ class QRCodeScanViewController: UIViewController, AVCaptureMetadataOutputObjects
             self.openFlash()
         }
         
-        let action3 = UIAlertAction(title: "输入条形码", style: .Default) { (act) in
-            /////
+        let action3 = UIAlertAction(title: "生成二维码", style: .Default) {
+            [unowned self]
+            (act) in
+            
+            let inputVC = UIAlertController(title: "输入信息", message: nil, preferredStyle: .Alert)
+            let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
+            let okayAction = UIAlertAction(title: "确定", style: .Default){
+                [unowned self]
+                (act) in
+                ///生成二维码图片
+                let QRCodeImage = self.createQRCodeImage(withImage: UIImage(named: "icon_mine_default_portrait")!, string: self.textInfo!)
+                
+                ///展示在界面上
+                let imageBtn = UIButton(frame: CGRectMake(0, 64, SCREENWIDTH, SCREENHEIGHT - 64))
+                imageBtn.setImage(QRCodeImage, forState: .Normal)
+                imageBtn.addTarget(self, action: #selector(self.imageBtnAction(_:)), forControlEvents: .TouchUpInside)
+                imageBtn.backgroundColor = THEMECOLOR
+                self.view.addSubview(imageBtn)
+                
+                ///保存到相册
+                //UIImageWriteToSavedPhotosAlbum(QRCodeImage, self, #selector(self.image(_: didFinishSavingWithError: contextInfo: )), nil)
+                
+                inputVC.dismissViewControllerAnimated(true, completion: { 
+                    print("生成二维码")
+                })
+            }
+            
+            inputVC.addAction(cancelAction)
+            inputVC.addAction(okayAction)
+            
+            inputVC.addTextFieldWithConfigurationHandler({ (textField) in
+                textField.borderStyle = .None
+                textField.placeholder = "输入需要保存的信息"
+                textField.delegate = self
+                textField.becomeFirstResponder()
+            })
+            
+            self.presentViewController(inputVC, animated: true, completion: {
+                print("输入信息可以生成二维码")
+            })
         }
         
         let action4 = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
@@ -181,6 +233,26 @@ class QRCodeScanViewController: UIViewController, AVCaptureMetadataOutputObjects
         actionSheet.addAction(action4)
         
         self.presentViewController(actionSheet, animated: true, completion: nil)
+    }
+
+    ///UITextFieldDelegate
+    func textFieldDidEndEditing(textField: UITextField) {
+        self.textInfo = textField.text
+    }
+    
+    ///QRCode imge hide
+    func imageBtnAction(btn: UIButton) {
+        btn.hidden = true ///释放
+    }
+    
+    ///save image to album error
+    //- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo
+    func  image(image: UIImage, didFinishSavingWithError error: NSError?, contextInfo: AnyObject?){
+        guard error != nil else {
+            print("保存图片到相册失败！")
+            return
+        }
+        print("保存图片到相册成功！")
     }
     
     func backBtnAction() {
@@ -198,65 +270,46 @@ class QRCodeScanViewController: UIViewController, AVCaptureMetadataOutputObjects
         }
     }
     
-//    class func swiftClassFromString(className: String) -> AnyClass! {
-//        //method1
-//        //方法 NSClassFromString 在Swift中已经不起作用了no effect，需要适当更改
-//        if  var appName: String? = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleName") as! String? {
-//            // generate the full name of your class (take a look into your "appname-swift.h" file)
-//            //            let classStringName = "_TtC\(appName!.utf16Count)\(appName!)\(count(className))\(className)"//xcode 6.1-6.2 beta
-//            let classStringName = "_TtC\(count(appName!))\(appName!)\(count(className))\(className)"
-//            var  cls: AnyClass? = NSClassFromString(classStringName)
-//            //  method2
-//            //cls = NSClassFromString("\(appName!).\(className)")
-//            assert(cls != nil, "class not found,please check className")
-//            return cls
-//            
-//        }
-//        return nil;
-//    }
-    
     func turnTorchOn(isOn: Bool) {
-//        let captureDeviceClass = QRCodeScanViewController.swiftClassFromString("AVCaptureDevice") as? AVCaptureDevice
-//        if captureDeviceClass != nil {
-            let device = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
+        
+        let device = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
             
-            if (device.hasTorch && device.hasFlash){
+        if (device.hasTorch && device.hasFlash){
+            
+            do{
+                _ = try device.lockForConfiguration()
                 
-                do{
-                    _ = try device.lockForConfiguration()
-                    
-                }catch let error as NSError {
-                    //出错
-                    print(error.localizedDescription)
-                }catch {
-                    print("--device位知错误--")
-                }
-                
-                if isOn {
-                    device.torchMode = AVCaptureTorchMode.On
-                    device.flashMode = AVCaptureFlashMode.On
-                    
-                } else {
-                    device.torchMode = AVCaptureTorchMode.Off
-                    device.flashMode = AVCaptureFlashMode.Off
-                }
-                device.unlockForConfiguration()
+            }catch let error as NSError {
+                //出错
+                print(error.localizedDescription)
+            }catch {
+                print("--device位知错误--")
             }
-//        }
+            
+            if isOn {
+                device.torchMode = AVCaptureTorchMode.On
+                device.flashMode = AVCaptureFlashMode.On
+                
+            } else {
+                device.torchMode = AVCaptureTorchMode.Off
+                device.flashMode = AVCaptureFlashMode.Off
+            }
+            device.unlockForConfiguration()
+        }
     }
-
-    
     
     func setupScanWindowView() {
         
-        let scanWindowH = self.view.bounds.width - kMargin * 2
-        let scanWindowW = self.view.bounds.width - kMargin * 2
+        let scanWindowH = maskView.extWidth() - kMargin * 2 ///kMargin为黑色边框的一半，
+        let scanWindowW = scanWindowH
         
-        scanWindow =  UIView(frame: CGRectMake(kMargin, kBorderW, scanWindowW, scanWindowH))
+        scanWindow =  UIView(frame: CGRectMake(kMargin, kMargin + 64, scanWindowW, scanWindowH))///隐形的框
         scanWindow.clipsToBounds = true
         self.view.addSubview(scanWindow)
         
         scanNetImageView = UIImageView(image: UIImage(named: "scan_net"))
+        scanNetImageView.extSetY(-1 * scanNetImageView.extHeight())
+        scanWindow.addSubview(scanNetImageView)
         
         let buttonWH = CGFloat(18)
         let topLift = UIImageView(frame: CGRectMake(0, 0, buttonWH, buttonWH))
@@ -272,13 +325,29 @@ class QRCodeScanViewController: UIViewController, AVCaptureMetadataOutputObjects
         scanWindow.addSubview(topRight)
         scanWindow.addSubview(bottomLeft)
         scanWindow.addSubview(bottomRight)
+        
+        self.view.addSubview(scanWindow)
     }
     
-    func beginScanning() {
-        setupWork() ///要真机
-    }
-    
-    func setupWork() {
+    func beginScanning() {///要真机
+        ///模拟图片动起来
+        ///way 1、UIView Animation
+        UIView.animateWithDuration(1.5, delay: 0, options: UIViewAnimationOptions.Repeat, animations: {
+            [unowned self] in
+            self.scanNetImageView.transform = CGAffineTransformTranslate(self.scanNetImageView.transform, 0, self.scanWindow.extHeight())
+            }, completion: nil)
+        
+        ///way 2、coreAnimation
+        
+        
+        //初始化链接对象
+        session = AVCaptureSession()
+        //高质量采集率
+        session.sessionPreset = AVCaptureSessionPresetHigh
+        
+        let preLayer = AVCaptureVideoPreviewLayer(session: session)///注意session存放的地方
+        preLayer.frame = self.view.bounds
+        self.view.layer.insertSublayer(preLayer, atIndex: 0)
         
         /*
          * AVCaptureDevice 获取摄像设备
@@ -291,6 +360,7 @@ class QRCodeScanViewController: UIViewController, AVCaptureMetadataOutputObjects
         do {
             
             input = try AVCaptureDeviceInput(device: device)
+            ///add input
             
         }catch let error as NSError {
             // 发生了错误
@@ -306,38 +376,45 @@ class QRCodeScanViewController: UIViewController, AVCaptureMetadataOutputObjects
         ///add delegate
         output.setMetadataObjectsDelegate(self, queue: dispatch_get_main_queue())//主队列（主线程）
         
-        ///设置有效扫描区域
-        let scanRect = self.getScanRect(scanWindow.bounds, readerViewBounds: self.view.frame)
-        output.rectOfInterest = scanRect
+        ///设置“感兴趣”区域（敏感区域）
+        let interestRect = preLayer.metadataOutputRectOfInterestForRect(scanWindow.frame)///扫描区 到 metadata输出区
+        ///值等于CGRectMake(scanWindow.extY() / SCREENHEIGHT, scanWindow.extX() / SCREENWIDTH, scanWindow.extHeight() / SCREENHEIGHT, scanWindow.extWidth() / SCREENWIDTH)
+        ///把一个在 preview layer 坐标系中的rect 转换成一个在 metadata output 坐标系中的rect
         
-        ///初始化链接对象
-        session = AVCaptureSession()
-        ///高质量采集率
-        session.sessionPreset = AVCaptureSessionPresetHigh
+        output.rectOfInterest = interestRect ///注意，这个并不是扫描区的坐标尺寸
         
-        ///add output
         session.addOutput(output)
         
-        //设置扫码支持的编码格式(如下设置条形码和二维码兼容)
-        output.metadataObjectTypes = [AVMetadataObjectTypeQRCode, AVMetadataObjectTypeEAN13Code, AVMetadataObjectTypeEAN8Code, AVMetadataObjectTypeCode128Code]
+        //设置扫码支持的类型
+        output.metadataObjectTypes = [AVMetadataObjectTypeDataMatrixCode,
+                                      AVMetadataObjectTypeAztecCode,
+                                      AVMetadataObjectTypeQRCode,
+                                      AVMetadataObjectTypePDF417Code, 
+                                      AVMetadataObjectTypeEAN13Code,
+                                      AVMetadataObjectTypeEAN8Code,
+                                      AVMetadataObjectTypeCode128Code]
         
-        let layer = AVCaptureVideoPreviewLayer(session: session)
-        layer.frame = self.view.bounds
-        self.view.layer.insertSublayer(layer, atIndex: 0)
+        ///常用的码制有：PDF417二维条码、Datamatrix二维条码、QR Code、Code 49、Code 16K、Code one等，
+        ///除了这些常见的二维条码之外，还有Vericode条码、Maxicode条码、CP条码、Codablock F条码、 Ultracode条码及Aztec条码。
+        
+        
         
         ///start grab
         session.startRunning()
    
     }
     
-    ///设置扫描区域矩形(获取扫描区域的比例关系)
-    func getScanRect(rect: CGRect, readerViewBounds: CGRect) -> CGRect {
-        let x = (CGRectGetHeight(readerViewBounds) - CGRectGetHeight(rect)) / 2 / CGRectGetHeight(readerViewBounds)
-        let y = (CGRectGetWidth(readerViewBounds) - CGRectGetWidth(rect)) / 2 / CGRectGetWidth(readerViewBounds)
-        let width = CGRectGetHeight(rect) / CGRectGetHeight(readerViewBounds);
-        let height = CGRectGetWidth(rect) / CGRectGetWidth(readerViewBounds);
-        
-        return CGRectMake(x, y, width, height)
+    func captureOutput(captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [AnyObject]!, fromConnection connection: AVCaptureConnection!) {
+        if metadataObjects.count > 0 {
+            session.stopRunning()
+            
+            let metadataObject = metadataObjects.last
+            
+            print(metadataObject?.stringValue)
+            
+            ///退出
+            self.navigationController?.popViewControllerAnimated(true)
+        }
     }
     
     
@@ -364,9 +441,6 @@ class QRCodeScanViewController: UIViewController, AVCaptureMetadataOutputObjects
             self.presentViewController(pikController, animated: true, completion: nil)
             
         }else{
-            ///UIAlertView ios9 已废弃
-            //let alert = UIAlertView(title: "提示", message: "设备不支持访问相册，请在设置->隐私->照片中进行设置！", delegate: nil, cancelButtonTitle: "确定")
-            //alert.show()
             
             let alertVC = UIAlertController(title: "提示", message: "设备不支持访问相册，请在设置->隐私->照片中进行设置！", preferredStyle: UIAlertControllerStyle.Alert)
             let action = UIAlertAction(title: "OK", style: .Cancel, handler: nil)
@@ -407,196 +481,115 @@ class QRCodeScanViewController: UIViewController, AVCaptureMetadataOutputObjects
         }
     }
     
-    /*
-//////////////////////////////
-    #pragma mark-> 二维码生成
-    -(void)create{
     
-    UIImage *image=[UIImage imageNamed:@"6824500_006_thumb.jpg"];
-    NSString*tempStr;
-    if(self.textField.text.length==0){
     
-    tempStr=@"ddddddddd";
+    /***********生成二维码图片**************/ ///coreImage
     
-    }else{
-    
-    tempStr=self.textField.text;
-    
-    }
-    UIImage*tempImage=[QRCodeGenerator qrImageForString:tempStr imageSize:360 Topimg:image withColor:RandomColor];
-    
-    _outImageView.image=tempImage;
-    
-    }
-    +(UIImage*)qrImageForString:(NSString *)string imageSize:(CGFloat)size Topimg:(UIImage *)topimg withColor:(UIColor*)color{
-    
-    if (![string length]) {
-    return nil;
-    }
-    
-    QRcode *code = QRcode_encodeString([string UTF8String], 0, QR_ECLEVEL_L, QR_MODE_8, 1);
-    if (!code) {
-    return nil;
-    }
-    
-    // create context
-    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-    CGContextRef ctx = CGBitmapContextCreate(0, size, size, 8, size * 4, colorSpace, kCGImageAlphaPremultipliedLast);
-    
-    CGAffineTransform translateTransform = CGAffineTransformMakeTranslation(0, -size);
-    CGAffineTransform scaleTransform = CGAffineTransformMakeScale(1, -1);
-    CGContextConcatCTM(ctx, CGAffineTransformConcat(translateTransform, scaleTransform));
-    
-    // draw QR on this context
-    [QRCodeGenerator drawQRCode:code context:ctx size:size withPointType:0 withPositionType:0 withColor:color];
-    
-    // get image
-    CGImageRef qrCGImage = CGBitmapContextCreateImage(ctx);
-    UIImage * qrImage = [UIImage imageWithCGImage:qrCGImage];
-    
-    if(topimg)
-    {
-    UIGraphicsBeginImageContext(qrImage.size);
-    
-    //Draw image2
-    [qrImage drawInRect:CGRectMake(0, 0, qrImage.size.width, qrImage.size.height)];
-    
-    //Draw image1
-    float r=qrImage.size.width*35/240;
-    [topimg drawInRect:CGRectMake((qrImage.size.width-r)/2, (qrImage.size.height-r)/2 ,r, r)];
-    
-    qrImage=UIGraphicsGetImageFromCurrentImageContext();
-    
-    UIGraphicsEndImageContext();
+    func createQRCodeImage(withImage image: UIImage, string: String) -> UIImage {
+        
+        /// 1. 实例化二维码滤镜
+        let filter = CIFilter(name: "CIQRCodeGenerator")///CICode128BarcodeGenerator ///条形码
+        ///注意
+        
+        /// 2. 恢复滤镜的默认属性
+        filter?.setDefaults()
+        
+        /// 3. 将字符串转换成二进制数据，（生成二维码所需的数据）
+        let data = string.dataUsingEncoding(NSUTF8StringEncoding)
+        
+        /// 4. 通过KVO把二进制数据添加到滤镜inputMessage中
+        filter?.setValue(data, forKey: "inputMessage")
+        filter?.setValue("H", forKey: "inputCorrectionLevel")
+        
+        /// 5. 获得滤镜输出的图像
+        let outputImage = filter?.outputImage ///CIImage
+        
+        /// 6. 将CIImage转换成UIImage，并放大显示
+        //let originQRCodeImage = UIImage(CIImage: outputImage!, scale: 0.07, orientation: UIImageOrientation.Up) ///原生二维码图片 ///这样将图片放大会变得模糊
+        //return originQRCodeImage
+        
+        ///进行重绘
+        let newQRCodeImage = createUIimageWithCGImage(ciImage: outputImage!, widthAndHeightValue: 300)
+        
+        return newQRCodeImage
     }
     
-    // some releases
-    CGContextRelease(ctx);
-    CGImageRelease(qrCGImage);
-    CGColorSpaceRelease(colorSpace);
-    QRcode_free(code);
-    
-    return qrImage;
-    
-    }
-    + (void)drawQRCode:(QRcode *)code context:(CGContextRef)ctx size:(CGFloat)size withPointType:(QRPointType)pointType withPositionType:(QRPositionType)positionType withColor:(UIColor *)color {
-    unsigned char *data = 0;
-    int width;
-    data = code->data;
-    width = code->width;
-    float zoom = (double)size / (code->width + 2.0 * qr_margin);
-    CGRect rectDraw = CGRectMake(0, 0, zoom, zoom);
-    
-    // draw
-    const CGFloat *components;
-    if (color) {
-    components = CGColorGetComponents(color.CGColor);
-    }else {
-    components = CGColorGetComponents([UIColor blackColor].CGColor);
-    }
-    CGContextSetRGBFillColor(ctx, components[0], components[1], components[2], 1.0);
-    NSLog(@"aad :%f  bbd :%f   ccd:%f",components[0],components[1],components[2]);
-    
-    for(int i = 0; i < width; ++i) {
-    for(int j = 0; j < width; ++j) {
-    if(*data & 1) {
-				rectDraw.origin = CGPointMake((j + qr_margin) * zoom,(i + qr_margin) * zoom);
-    if (positionType == QRPositionNormal) {
-    switch (pointType) {
-    case QRPointRect:
-    CGContextAddRect(ctx, rectDraw);
-    break;
-    case QRPointRound:
-    CGContextAddEllipseInRect(ctx, rectDraw);
-    break;
-    default:
-    break;
-    }
-    }else if(positionType == QRPositionRound) {
-    switch (pointType) {
-    case QRPointRect:
-    CGContextAddRect(ctx, rectDraw);
-    break;
-    case QRPointRound:
-    if ((i>=0 && i<=6 && j>=0 && j<=6) || (i>=0 && i<=6 && j>=width-7-1 && j<=width-1) || (i>=width-7-1 && i<=width-1 && j>=0 && j<=6)) {
-    CGContextAddRect(ctx, rectDraw);
-    }else {
-    CGContextAddEllipseInRect(ctx, rectDraw);
-    }
-    break;
-    default:
-    break;
-    }
-    }
-    }
-    ++data;
-    }
-    }
-    CGContextFillPath(ctx);
+    func createUIimageWithCGImage(ciImage image: CIImage, widthAndHeightValue wh: CGFloat) -> UIImage {
+        let ciRect = CGRectIntegral(image.extent)///根据容器得到适合的尺寸
+        let scale = min(wh / ciRect.width, wh / ciRect.height)
+        
+        ///获取bitmap
+        
+        let width  = size_t(ciRect.width * scale)
+        let height  = size_t(ciRect.height * scale)
+        let cs = CGColorSpaceCreateDeviceGray()///灰度颜色通道 ///CGColorSpaceRef
+        
+        let info_UInt32 = CGImageAlphaInfo.None.rawValue
+        let bitmapRef = CGBitmapContextCreate(nil, width, height, 8, 0, cs, info_UInt32)
+        
+        let contex = CIContext(options: nil)
+        let bitmapImageRef = contex.createCGImage(image, fromRect: CGRectMake(ciRect.origin.x, ciRect.origin.y, ciRect.size.width, ciRect.size.height)) ///CGImageRef
+        
+        CGContextSetInterpolationQuality(bitmapRef, CGInterpolationQuality.High)///写入质量高，时间长
+        CGContextScaleCTM(bitmapRef, scale, scale) ///调整“画布”的缩放
+        CGContextDrawImage(bitmapRef, ciRect, bitmapImageRef) ///绘制图片
+        
+        ///保存
+        let scaledImage = CGBitmapContextCreateImage(bitmapRef)
+        
+        ///bitmapRef和bitmapImageRef不用主动释放，Core Foundation自动管理
+        
+        //let originImage = UIImage(CGImage: scaledImage!) ///原生灰度图片（灰色）
+        
+        let ciImage = CIImage(CGImage: scaledImage!)
+        
+        ///添加滤镜
+        let colorFilter = CIFilter(name: "CIFalseColor")///颜色滤镜
+        colorFilter!.setDefaults()
+        colorFilter!.setValue(ciImage, forKey:kCIInputImageKey)
+        
+        colorFilter!.setValue(CIColor(red: 33.0 / 225.0, green: 192.0 / 225.0, blue: 174.0 / 225.0, alpha: 1.0), forKey:"inputColor0")///二维码元素（像素）
+        colorFilter!.setValue(CIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1), forKey:"inputColor1")///背景
+        
+        let colorImgae = colorFilter!.outputImage
+        let newQRCodeImage = UIImage(CIImage: colorImgae!)
+        
+        return newQRCodeImage
+        
     }
     
-    
-    
-    
-    */
-    /*
-    #pragma mark-> 长按识别二维码
-    -(void)dealLongPress:(UIGestureRecognizer*)gesture{
-    
-    if(gesture.state==UIGestureRecognizerStateBegan){
-    
-    _timer.fireDate=[NSDate distantFuture];
-    
-    UIImageView*tempImageView=(UIImageView*)gesture.view;
-    if(tempImageView.image){
-    //1. 初始化扫描仪，设置设别类型和识别质量
-    CIDetector*detector = [CIDetector detectorOfType:CIDetectorTypeQRCode context:nil options:@{ CIDetectorAccuracy : CIDetectorAccuracyHigh }];
-    //2. 扫描获取的特征组
-    NSArray *features = [detector featuresInImage:[CIImage imageWithCGImage:tempImageView.image.CGImage]];
-    //3. 获取扫描结果
-    CIQRCodeFeature *feature = [features objectAtIndex:0];
-    NSString *scannedResult = feature.messageString;
-    UIAlertView * alertView = [[UIAlertView alloc]initWithTitle:@"扫描结果" message:scannedResult delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-    [alertView show];
-    }else {
-    
-    UIAlertView * alertView = [[UIAlertView alloc]initWithTitle:@"扫描结果" message:@"您还没有生成二维码" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-    [alertView show];
+    /***********长按识别二维码**************/
+    ///更从相册中的读取的二维码类似，这里不测试了，学习者可以在需要的地方调用该方法
+    func recognizeQRCode(withLongPress lpGesture: UIGestureRecognizer) {
+        
+        if lpGesture.state == .Began {
+            
+            let tpImageView = lpGesture.view as! UIImageView
+            if tpImageView.image != nil {
+                ///1 初始化扫描仪，设置设备类型和识别质量 ///CIDetector
+                let detector = CIDetector(ofType: CIDetectorTypeQRCode, context: nil, options: [CIDetectorAccuracy : CIDetectorAccuracyHigh])
+                
+                ///2、扫描获取的特征组
+                let features = detector.featuresInImage(CIImage(CGImage: (tpImageView.image?.CGImage)!))
+                
+                ///3、获取扫描结果 ///CIQRCodeFeature
+                let  feature = features.first as! CIQRCodeFeature
+                let scannedResult = feature.messageString
+                
+                print("扫描结果是：", scannedResult)
+                
+                let ac = UIAlertController(title: "扫描结果", message: scannedResult, preferredStyle: .Alert)
+                self.navigationController?.pushViewController(ac, animated: true)
+            }else {
+                let ac = UIAlertController(title: "错误提示", message: "没法识别图片", preferredStyle: .Alert)
+                self.navigationController?.pushViewController(ac, animated: true)
+            }
+        }
     }
+
     
     
-    }else if (gesture.state==UIGestureRecognizerStateEnded){
-    
-    
-    _timer.fireDate=[NSDate distantPast];
-    }
-    
-    
-    }
-*/
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+ 
     
 /****************************************************************************************************/
 

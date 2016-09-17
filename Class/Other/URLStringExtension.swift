@@ -15,7 +15,7 @@ extension String {
         let httpsHeader = "https"
         let range = URLString.rangeOfString(httpsHeader)
         
-        if range == nil { /// 不是https开头
+        if range == nil && URLString.lengthOfBytesUsingEncoding(NSUTF8StringEncoding) > 4{ /// 不是https开头
             let index = URLString.startIndex.advancedBy(4) //swift 2.0+
             let subUrl = URLString.substringFromIndex(index)
             let httpsUrl = httpsHeader + subUrl
