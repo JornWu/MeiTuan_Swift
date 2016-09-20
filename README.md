@@ -8,7 +8,8 @@
 由于Swift中的enum和struct非常强大，苹果公司也在推从使用Struct来替代部分class，所以，本app在部分功能上采用的struct或enum来实现，更加的快捷
 和轻量化。
 
-本APP使用xcode7.3.1，pod iOS 最低版本为9.0，语言Swift3.0。
+本APP使用xcode7.3.1，pod iOS 最低版本为9.0，语言Swift2.3。
+（其实是从xcode7.2.1(Swift2.0)升到xcode7.3.1(Swift2.3), xcode8.0(Swift3.0)将会后续更新）
 AF -> 3.0、 SD->3.8、UIKit等。详情请看项目，打开运行注意适配, 设备为iphone6 plus显示最佳。
 本APP采用MVC的经典模式，结合storyboard（ViewController）和xib（View）和code开发,适合大多复杂APP的开发模式，便于更新和维护。
 本APP仍在有必要的功能上更新.
