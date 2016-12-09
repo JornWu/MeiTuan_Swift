@@ -10,15 +10,15 @@ import UIKit
 
 class SearchViewController: BaseViewController, UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate {
     
-    private var searchField: UITextField!
+    fileprivate var searchField: UITextField!
     
-    private lazy var hotWords: [String] = {
+    fileprivate lazy var hotWords: [String] = {
         return ["外卖", "华莱士", "正新鸡排", "麦当劳", "华德莱", "知味观", "可莎蜜儿", "毛源昌眼镜店", "必胜客", "肯德基", "兰州拉面", "川味坊"]
     }()
     
-    private var hotListView: UIView!
+    fileprivate var hotListView: UIView!
     
-    private var searchTableView: UITableView!
+    fileprivate var searchTableView: UITableView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,49 +31,49 @@ class SearchViewController: BaseViewController, UITextFieldDelegate, UITableView
         setupSearchTableView()
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         self.navigationController?.navigationBar.barTintColor = THEMECOLOR
-        searchField.hidden = true///隐藏
+        searchField.isHidden = true///隐藏
     }
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         searchField.resignFirstResponder()
     }
     
-    func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         searchField.resignFirstResponder()
     }
     
     func setupNavigationBar() {
         
-        self.navigationController?.navigationBar.barTintColor = UIColor.whiteColor()
+        self.navigationController?.navigationBar.barTintColor = UIColor.white
         
-        let backBtn = UIButton(type: UIButtonType.Custom)
-        backBtn.frame = CGRectMake(0, 0, 25, 25)
-        backBtn.setImage(UIImage(named: "btn_backItem"), forState: UIControlState.Normal)
-        backBtn.setImage(UIImage(named: "btn_backItem.highlighted"), forState: UIControlState.Highlighted)
-        backBtn.addTarget(self, action: #selector(SearchViewController.backBtnAction), forControlEvents: UIControlEvents.TouchUpInside)
+        let backBtn = UIButton(type: UIButtonType.custom)
+        backBtn.frame = CGRect(x: 0, y: 0, width: 25, height: 25)
+        backBtn.setImage(UIImage(named: "btn_backItem"), for: UIControlState())
+        backBtn.setImage(UIImage(named: "btn_backItem.highlighted"), for: UIControlState.highlighted)
+        backBtn.addTarget(self, action: #selector(SearchViewController.backBtnAction), for: UIControlEvents.touchUpInside)
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backBtn)
         
         ///search test field
-        searchField = UITextField(frame: CGRectMake(60, 9, SCREENWIDTH - 30 - 50, 25))
+        searchField = UITextField(frame: CGRect(x: 60, y: 9, width: SCREENWIDTH - 30 - 50, height: 25))
         searchField.clipsToBounds = true
         searchField.layer.cornerRadius = searchField.extHeight() * 0.5
-        searchField.borderStyle = .None
+        searchField.borderStyle = .none
         searchField.backgroundColor = BACKGROUNDCOLOR
         
-        let lView = UIImageView(frame: CGRectMake(5, 5, 15, 15))
+        let lView = UIImageView(frame: CGRect(x: 5, y: 5, width: 15, height: 15))
         lView.image = UIImage(named: "icon_textfield_search")
-        let lBgView = UIView(frame: CGRectMake(0, 0, 25, 25))
+        let lBgView = UIView(frame: CGRect(x: 0, y: 0, width: 25, height: 25))
         lBgView.addSubview(lView)
         searchField.leftView = lBgView
-        searchField.leftViewMode = .Always
+        searchField.leftViewMode = .always
         
-        searchField.clearButtonMode = .WhileEditing
+        searchField.clearButtonMode = .whileEditing
         searchField.clearsOnInsertion = true
         
         searchField.placeholder = "输入商家、品类、商圈"
-        searchField.font = UIFont.systemFontOfSize(12)
+        searchField.font = UIFont.systemFont(ofSize: 12)
         self.navigationController?.navigationBar.addSubview(searchField)
         
         searchField.delegate = self
@@ -81,11 +81,11 @@ class SearchViewController: BaseViewController, UITextFieldDelegate, UITableView
     
     func backBtnAction() {
         searchField.resignFirstResponder()
-        self.navigationController?.popToRootViewControllerAnimated(true)
+        self.navigationController?.popToRootViewController(animated: true)
     }
     
     func setupSearchTableView() {
-        searchTableView = UITableView(frame: CGRectMake(0, 62, SCREENWIDTH, SCREENHEIGHT - 64), style: .Grouped)
+        searchTableView = UITableView(frame: CGRect(x: 0, y: 62, width: SCREENWIDTH, height: SCREENHEIGHT - 64), style: .grouped)
         searchTableView.dataSource = self
         searchTableView.delegate = self
         self.view.addSubview(searchTableView)
@@ -94,11 +94,11 @@ class SearchViewController: BaseViewController, UITextFieldDelegate, UITableView
     
     func setupHotListView() {
         
-        hotListView = UIView(frame: CGRectMake(0, 0, SCREENWIDTH, 150))
-        hotListView.backgroundColor = UIColor.grayColor()
+        hotListView = UIView(frame: CGRect(x: 0, y: 0, width: SCREENWIDTH, height: 150))
+        hotListView.backgroundColor = UIColor.gray
         
         for index in 0 ..< hotWords.count {
-            let itemBtn = UIButton(type: .Custom)
+            let itemBtn = UIButton(type: .custom)
             
             let tc = 3 //总3列
             let tr = Int(hotWords.count / 3)//总行
@@ -108,52 +108,52 @@ class SearchViewController: BaseViewController, UITextFieldDelegate, UITableView
             let w = (SCREENWIDTH - 2) / 3
             let h = (150 - 2) / tr
             
-            itemBtn.frame = CGRectMake((w + 1) * c, (CGFloat(h) + 1) * CGFloat(r), w, CGFloat(h))
-            itemBtn.backgroundColor = UIColor.whiteColor()
-            itemBtn.setTitle(hotWords[index], forState: .Normal)
-            itemBtn.setTitleColor(UIColor.blackColor(), forState: .Normal)
-            itemBtn.titleLabel?.font = UIFont.systemFontOfSize(13)
+            itemBtn.frame = CGRect(x: (w + 1) * c, y: (CGFloat(h) + 1) * CGFloat(r), width: w, height: CGFloat(h))
+            itemBtn.backgroundColor = UIColor.white
+            itemBtn.setTitle(hotWords[index], for: UIControlState())
+            itemBtn.setTitleColor(UIColor.black, for: UIControlState())
+            itemBtn.titleLabel?.font = UIFont.systemFont(ofSize: 13)
             itemBtn.tag = index + 500
-            itemBtn.addTarget(self, action: #selector(itemAction(_:)), forControlEvents: .TouchUpInside)
+            itemBtn.addTarget(self, action: #selector(itemAction(_:)), for: .touchUpInside)
             hotListView.addSubview(itemBtn)
         }
     }
     
-    func itemAction(btn: UIButton) {
+    func itemAction(_ btn: UIButton) {
         ///doing
         searchField.resignFirstResponder()
         print("点击了tag为\(btn.tag)的按钮")
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
     
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .Default, reuseIdentifier: nil)
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
         cell.contentView.addSubview(hotListView)
         return cell
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 150
     }
     
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 30
     }
-    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0.001 ///0
     }
     
-    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == 0 {
-            let sBgView = UIView(frame: CGRectMake(0, 0, SCREENWIDTH, 30))
-            let titleLabel = UILabel(frame: CGRectMake(10 , 0, SCREENWIDTH - 10, 30))
+            let sBgView = UIView(frame: CGRect(x: 0, y: 0, width: SCREENWIDTH, height: 30))
+            let titleLabel = UILabel(frame: CGRect(x: 10 , y: 0, width: SCREENWIDTH - 10, height: 30))
             titleLabel.text = "热门搜索"
-            titleLabel.font = UIFont.systemFontOfSize(13)
-            titleLabel.textColor = UIColor.grayColor()
+            titleLabel.font = UIFont.systemFont(ofSize: 13)
+            titleLabel.textColor = UIColor.gray
             
             sBgView.addSubview(titleLabel)
             

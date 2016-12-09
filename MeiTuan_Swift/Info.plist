@@ -69,5 +69,9 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>是否允许程序访问摄像头</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>是否允许程序访问相册</string>
 </dict>
 </plist>

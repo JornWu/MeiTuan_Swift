@@ -21,16 +21,16 @@ class HomeTableViewCell: UITableViewCell {
         // Initialization code
     }
     
-    class func creatCellWith(aTableView: UITableView, indexPath: NSIndexPath, reuseIdentifier: String) -> HomeTableViewCell {
-        var cell = aTableView.dequeueReusableCellWithIdentifier(reuseIdentifier, forIndexPath: indexPath) as? HomeTableViewCell
+    class func creatCellWith(_ aTableView: UITableView, indexPath: IndexPath, reuseIdentifier: String) -> HomeTableViewCell {
+        var cell = aTableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as? HomeTableViewCell
         if cell == nil {
-            cell = NSBundle.mainBundle().loadNibNamed("HomeTableViewCell", owner: nil, options: nil).last as? HomeTableViewCell
+            cell = Bundle.main.loadNibNamed("HomeTableViewCell", owner: nil, options: nil)?.last as? HomeTableViewCell
         }
         
         return cell!
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

@@ -9,7 +9,7 @@ import Foundation
 
 struct CA_CurrentAddressModel{
 
-	var data : CA_Data!
+	public var data : CA_Data!
 
 
 	/**

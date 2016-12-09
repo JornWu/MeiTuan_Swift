@@ -19,12 +19,12 @@ import UIKit
 
 class StarView: UIView {
     
-    private var rate: CGFloat! //评分
-    private var total: Int! //总分
-    private var mStarWH: CGFloat! //星星宽高，默认20
-    private var mSpace: CGFloat! //间距，默认3
-    private var starImageFull: UIImage! //星星图片(填充的)（表示得到分数）
-    private var starImageEmpty: UIImage! //星星图片(未填充的)（表示未得到的分数）
+    fileprivate var rate: CGFloat! //评分
+    fileprivate var total: Int! //总分
+    fileprivate var mStarWH: CGFloat! //星星宽高，默认20
+    fileprivate var mSpace: CGFloat! //间距，默认3
+    fileprivate var starImageFull: UIImage! //星星图片(填充的)（表示得到分数）
+    fileprivate var starImageEmpty: UIImage! //星星图片(未填充的)（表示未得到的分数）
     
     convenience init(withRate rate: CGFloat, total: Int, starWH: CGFloat?, space: CGFloat?, starImageFull: UIImage, starImageEmpty: UIImage) {
         
@@ -43,7 +43,7 @@ class StarView: UIView {
             sp = space!
         }
         
-        self.init(frame: CGRectMake(0, 0, (wh + sp) * CGFloat(total), wh + sp * 2))//根据星星大小来确定
+        self.init(frame: CGRect(x: 0, y: 0, width: (wh + sp) * CGFloat(total), height: wh + sp * 2))//根据星星大小来确定
         
         
         self.rate = rate
@@ -56,7 +56,7 @@ class StarView: UIView {
         setupView()
     }
     
-    private func setupView() {
+    fileprivate func setupView() {
         
         ///比例
         let r = mStarWH / starImageFull.size.width ///因为星星的大小是固定的，所以要适配starView的大小
@@ -67,25 +67,25 @@ class StarView: UIView {
             
             let c = index % total
             
-            let starView = UIImageView(frame: CGRectMake(mSpace + (imgWH + mSpace) * CGFloat(c), mSpace, imgWH, imgWH))///space为间距
+            let starView = UIImageView(frame: CGRect(x: mSpace + (imgWH + mSpace) * CGFloat(c), y: mSpace, width: imgWH, height: imgWH))///space为间距
             starView.image = starImageEmpty
-            starView.contentMode = UIViewContentMode.Left
+            starView.contentMode = UIViewContentMode.left
             
-            starView.transform = CGAffineTransformScale(starView.transform, r, r)///比例缩放
-            starView.frame = CGRectMake(mSpace + (mStarWH + mSpace) * CGFloat(c), mSpace, mStarWH, mStarWH)///调整位置
+            starView.transform = starView.transform.scaledBy(x: r, y: r)///比例缩放
+            starView.frame = CGRect(x: mSpace + (mStarWH + mSpace) * CGFloat(c), y: mSpace, width: mStarWH, height: mStarWH)///调整位置
             
             self.addSubview(starView)
         }
         
         ///2.1 计算最后一个星星的宽度
-        let w = rate % 1 * mStarWH ///swift 浮点数可以取余
+        let w = rate.truncatingRemainder(dividingBy: 1) * mStarWH ///swift 浮点数可以取余
         
         if w != 0 {//w 为0时裁剪图片出错
             ///2.2 处理最后那个星星
-            let fImage = UIImage.cutImage(image: starImageFull, withSize: CGSizeMake(w, mStarWH))
+            let fImage = UIImage.cutImage(image: starImageFull, withSize: CGSize(width: w, height: mStarWH))
             
             ///3.铺好得分的星星
-            let num = rate - (rate % 1) + 1
+            let num = rate - (rate.truncatingRemainder(dividingBy: 1)) + 1
             
             for index in 0 ..< Int(num) {
                 
@@ -93,21 +93,21 @@ class StarView: UIView {
                 
                 if index != Int(num - 1) {
                     
-                    let starView = UIImageView(frame: CGRectMake(mSpace + (imgWH + mSpace) * CGFloat(c), mSpace, imgWH, imgWH))
+                    let starView = UIImageView(frame: CGRect(x: mSpace + (imgWH + mSpace) * CGFloat(c), y: mSpace, width: imgWH, height: imgWH))
                     starView.image = starImageFull
-                    starView.contentMode = UIViewContentMode.Left
+                    starView.contentMode = UIViewContentMode.left
                     
-                    starView.transform = CGAffineTransformScale(starView.transform, r, r)///比例缩放
-                    starView.frame = CGRectMake(mSpace + (mStarWH + mSpace) * CGFloat(c), mSpace, mStarWH, mStarWH)
+                    starView.transform = starView.transform.scaledBy(x: r, y: r)///比例缩放
+                    starView.frame = CGRect(x: mSpace + (mStarWH + mSpace) * CGFloat(c), y: mSpace, width: mStarWH, height: mStarWH)
                     
                     self.addSubview(starView)
                 }else {
-                    let starView = UIImageView(frame: CGRectMake(mSpace + (imgWH + mSpace) * CGFloat(c), mSpace, imgWH, imgWH))
+                    let starView = UIImageView(frame: CGRect(x: mSpace + (imgWH + mSpace) * CGFloat(c), y: mSpace, width: imgWH, height: imgWH))
                     starView.image = fImage
-                    starView.contentMode = UIViewContentMode.Left
+                    starView.contentMode = UIViewContentMode.left
                     
-                    starView.transform = CGAffineTransformScale(starView.transform, r, r)///比例缩放
-                    starView.frame = CGRectMake(mSpace + (mStarWH + mSpace) * CGFloat(c), mSpace, mStarWH, mStarWH)
+                    starView.transform = starView.transform.scaledBy(x: r, y: r)///比例缩放
+                    starView.frame = CGRect(x: mSpace + (mStarWH + mSpace) * CGFloat(c), y: mSpace, width: mStarWH, height: mStarWH)
                     
                     self.addSubview(starView)
                 }
@@ -118,12 +118,12 @@ class StarView: UIView {
                 
                 let c = index % total
                     
-                let starView = UIImageView(frame: CGRectMake(mSpace + (imgWH + mSpace) * CGFloat(c), mSpace, imgWH, imgWH))
+                let starView = UIImageView(frame: CGRect(x: mSpace + (imgWH + mSpace) * CGFloat(c), y: mSpace, width: imgWH, height: imgWH))
                 starView.image = starImageFull
-                starView.contentMode = UIViewContentMode.Left
+                starView.contentMode = UIViewContentMode.left
                 
-                starView.transform = CGAffineTransformScale(starView.transform, r, r)///比例缩放
-                starView.frame = CGRectMake(mSpace + (mStarWH + mSpace) * CGFloat(c), mSpace, mStarWH, mStarWH)
+                starView.transform = starView.transform.scaledBy(x: r, y: r)///比例缩放
+                starView.frame = CGRect(x: mSpace + (mStarWH + mSpace) * CGFloat(c), y: mSpace, width: mStarWH, height: mStarWH)
                 
                 self.addSubview(starView)
 

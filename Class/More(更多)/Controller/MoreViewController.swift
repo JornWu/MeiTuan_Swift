@@ -10,8 +10,8 @@ import UIKit
 
 class MoreViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate {
     
-    private var dataAr: NSArray!
-    private var moreTableView: UITableView!
+    fileprivate var dataAr: NSArray!
+    fileprivate var moreTableView: UITableView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,7 +22,7 @@ class MoreViewController: BaseViewController, UITableViewDataSource, UITableView
         creatTableView()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.navigationBar.barTintColor = THEMECOLOR
     }
     
@@ -31,7 +31,7 @@ class MoreViewController: BaseViewController, UITableViewDataSource, UITableView
     }
     
     func creatTableView() {
-        moreTableView = UITableView(frame: CGRectMake(0, 64, SCREENWIDTH, SCREENHEIGHT - 64 - 49), style: UITableViewStyle.Grouped)
+        moreTableView = UITableView(frame: CGRect(x: 0, y: 64, width: SCREENWIDTH, height: SCREENHEIGHT - 64 - 49), style: UITableViewStyle.grouped)
         self.view.addSubview(moreTableView)
         
         moreTableView.dataSource = self
@@ -40,19 +40,19 @@ class MoreViewController: BaseViewController, UITableViewDataSource, UITableView
         
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return dataAr.count
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dataAr[section].count
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return (dataAr[section] as AnyObject).count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "MoreCell")
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "MoreCell")
         cell.textLabel!.text = (dataAr[indexPath.section] as! NSArray)[indexPath.row] as? String
-        cell.selectionStyle = UITableViewCellSelectionStyle.None
-        cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+        cell.selectionStyle = UITableViewCellSelectionStyle.none
+        cell.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
         
         if indexPath.section == 0 {
             //二维码扫描
@@ -68,7 +68,7 @@ class MoreViewController: BaseViewController, UITableViewDataSource, UITableView
         return cell
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {//二维码扫描
             
             self.hidesBottomBarWhenPushed = true
@@ -79,12 +79,12 @@ class MoreViewController: BaseViewController, UITableViewDataSource, UITableView
         }else if indexPath.section == 2 {//支付帮助
             if indexPath.row == 1 {
                 self.hidesBottomBarWhenPushed = true
-                let urlString = UrlStrType.PayHelp.getUrlString()
+                let urlString = UrlStrType.payHelp.getUrlString()
                 self.navigationController?.pushViewController(H5ViewController(urlString: urlString), animated: true)
                 self.hidesBottomBarWhenPushed = false
             }else if indexPath.row == 4 {//我要应聘
                 self.hidesBottomBarWhenPushed = true
-                let urlString = UrlStrType.HelpWorking.getUrlString()
+                let urlString = UrlStrType.helpWorking.getUrlString()
                 self.navigationController?.pushViewController(H5ViewController(urlString: urlString), animated: true)
                 self.hidesBottomBarWhenPushed = false
             }

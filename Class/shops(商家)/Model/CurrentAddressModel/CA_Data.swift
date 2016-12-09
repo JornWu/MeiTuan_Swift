@@ -9,16 +9,16 @@ import Foundation
 
 struct CA_Data{
 
-	var area : Int!
-	var city : String!
-	var detail : String!
-	var district : String!
-	var id : Int!
-	var isForeign : Bool!
-	var lat : Float!
-	var lng : Float!
-	var parentArea : Int!
-	var province : String!
+    var area : Int!
+    var city : String!
+    var detail : String!
+    var district : String!
+    var id : Int!
+    var isForeign : Bool!
+    var lat : Float!
+    var lng : Float!
+    var parentArea : Int!
+    var province : String!
 
 
 	/**

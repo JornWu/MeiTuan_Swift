@@ -9,12 +9,12 @@
 import Foundation
 import MapKit
 
-public class MerchantAnnotation: NSObject, MKAnnotation  {
+open class MerchantAnnotation: NSObject, MKAnnotation  {
     
     var merchantDataModel: AM_Rdploc ///外面需要访问
 
     ///包含在MKAnnotation中
-    public var coordinate: CLLocationCoordinate2D {
+    open var coordinate: CLLocationCoordinate2D {
         get {
             return CLLocationCoordinate2D(latitude: Double(merchantDataModel.lat), longitude: Double(merchantDataModel.lng))
         }
@@ -25,13 +25,13 @@ public class MerchantAnnotation: NSObject, MKAnnotation  {
     }
     
 //    // Title and subtitle for use by selection UI.
-    public var title: String? {
+    open var title: String? {
         get {
             return merchantDataModel.name
         }
     }
     
-    public var subtitle: String? {
+    open var subtitle: String? {
         get {
             return merchantDataModel.addr
         }

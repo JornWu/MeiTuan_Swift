@@ -26,16 +26,16 @@ class BaseViewController: UIViewController {
         self.automaticallyAdjustsScrollViewInsets = false//取消scrollview和tableview上的留白
     }
     
-    private class func setupActivutyView() -> UIView {
+    fileprivate class func setupActivutyView() -> UIView {
         ///封装activityView视图
-        let bgView = UIView(frame: CGRectMake(SCREENWIDTH/2-15, SCREENHEIGHT/2-15, 40, 40))
+        let bgView = UIView(frame: CGRect(x: SCREENWIDTH/2-15, y: SCREENHEIGHT/2-15, width: 40, height: 40))
         bgView.tag = 101010 ///要在外面停止
-        bgView.backgroundColor = UIColor.grayColor()
+        bgView.backgroundColor = UIColor.gray
         bgView.layer.cornerRadius = 5
-        bgView.hidden = true///默认为隐藏状态
+        bgView.isHidden = true///默认为隐藏状态
         
-        let activityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(5, 5, 30, 30))///真正的UIActivityIndicatorView
-        activityIndicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
+        let activityIndicatorView = UIActivityIndicatorView(frame: CGRect(x: 5, y: 5, width: 30, height: 30))///真正的UIActivityIndicatorView
+        activityIndicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
         activityIndicatorView.hidesWhenStopped = true
         activityIndicatorView.startAnimating()///转动
         ///activityIndicatorView.activityIndicatorViewStyle = .WhiteLarge ///大白色

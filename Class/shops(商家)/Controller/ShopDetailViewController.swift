@@ -21,21 +21,21 @@ class ShopDetailViewController: BaseViewController, UITableViewDataSource, UITab
     
     var dataModel: SP_Data!
     
-    private var navigationView: UIView!
-    private var navigationColorView: UIView!
-    private var backBtn: UIButton!
-    private var collectBtn: UIButton!
-    private var shareBtn: UIButton!
-    private var massageBtn: UIButton!
-    private var titleLB: UILabel!
+    fileprivate var navigationView: UIView!
+    fileprivate var navigationColorView: UIView!
+    fileprivate var backBtn: UIButton!
+    fileprivate var collectBtn: UIButton!
+    fileprivate var shareBtn: UIButton!
+    fileprivate var massageBtn: UIButton!
+    fileprivate var titleLB: UILabel!
     
-    private var headerView: UIView!
+    fileprivate var headerView: UIView!
     
-    private var shopDetailTableView: UITableView!
+    fileprivate var shopDetailTableView: UITableView!
     
-    private var aroundGroupPurchaseModel: AGP_AroundGroupPurchaseModel!
+    fileprivate var aroundGroupPurchaseModel: AGP_AroundGroupPurchaseModel!
     
-    private var shopAddress: String!
+    fileprivate var shopAddress: String!
     
     convenience init(withModel model: SP_Data) {
         self.init()
@@ -53,85 +53,85 @@ class ShopDetailViewController: BaseViewController, UITableViewDataSource, UITab
     }
     
     func setupNavigationBar() {
-        self.navigationController?.navigationBar.barTintColor = UIColor.whiteColor()
-        self.navigationController?.navigationBar.hidden = true
+        self.navigationController?.navigationBar.barTintColor = UIColor.white
+        self.navigationController?.navigationBar.isHidden = true
         
-        navigationColorView = UIView(frame: CGRectMake(0, 0, SCREENWIDTH, 64))
-        navigationColorView.backgroundColor = UIColor.whiteColor()
+        navigationColorView = UIView(frame: CGRect(x: 0, y: 0, width: SCREENWIDTH, height: 64))
+        navigationColorView.backgroundColor = UIColor.white
         navigationColorView.alpha = 0
         self.view.addSubview(navigationColorView)
         
-        navigationView = UIView(frame: CGRectMake(0, 0, SCREENWIDTH, 64))
-        navigationView.backgroundColor = UIColor.clearColor()
+        navigationView = UIView(frame: CGRect(x: 0, y: 0, width: SCREENWIDTH, height: 64))
+        navigationView.backgroundColor = UIColor.clear
         self.view.addSubview(navigationView)
         
-        backBtn = UIButton(type: UIButtonType.Custom)
-        backBtn.frame = CGRectMake(10, 30, 25, 25)
+        backBtn = UIButton(type: UIButtonType.custom)
+        backBtn.frame = CGRect(x: 10, y: 30, width: 25, height: 25)
         backBtn.tag = 400
-        backBtn.setImage(UIImage(named: "btn_backItem"), forState: UIControlState.Normal)
-        backBtn.setImage(UIImage(named: "btn_backItem_highlighted"), forState: UIControlState.Highlighted)
-        backBtn.addTarget(self, action: #selector(ShopDetailViewController.navigationBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        backBtn.setImage(UIImage(named: "btn_backItem"), for: UIControlState())
+        backBtn.setImage(UIImage(named: "btn_backItem_highlighted"), for: UIControlState.highlighted)
+        backBtn.addTarget(self, action: #selector(ShopDetailViewController.navigationBtnAction(_:)), for: UIControlEvents.touchUpInside)
         navigationView.addSubview(backBtn)
         
-        massageBtn = UIButton(type: UIButtonType.Custom)
-        massageBtn.frame = CGRectMake(SCREENWIDTH - 10 - 25, 30, 25, 25)
+        massageBtn = UIButton(type: UIButtonType.custom)
+        massageBtn.frame = CGRect(x: SCREENWIDTH - 10 - 25, y: 30, width: 25, height: 25)
         massageBtn.tag = 401
-        massageBtn.setImage(UIImage(named: "icon_merchan_error_normal"), forState: UIControlState.Normal)
-        massageBtn.setImage(UIImage(named: "icon_merchan_error_highlighted"), forState: UIControlState.Highlighted)
-        massageBtn.addTarget(self, action: #selector(ShopDetailViewController.navigationBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        massageBtn.setImage(UIImage(named: "icon_merchan_error_normal"), for: UIControlState())
+        massageBtn.setImage(UIImage(named: "icon_merchan_error_highlighted"), for: UIControlState.highlighted)
+        massageBtn.addTarget(self, action: #selector(ShopDetailViewController.navigationBtnAction(_:)), for: UIControlEvents.touchUpInside)
         navigationView.addSubview(massageBtn)
         
-        shareBtn = UIButton(type: UIButtonType.Custom)
-        shareBtn.frame = CGRectMake(CGRectGetMinX(massageBtn.frame) - 10 - 25, 30, 25, 25)
+        shareBtn = UIButton(type: UIButtonType.custom)
+        shareBtn.frame = CGRect(x: massageBtn.frame.minX - 10 - 25, y: 30, width: 25, height: 25)
         shareBtn.tag = 402
-        shareBtn.setImage(UIImage(named: "icon_merchant_share_normal"), forState: UIControlState.Normal)
-        shareBtn.setImage(UIImage(named: "icon_merchant_share_highlighted"), forState: UIControlState.Highlighted)
-        shareBtn.addTarget(self, action: #selector(ShopDetailViewController.navigationBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        shareBtn.setImage(UIImage(named: "icon_merchant_share_normal"), for: UIControlState())
+        shareBtn.setImage(UIImage(named: "icon_merchant_share_highlighted"), for: UIControlState.highlighted)
+        shareBtn.addTarget(self, action: #selector(ShopDetailViewController.navigationBtnAction(_:)), for: UIControlEvents.touchUpInside)
         navigationView.addSubview(shareBtn)
         
-        collectBtn = UIButton(type: UIButtonType.Custom)
-        collectBtn.frame = CGRectMake(CGRectGetMinX(shareBtn.frame) - 10 - 25, 30, 25, 25)
+        collectBtn = UIButton(type: UIButtonType.custom)
+        collectBtn.frame = CGRect(x: shareBtn.frame.minX - 10 - 25, y: 30, width: 25, height: 25)
         collectBtn.tag = 403
-        collectBtn.setImage(UIImage(named: "iocn_merchant_collect_normal"), forState: UIControlState.Normal)
-        collectBtn.setImage(UIImage(named: "iocn_merchant_collect_highlighted"), forState: UIControlState.Selected)
-        collectBtn.addTarget(self, action: #selector(ShopDetailViewController.navigationBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        collectBtn.setImage(UIImage(named: "iocn_merchant_collect_normal"), for: UIControlState())
+        collectBtn.setImage(UIImage(named: "iocn_merchant_collect_highlighted"), for: UIControlState.selected)
+        collectBtn.addTarget(self, action: #selector(ShopDetailViewController.navigationBtnAction(_:)), for: UIControlEvents.touchUpInside)
         navigationView.addSubview(collectBtn)
         
-        titleLB = UILabel(frame: CGRectMake(CGRectGetMaxX(backBtn.frame) + 10, 30, CGRectGetMinX(collectBtn.frame) - 10 - (10 + 10 + 25), 25))
+        titleLB = UILabel(frame: CGRect(x: backBtn.frame.maxX + 10, y: 30, width: collectBtn.frame.minX - 10 - (10 + 10 + 25), height: 25))
         titleLB.text = dataModel.name
-        titleLB.textAlignment = NSTextAlignment.Right
-        titleLB.hidden = true
+        titleLB.textAlignment = NSTextAlignment.right
+        titleLB.isHidden = true
         navigationView.addSubview(titleLB)
         
         self.view.backgroundColor = BACKGROUNDCOLOR
     }
     
-    func navigationBtnAction(btn: UIButton) {
+    func navigationBtnAction(_ btn: UIButton) {
         if btn.tag == 400 {
-            self.navigationController?.popToRootViewControllerAnimated(true)
+            self.navigationController?.popToRootViewController(animated: true)
         }else if btn.tag == 401 {
             //doing
         }else if btn.tag == 402 {
             //doing
         }else {
             //doing
-            btn.selected = !btn.selected
+            btn.isSelected = !btn.isSelected
         }
     }
     
     func creatHeaderImageView() {
-        headerView = UIView(frame: CGRectMake(0, 0, SCREENWIDTH, 150))
+        headerView = UIView(frame: CGRect(x: 0, y: 0, width: SCREENWIDTH, height: 150))
         let imageView = UIImageView(frame: headerView.bounds)
         headerView.addSubview(imageView)
-        self.view.insertSubview(headerView, atIndex: 0)
-        imageView.sd_setImageWithURL(NSURL(string: dataModel.frontImg), placeholderImage: UIImage(named: "bg_merchant_photo_placeholder_big@2x.png"))
+        self.view.insertSubview(headerView, at: 0)
+        imageView.sd_setImage(with: URL(string: dataModel.frontImg), placeholderImage: UIImage(named: "bg_merchant_photo_placeholder_big@2x.png"))
     }
     
     
     func loadAroundGroupPurchaseData() {
         
-        self.view.bringSubviewToFront(self.activityIndicatorView)
-        self.activityIndicatorView.hidden = false ///让activityView显示
+        self.view.bringSubview(toFront: self.activityIndicatorView)
+        self.activityIndicatorView.isHidden = false ///让activityView显示
         
         let URLString = UrlStrType.urlStringWithMerchantAroundGroupPurchaseData(dataModel.poiid)        
         ///封装的方法
@@ -139,7 +139,7 @@ class ShopDetailViewController: BaseViewController, UITableViewDataSource, UITab
             [unowned self]
             (dictionary) in
             self.aroundGroupPurchaseModel(withDictionary: dictionary)
-            self.activityIndicatorView.hidden = true ///让activityView隐藏
+            self.activityIndicatorView.isHidden = true ///让activityView隐藏
         }
     }
     
@@ -150,24 +150,24 @@ class ShopDetailViewController: BaseViewController, UITableViewDataSource, UITab
     }
     
     func creatShopDetailTableView() {
-        shopDetailTableView = UITableView(frame: CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT), style: UITableViewStyle.Grouped)
+        shopDetailTableView = UITableView(frame: CGRect(x: 0, y: 0, width: SCREENWIDTH, height: SCREENHEIGHT), style: UITableViewStyle.grouped)
         shopDetailTableView.delegate = self
         shopDetailTableView.dataSource = self
         
-        shopDetailTableView.tableHeaderView = UIView(frame: CGRectMake(0, 0, SCREENWIDTH, 150))//占位
+        shopDetailTableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: SCREENWIDTH, height: 150))//占位
         
         ///将就使用HomeTableViewCell（风格类似，学习者可以参考HomeTableViewCell实现）
-        shopDetailTableView.registerNib(UINib(nibName: "HomeTableViewCell", bundle: nil), forCellReuseIdentifier: "AGP_Cell")//从xib加载
+        shopDetailTableView.register(UINib(nibName: "HomeTableViewCell", bundle: nil), forCellReuseIdentifier: "AGP_Cell")//从xib加载
         
-        self.view.insertSubview(shopDetailTableView, atIndex: 0)
+        self.view.insertSubview(shopDetailTableView, at: 0)
 
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 3 //简化
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
             return 2
         }else if section == 1 {
@@ -177,118 +177,118 @@ class ShopDetailViewController: BaseViewController, UITableViewDataSource, UITab
         }
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.section == 0 {
             if indexPath.row == 0 {
-                let cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: nil)
+                let cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: nil)
                 cell.textLabel!.text = dataModel.name
-                cell.textLabel?.font = UIFont.systemFontOfSize(19)
-                cell.selectionStyle = UITableViewCellSelectionStyle.None
+                cell.textLabel?.font = UIFont.systemFont(ofSize: 19)
+                cell.selectionStyle = UITableViewCellSelectionStyle.none
                 return cell
             }else {
-                let cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: nil)
+                let cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: nil)
                 
-                let containView = UIView(frame: CGRectMake(0, 0, SCREENWIDTH, 60))
-                let lineView = UIView(frame: CGRectMake(0, 10, SCREENWIDTH, 40))
-                lineView.backgroundColor = UIColor.grayColor()
+                let containView = UIView(frame: CGRect(x: 0, y: 0, width: SCREENWIDTH, height: 60))
+                let lineView = UIView(frame: CGRect(x: 0, y: 10, width: SCREENWIDTH, height: 40))
+                lineView.backgroundColor = UIColor.gray
                 containView.addSubview(lineView)
 
                 cell.contentView.addSubview(containView)
                 
-                let leftView = UIView(frame: CGRectMake(0, 0, SCREENWIDTH - 70 - 1, 60))
-                leftView.backgroundColor  = UIColor.whiteColor()
-                let locationBtn = UIButton(frame: CGRectMake(10, 0, leftView.extWidth() - 20, 60))
-                locationBtn.setImage(UIImage(named: "icon_merchant_location"), forState: UIControlState.Normal)
-                locationBtn.setTitle(dataModel.addr, forState: UIControlState.Normal)
-                locationBtn.setTitleColor(UIColor.grayColor(), forState: UIControlState.Normal)
-                locationBtn.titleLabel?.font = UIFont.systemFontOfSize(12)
+                let leftView = UIView(frame: CGRect(x: 0, y: 0, width: SCREENWIDTH - 70 - 1, height: 60))
+                leftView.backgroundColor  = UIColor.white
+                let locationBtn = UIButton(frame: CGRect(x: 10, y: 0, width: leftView.extWidth() - 20, height: 60))
+                locationBtn.setImage(UIImage(named: "icon_merchant_location"), for: UIControlState())
+                locationBtn.setTitle(dataModel.addr, for: UIControlState())
+                locationBtn.setTitleColor(UIColor.gray, for: UIControlState())
+                locationBtn.titleLabel?.font = UIFont.systemFont(ofSize: 12)
                 locationBtn.titleLabel?.numberOfLines = 0
-                locationBtn.contentMode = UIViewContentMode.Left
+                locationBtn.contentMode = UIViewContentMode.left
                 leftView.addSubview(locationBtn)
                 
-                let rightView = UIView(frame: CGRectMake(leftView.extWidth() + 1, 0, 70, 60))
-                rightView.backgroundColor  = UIColor.whiteColor()
+                let rightView = UIView(frame: CGRect(x: leftView.extWidth() + 1, y: 0, width: 70, height: 60))
+                rightView.backgroundColor  = UIColor.white
                 let callBtn = UIButton(frame: rightView.bounds)
-                callBtn.setImage(UIImage(named: "icon_deal_phone"), forState: UIControlState.Normal)
-                callBtn.tintColor = UIColor.grayColor()
-                callBtn.addTarget(self, action: #selector(callBtnAction), forControlEvents: .TouchUpInside)
+                callBtn.setImage(UIImage(named: "icon_deal_phone"), for: UIControlState())
+                callBtn.tintColor = UIColor.gray
+                callBtn.addTarget(self, action: #selector(callBtnAction), for: .touchUpInside)
                 rightView.addSubview(callBtn)
                 
                 containView.addSubview(rightView)
                 containView.addSubview(leftView)
-                cell.selectionStyle = UITableViewCellSelectionStyle.None
+                cell.selectionStyle = UITableViewCellSelectionStyle.none
                 return cell
             }
         }else if indexPath.section == 1 {
-            let cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: nil)
+            let cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: nil)
             
             //评分
             let starView = StarView(withRate: CGFloat(dataModel.avgScore), total: 5, starWH: 30, space: 3, starImageFull: UIImage(named: "icon_merchant_star_full")!, starImageEmpty: UIImage(named: "icon_merchant_star_empty")!)
             starView.extSetY((cell.contentView.extHeight() - starView.extHeight()) / 2 + 3)
             cell.contentView.addSubview(starView)
             
-            let ratingLB = UILabel(frame: CGRectMake(CGRectGetMaxX(starView.frame) + 10, starView.extY() + 3, 100, 30))
-            ratingLB.text = "\(dataModel.avgScore)" + "分"
+            let ratingLB = UILabel(frame: CGRect(x: starView.frame.maxX + 10, y: starView.extY() + 3, width: 100, height: 30))
+            ratingLB.text = "\(dataModel.avgScore!)" + "分"
             cell.contentView.addSubview(ratingLB)
             
-            cell.selectionStyle = UITableViewCellSelectionStyle.None
+            cell.selectionStyle = UITableViewCellSelectionStyle.none
             return cell
         }else {
             if indexPath.row == 0 {
-                let cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: nil)
+                let cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: nil)
                 cell.textLabel!.text = "附近团购"
-                cell.textLabel?.textColor = UIColor.grayColor()
-                cell.selectionStyle = UITableViewCellSelectionStyle.None
+                cell.textLabel?.textColor = UIColor.gray
+                cell.selectionStyle = UITableViewCellSelectionStyle.none
                 return cell
             }else if indexPath.row == 1 {
-                let cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: nil)
+                let cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: nil)
                 
                 let dataModel = aroundGroupPurchaseModel.data
                 
-                for index in 0 ..< dataModel.catetab.count {
+                for index in 0 ..< dataModel!.catetab.count {
                     
                     let c = index % 4
-                    let btnW = (SCREENWIDTH - 10 * 5) / CGFloat(dataModel.catetab.count)
+                    let btnW = (SCREENWIDTH - 10 * 5) / CGFloat((dataModel?.catetab.count)!)
                     
-                    let tabBtn = UIButton(frame: CGRectMake(10 + (10 + btnW) * CGFloat(c), 10, btnW, 30))
+                    let tabBtn = UIButton(frame: CGRect(x: 10 + (10 + btnW) * CGFloat(c), y: 10, width: btnW, height: 30))
                     tabBtn.tag = index
                     
                     let edge = UIEdgeInsetsMake(10, 5, 10, 5)
                     //UIImageResizingModeStretch：拉伸模式，通过拉伸UIEdgeInsets指定的矩形区域来填充图片
                     //UIImageResizingModeTile：平铺模式，通过重复显示UIEdgeInsets指定的矩形区域来填充图
                     var bgImageH = UIImage(named: "bg_merchant_checkRoute_highlight")
-                    bgImageH = bgImageH?.resizableImageWithCapInsets(edge, resizingMode: UIImageResizingMode.Stretch)
+                    bgImageH = bgImageH?.resizableImage(withCapInsets: edge, resizingMode: UIImageResizingMode.stretch)
                     var bgImageN = UIImage(named: "bg_merchant_checkRoute_normal")
-                    bgImageN = bgImageN?.resizableImageWithCapInsets(edge, resizingMode: UIImageResizingMode.Stretch)
+                    bgImageN = bgImageN?.resizableImage(withCapInsets: edge, resizingMode: UIImageResizingMode.stretch)
                     
-                    tabBtn.setBackgroundImage(bgImageH, forState: UIControlState.Highlighted)
-                    tabBtn.setBackgroundImage(bgImageN, forState: UIControlState.Normal)
+                    tabBtn.setBackgroundImage(bgImageH, for: UIControlState.highlighted)
+                    tabBtn.setBackgroundImage(bgImageN, for: UIControlState())
                     
-                    tabBtn.setTitle(dataModel.catetab[index].name, forState: UIControlState.Normal)
-                    tabBtn.setTitleColor(UIColor.grayColor(), forState: UIControlState.Normal)
-                    tabBtn.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Highlighted)
-                    tabBtn.titleLabel?.font = UIFont.systemFontOfSize(15)
-                    tabBtn.addTarget(self, action: #selector(ShopDetailViewController.tabBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+                    tabBtn.setTitle(dataModel?.catetab[index].name, for: UIControlState())
+                    tabBtn.setTitleColor(UIColor.gray, for: UIControlState())
+                    tabBtn.setTitleColor(UIColor.white, for: UIControlState.highlighted)
+                    tabBtn.titleLabel?.font = UIFont.systemFont(ofSize: 15)
+                    tabBtn.addTarget(self, action: #selector(ShopDetailViewController.tabBtnAction(_:)), for: UIControlEvents.touchUpInside)
                     
                     cell.contentView.addSubview(tabBtn)
                 }
-                cell.selectionStyle = UITableViewCellSelectionStyle.None
+                cell.selectionStyle = UITableViewCellSelectionStyle.none
                 return cell
             }else {
                 let cell = HomeTableViewCell.creatCellWith(tableView, indexPath: indexPath, reuseIdentifier: "AGP_Cell")
                 
                 let dealModel = aroundGroupPurchaseModel.data.deals[indexPath.row - 2]
-                cell.ImageView.sd_setImageWithURL(NSURL(string: dealModel.imgurl), placeholderImage: UIImage(named: "bg_merchant_photo_placeholder_big@2x.png"))
+                cell.ImageView.sd_setImage(with: URL(string: dealModel.imgurl), placeholderImage: UIImage(named: "bg_merchant_photo_placeholder_big@2x.png"))
                 cell.titleLB.text = dealModel.mname
                 cell.detailLB.text = "[" + dealModel.range + "]" + dealModel.mtitle
-                cell.priceLB.text = "\(dealModel.price)" + "元"
+                cell.priceLB.text = "\(dealModel.price!)" + "元"
                 cell.priceLB.textColor = THEMECOLOR
                 
-                cell.valueLB.text = "门面价：" + "\(dealModel.value)" + "元"
-                cell.valueLB.textColor = UIColor.grayColor()
-                cell.salesLB.text = "\(dealModel.rating)" + "分" + "(" + "\(dealModel.ratecount)" + "人)"
-                cell.salesLB.textColor = UIColor.grayColor()
+                cell.valueLB.text = "门面价：" + "\(dealModel.value!)" + "元"
+                cell.valueLB.textColor = UIColor.gray
+                cell.salesLB.text = "\(dealModel.rating!)" + "分" + "(" + "\(dealModel.ratecount!)" + "人)"
+                cell.salesLB.textColor = UIColor.gray
                 
                 return cell
             }
@@ -297,12 +297,12 @@ class ShopDetailViewController: BaseViewController, UITableViewDataSource, UITab
     
     ///拨打电话
     func callBtnAction() {
-        let actionSheetVC = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+        let actionSheetVC = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
-        let numbers = dataModel.phone.componentsSeparatedByString("/")
+        let numbers = dataModel.phone.components(separatedBy: "/")
         
         for index in numbers {///可能不只有一个电话
-            let action = UIAlertAction(title: index, style: .Default) {
+            let action = UIAlertAction(title: index, style: .default) {
                 [unowned self]
                 (action) in
                 self.call(withNumber: action.title!)
@@ -310,30 +310,30 @@ class ShopDetailViewController: BaseViewController, UITableViewDataSource, UITab
             actionSheetVC.addAction(action)
         }
 
-        let cancelAction = UIAlertAction(title: "取消", style: .Cancel) { (action) in
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel) { (action) in
             print("取消了拨打电话")
         }
         actionSheetVC.addAction(cancelAction)
         
-        self.presentViewController(actionSheetVC, animated: true) { 
+        self.present(actionSheetVC, animated: true) { 
             print("是否拨打电话？")
         }
     }
     
     func call(withNumber number: String) {
-        let numberURL = NSURL(string: "telprompt://" + number)
+        let numberURL = URL(string: "telprompt://" + number)
         ///还可以用tel: ...的形势，但是打完电话不会回到改app，而且点击之后立即拨打，没有对话框，建议使用上方式
         
-        UIApplication.sharedApplication().openURL(numberURL!) ///发短息，打电话，发邮件等，都只要一个URL就可以
+        UIApplication.shared.openURL(numberURL!) ///发短息，打电话，发邮件等，都只要一个URL就可以
     }
     
     ///四个标签的响应
-    func tabBtnAction(btn: UIButton) {
+    func tabBtnAction(_ btn: UIButton) {
         ///
-        print("点击了:",btn.titleLabel?.text)
+        print("点击了:",btn.titleLabel?.text as Any)
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         if indexPath.section == 0 {
             return 60
@@ -350,15 +350,15 @@ class ShopDetailViewController: BaseViewController, UITableViewDataSource, UITab
         }
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         ///进入团购详情页面（暂未实现）
     }
     
-    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0.0001 // 0
     }
     
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 0 {
             return 0.0001 // 0
         }else {
@@ -367,19 +367,19 @@ class ShopDetailViewController: BaseViewController, UITableViewDataSource, UITab
     }
     
     ///图片的拉伸动画效果和导航bar的颜色变化效果
-    func scrollViewDidScroll(scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let off = shopDetailTableView.contentOffset.y
         if off < 0 {//图片的拉伸动画效果
             let scale = (-off + 150) / 150;
-            headerView.transform = CGAffineTransformMakeScale(scale, scale);   //  拉伸放大
+            headerView.transform = CGAffineTransform(scaleX: scale, y: scale);   //  拉伸放大
             
             let newH = scale * 150;
             let newW = scale * SCREENWIDTH;
-            let frame = CGRectMake(-(scale - 1) * SCREENWIDTH / 2, 0, newW, newH);
+            let frame = CGRect(x: -(scale - 1) * SCREENWIDTH / 2, y: 0, width: newW, height: newH);
             headerView.frame = frame;
             
         }else {
-            headerView.transform = CGAffineTransformMakeTranslation(0, -off);      //上推上移
+            headerView.transform = CGAffineTransform(translationX: 0, y: -off);      //上推上移
         }
         
         if off > 0 {//导航条的颜色变化效果 //向上推
@@ -389,9 +389,9 @@ class ShopDetailViewController: BaseViewController, UITableViewDataSource, UITab
                 navigationColorView.alpha = al
                 
                 if al > 0.5 {
-                    titleLB.hidden = false
+                    titleLB.isHidden = false
                 }else {
-                    titleLB.hidden = true
+                    titleLB.isHidden = true
                 }
                 
             }else {

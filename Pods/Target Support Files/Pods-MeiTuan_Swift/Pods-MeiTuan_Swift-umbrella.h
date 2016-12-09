@@ -10,3 +10,7 @@
 #endif
 #endif
 
+
+FOUNDATION_EXPORT double Pods_MeiTuan_SwiftVersionNumber;
+FOUNDATION_EXPORT const unsigned char Pods_MeiTuan_SwiftVersionString[];
+

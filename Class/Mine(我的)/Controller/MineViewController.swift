@@ -11,8 +11,8 @@ import UIKit
 class MineViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate {
 
     
-    private var mineTableView: UITableView!
-    private var headerBgView: UIView!
+    fileprivate var mineTableView: UITableView!
+    fileprivate var headerBgView: UIView!
     var individualityTextLable: UILabel!//个性签名
     var modelAr = [MineTableViewCellModel]()
 
@@ -31,41 +31,39 @@ class MineViewController: BaseViewController, UITableViewDataSource, UITableView
         
     }
     
-    func creatHeaderView() -> UIView {
+    func creatHeaderView() {
         
-        headerBgView = UIView(frame: CGRectMake(0, 0, self.view.bounds.width, 150))
+        headerBgView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 150))
         
         let headerVC = HeaderViewVC(nibName: "HeaderViewVC", bundle: nil)
         let headerView = headerVC.view
-        headerView.frame = CGRectMake(0, 0, SCREENWIDTH, 65)//65是xib的最小值
+        headerView?.frame = CGRect(x: 0, y: 0, width: SCREENWIDTH, height: 65)//65是xib的最小值
         
-        let headerBtn = UIButton(frame: CGRectMake(0, 0, SCREENWIDTH, 65))//用于响应点击事件(多种方式可实现)
-        headerBtn.addTarget(self, action: #selector(MineViewController.headerBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        let headerBtn = UIButton(frame: CGRect(x: 0, y: 0, width: SCREENWIDTH, height: 65))//用于响应点击事件(多种方式可实现)
+        headerBtn.addTarget(self, action: #selector(MineViewController.headerBtnAction(_:)), for: UIControlEvents.touchUpInside)
         
-        headerBgView.addSubview(headerView)
+        headerBgView.addSubview(headerView!)
         headerBgView.addSubview(headerBtn)
         
         
         //个性签名
-        let individualityBgView = UIView(frame: CGRectMake(0, headerView.bounds.height + 1, SCREENWIDTH, 150 - 65 - 1))//用于调整文字的显示而加的背景容器，1 是分割线效果
-        individualityBgView.backgroundColor = UIColor.whiteColor()
-        individualityTextLable = UILabel(frame: CGRectMake(5, 0, SCREENWIDTH - 10, 150 - 65 - 1))
-        individualityTextLable.font = UIFont.systemFontOfSize(13)//可以宏固定
-        individualityTextLable.textColor = UIColor.orangeColor()
+        let individualityBgView = UIView(frame: CGRect(x: 0, y: (headerView?.bounds.height)! + 1, width: SCREENWIDTH, height: 150 - 65 - 1))//用于调整文字的显示而加的背景容器，1 是分割线效果
+        individualityBgView.backgroundColor = UIColor.white
+        individualityTextLable = UILabel(frame: CGRect(x: 5, y: 0, width: SCREENWIDTH - 10, height: 150 - 65 - 1))
+        individualityTextLable.font = UIFont.systemFont(ofSize: 13)//可以宏固定
+        individualityTextLable.textColor = UIColor.orange
         individualityTextLable.numberOfLines = 0
         individualityTextLable.text = "这个人很懒，什么都没有留下"
-        individualityTextLable.backgroundColor = UIColor.whiteColor()
+        individualityTextLable.backgroundColor = UIColor.white
         
         individualityBgView.addSubview(individualityTextLable)
         headerBgView.addSubview(individualityBgView)
-        headerBgView.backgroundColor = UIColor.grayColor()
-        return headerBgView
-
+        headerBgView.backgroundColor = UIColor.gray
     }
     
-    func headerBtnAction(btn: UIButton) {
+    func headerBtnAction(_ btn: UIButton) {
         let detailVC = MineDetailViewController()
-        detailVC.view.backgroundColor = UIColor.purpleColor()
+        detailVC.view.backgroundColor = UIColor.purple
         self.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(detailVC, animated: true)
         self.hidesBottomBarWhenPushed = false
@@ -80,42 +78,42 @@ class MineViewController: BaseViewController, UITableViewDataSource, UITableView
 
     func processingData() {
         
-        let dataAr = DataProcessor.arrayWithPlistFileName.dataArrayWithFileName("MineInformationData.plist")
+        let dataAr = DataProcessor.arrayWithPlistFileName.dataArrayWithFileName("MineInformationData.plist") as! NSArray
         for i in 0 ..< dataAr.count {
-            let model = MineTableViewCellModel(imageName: dataAr[i]["image"] as! String, title: dataAr[i]["title"] as! String)
+            let model = MineTableViewCellModel(imageName: (dataAr[i] as! NSDictionary)["image"] as! String, title: (dataAr[i] as! NSDictionary)["title"] as! String)
             modelAr.append(model)
         }
         
     }
     
     func creatMineTableView() {
-        mineTableView = UITableView(frame: CGRectMake(0, 64, SCREENWIDTH, SCREENHEIGHT), style: UITableViewStyle.Grouped)
+        mineTableView = UITableView(frame: CGRect(x: 0, y: 64, width: SCREENWIDTH, height: SCREENHEIGHT - 64 - 49), style: UITableViewStyle.grouped)
         mineTableView.dataSource = self
         mineTableView.delegate = self
         
-        mineTableView.registerNib(UINib(nibName: "MineTableViewCell", bundle: nil), forCellReuseIdentifier: "MineCell")
+        mineTableView.register(UINib(nibName: "MineTableViewCell", bundle: nil), forCellReuseIdentifier: "MineCell")
         
         self.view.addSubview(mineTableView)
         
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return modelAr.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = MineTableViewCell.tableViewCellWith(modelAr, tableView: tableView, indexPath: indexPath, reuseIndentify: "MineCell")
         return cell
     }
     
-    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         return headerBgView
     }
     
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 150.0
     }
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 50.0
     }
     

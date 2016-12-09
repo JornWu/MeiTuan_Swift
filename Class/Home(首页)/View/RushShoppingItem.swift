@@ -14,7 +14,7 @@ class RushShoppingItem: UIViewController {
     @IBOutlet weak var newPriceLB: UILabel!
     @IBOutlet weak var oldPriceLB: UILabel!
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
 
@@ -30,7 +30,7 @@ class RushShoppingItem: UIViewController {
         
     }
     
-    func setupViewWith(modelStruct: Deal) {
+    func setupViewWith(_ modelStruct: Deal) {
         
         
     }

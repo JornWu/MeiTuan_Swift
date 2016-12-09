@@ -1450,7 +1450,7 @@
 		43EF767A1D7D5E2A005C36AD /* AGP_Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43EF76701D7D5E2A005C36AD /* AGP_Tag.swift */; };
 		43EF767C1D7DB56B005C36AD /* StarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43EF767B1D7DB56B005C36AD /* StarView.swift */; };
 		43EF767E1D7DC6C7005C36AD /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43EF767D1D7DC6C7005C36AD /* UIImageExtension.swift */; };
-		FD6DFBD833E8603E0261D968 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CC7762249A458EC07075EF9 /* Pods.framework */; };
+		8A73C691FB0D77A77E9683DF /* Pods_MeiTuan_Swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB310F68302239287F251370 /* Pods_MeiTuan_Swift.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -2921,9 +2921,10 @@
 		43EF76701D7D5E2A005C36AD /* AGP_Tag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AGP_Tag.swift; sourceTree = "<group>"; };
 		43EF767B1D7DB56B005C36AD /* StarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarView.swift; sourceTree = "<group>"; };
 		43EF767D1D7DC6C7005C36AD /* UIImageExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageExtension.swift; sourceTree = "<group>"; };
+		66BAE4931E16C75C70AEC4DD /* Pods-MeiTuan_Swift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MeiTuan_Swift.release.xcconfig"; path = "Pods/Target Support Files/Pods-MeiTuan_Swift/Pods-MeiTuan_Swift.release.xcconfig"; sourceTree = "<group>"; };
 		6CC7762249A458EC07075EF9 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		71FC6062D2EB08D00F7495F1 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		7671895F112058CDFDB6693D /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		826FE497D6A631306B1AD365 /* Pods-MeiTuan_Swift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MeiTuan_Swift.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MeiTuan_Swift/Pods-MeiTuan_Swift.debug.xcconfig"; sourceTree = "<group>"; };
+		FB310F68302239287F251370 /* Pods_MeiTuan_Swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MeiTuan_Swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2938,7 +2939,7 @@
 				43227D6C1D6485DB00C86760 /* BaiduMapAPI_Map.framework in Frameworks */,
 				43227D6B1D6485DB00C86760 /* BaiduMapAPI_Location.framework in Frameworks */,
 				43227D6E1D6485DB00C86760 /* BaiduMapAPI_Search.framework in Frameworks */,
-				FD6DFBD833E8603E0261D968 /* Pods.framework in Frameworks */,
+				8A73C691FB0D77A77E9683DF /* Pods_MeiTuan_Swift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3021,8 +3022,8 @@
 				436A74A31D58CA820007F956 /* MeiTuan_SwiftTests */,
 				436A74AE1D58CA820007F956 /* MeiTuan_SwiftUITests */,
 				436A748D1D58CA820007F956 /* Products */,
-				5FDD90D75C9305397C470D6B /* Pods */,
 				A1DEDB2D6DA591ECC2A3E9C2 /* Frameworks */,
+				7073F3131E678714D9174F73 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -5266,11 +5267,11 @@
 			path = AroundGroupPurchaseModel;
 			sourceTree = "<group>";
 		};
-		5FDD90D75C9305397C470D6B /* Pods */ = {
+		7073F3131E678714D9174F73 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				71FC6062D2EB08D00F7495F1 /* Pods.debug.xcconfig */,
-				7671895F112058CDFDB6693D /* Pods.release.xcconfig */,
+				826FE497D6A631306B1AD365 /* Pods-MeiTuan_Swift.debug.xcconfig */,
+				66BAE4931E16C75C70AEC4DD /* Pods-MeiTuan_Swift.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -5279,6 +5280,7 @@
 			isa = PBXGroup;
 			children = (
 				6CC7762249A458EC07075EF9 /* Pods.framework */,
+				FB310F68302239287F251370 /* Pods_MeiTuan_Swift.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -5290,12 +5292,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 436A74B41D58CA820007F956 /* Build configuration list for PBXNativeTarget "MeiTuan_Swift" */;
 			buildPhases = (
-				F51AA32C1346D6BC443F1EB3 /* Check Pods Manifest.lock */,
+				F08CA4CF06CC660B6641860E /* [CP] Check Pods Manifest.lock */,
 				436A74881D58CA820007F956 /* Sources */,
 				436A74891D58CA820007F956 /* Frameworks */,
 				436A748A1D58CA820007F956 /* Resources */,
-				79B188BD395C83538EF2186F /* Embed Pods Frameworks */,
-				AB87458D7AF0BC480AB06D8B /* Copy Pods Resources */,
+				A64FF302E851869469BC3BA3 /* [CP] Embed Pods Frameworks */,
+				0EBB6CBF7C54B8E35D50631C /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -5355,15 +5357,18 @@
 					436A748B1D58CA820007F956 = {
 						CreatedOnToolsVersion = 7.2.1;
 						DevelopmentTeam = W3V3YKZ85E;
+						LastSwiftMigration = 0810;
 					};
 					436A749F1D58CA820007F956 = {
 						CreatedOnToolsVersion = 7.2.1;
 						DevelopmentTeam = W3V3YKZ85E;
+						LastSwiftMigration = 0810;
 						TestTargetID = 436A748B1D58CA820007F956;
 					};
 					436A74AA1D58CA820007F956 = {
 						CreatedOnToolsVersion = 7.2.1;
 						DevelopmentTeam = W3V3YKZ85E;
+						LastSwiftMigration = 0810;
 						TestTargetID = 436A748B1D58CA820007F956;
 					};
 				};
@@ -6746,49 +6751,49 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		79B188BD395C83538EF2186F /* Embed Pods Frameworks */ = {
+		0EBB6CBF7C54B8E35D50631C /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MeiTuan_Swift/Pods-MeiTuan_Swift-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		AB87458D7AF0BC480AB06D8B /* Copy Pods Resources */ = {
+		A64FF302E851869469BC3BA3 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MeiTuan_Swift/Pods-MeiTuan_Swift-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		F51AA32C1346D6BC443F1EB3 /* Check Pods Manifest.lock */ = {
+		F08CA4CF06CC660B6641860E /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -7037,7 +7042,7 @@
 		};
 		436A74B51D58CA820007F956 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 71FC6062D2EB08D00F7495F1 /* Pods.debug.xcconfig */;
+			baseConfigurationReference = 826FE497D6A631306B1AD365 /* Pods-MeiTuan_Swift.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -7054,12 +7059,13 @@
 				PROVISIONING_PROFILE = "";
 				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/Class/Other/Bridging_Header.h";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
 		436A74B61D58CA820007F956 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7671895F112058CDFDB6693D /* Pods.release.xcconfig */;
+			baseConfigurationReference = 66BAE4931E16C75C70AEC4DD /* Pods-MeiTuan_Swift.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -7076,6 +7082,7 @@
 				PROVISIONING_PROFILE = "";
 				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/Class/Other/Bridging_Header.h";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -7087,6 +7094,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "JW.MeiTuan-SwiftTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MeiTuan_Swift.app/MeiTuan_Swift";
 			};
 			name = Debug;
@@ -7099,6 +7107,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "JW.MeiTuan-SwiftTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MeiTuan_Swift.app/MeiTuan_Swift";
 			};
 			name = Release;
@@ -7110,6 +7119,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "JW.MeiTuan-SwiftUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = MeiTuan_Swift;
 				USES_XCTRUNNER = YES;
 			};
@@ -7122,6 +7132,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "JW.MeiTuan-SwiftUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = MeiTuan_Swift;
 				USES_XCTRUNNER = YES;
 			};

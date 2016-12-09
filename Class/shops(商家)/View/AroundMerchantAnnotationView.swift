@@ -17,11 +17,11 @@ class AroundMerchantAnnotationView: MKAnnotationView {
     
     var delegate: AroundMerchantAnnotationViewDelegate!
     
-    private var titleLB: UILabel!
-    private var subTitleLB: UILabel!
-    private var button: UIButton!
-    private var bgView: UIView!
-    private var imageView: UIImageView!
+    fileprivate var titleLB: UILabel!
+    fileprivate var subTitleLB: UILabel!
+    fileprivate var button: UIButton!
+    fileprivate var bgView: UIView!
+    fileprivate var imageView: UIImageView!
     
     var mMerchantAnnotation: MerchantAnnotation! {
         didSet {
@@ -34,14 +34,7 @@ class AroundMerchantAnnotationView: MKAnnotationView {
  
         setupView()
     }
-    
-    override init(frame: CGRect) {
-    
-        super.init(frame: frame)
-        setupView()
         
-    }
-    
     required init?(coder aDecoder: NSCoder) {
         //fatalError("init(coder:) has not been implemented")
         super.init(coder: aDecoder)
@@ -49,19 +42,19 @@ class AroundMerchantAnnotationView: MKAnnotationView {
     }
     
     func setupView() {
-        titleLB = UILabel(frame: CGRectZero)
-        subTitleLB = UILabel(frame: CGRectZero)
-        button = UIButton(frame: CGRectZero)
-        button.addTarget(self, action: #selector(AroundMerchantAnnotationView.findRoute), forControlEvents: .TouchUpInside)
-        bgView = UIView(frame: CGRectZero)
+        titleLB = UILabel(frame: CGRect.zero)
+        subTitleLB = UILabel(frame: CGRect.zero)
+        button = UIButton(frame: CGRect.zero)
+        button.addTarget(self, action: #selector(AroundMerchantAnnotationView.findRoute), for: .touchUpInside)
+        bgView = UIView(frame: CGRect.zero)
         
         bgView.addSubview(titleLB)
         bgView.addSubview(subTitleLB)
         bgView.addSubview(button)
         
-        bgView.hidden = true
+        bgView.isHidden = true
         
-        imageView = UIImageView(frame: CGRectZero)
+        imageView = UIImageView(frame: CGRect.zero)
         
         self.addSubview(bgView)
         self.addSubview(imageView)
@@ -70,16 +63,16 @@ class AroundMerchantAnnotationView: MKAnnotationView {
     func findRoute() {
         ///让地图视图去执行相关操作
         
-        if self.delegate!.respondsToSelector( #selector(AroundMerchantAnnotationViewDelegate.startFindRoute(withDestination:))) {
+        if self.delegate!.responds( to: #selector(AroundMerchantAnnotationViewDelegate.startFindRoute(withDestination:))) {
             self.delegate!.startFindRoute(withDestination: mMerchantAnnotation.coordinate)
         }
     }
     
     func recoverView() {///恢复视图（只有小图标）
         
-        self.bgView.hidden = true
-        imageView.frame = CGRectMake(0, 0, 30, 30)
-        self.frame = CGRectMake(0, 0, 30, 30)
+        self.bgView.isHidden = true
+        imageView.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        self.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
         
         switch mMerchantAnnotation!.merchantDataModel.multiType {///这里只列举一种，其他类似
         case "food,":
@@ -93,45 +86,45 @@ class AroundMerchantAnnotationView: MKAnnotationView {
         
         super.layoutSubviews()
         
-        if self.selected {///重新布局
+        if self.isSelected {///重新布局
             
-            self.bounds = CGRectMake(0, 0, 200, 90)
+            self.bounds = CGRect(x: 0, y: 0, width: 200, height: 90)
             
-            bgView.frame = CGRectMake(0, 0, 200, 60)
-            bgView.backgroundColor = UIColor.whiteColor()
-            bgView.layer.borderColor = UIColor.grayColor().CGColor
+            bgView.frame = CGRect(x: 0, y: 0, width: 200, height: 60)
+            bgView.backgroundColor = UIColor.white
+            bgView.layer.borderColor = UIColor.gray.cgColor
             bgView.layer.borderWidth = 1
             bgView.layer.cornerRadius = 3
             
-            bgView.hidden = false
+            bgView.isHidden = false
             
-            button.frame = CGRectMake(bgView.extWidth() - 30, 0, 30, bgView.extHeight())
+            button.frame = CGRect(x: bgView.extWidth() - 30, y: 0, width: 30, height: bgView.extHeight())
             button.backgroundColor = THEMECOLOR
-            button.setTitle("查看路线", forState: .Normal)
-            button.titleLabel?.font = UIFont.systemFontOfSize(11)
+            button.setTitle("查看路线", for: UIControlState())
+            button.titleLabel?.font = UIFont.systemFont(ofSize: 11)
             button.titleLabel?.numberOfLines = 0
-            button.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+            button.setTitleColor(UIColor.white, for: UIControlState())
             button.layer.cornerRadius = 3
             
-            titleLB.frame = CGRectMake(10, 0, bgView.extWidth() - 50, bgView.extHeight() * 1 / 3)
+            titleLB.frame = CGRect(x: 10, y: 0, width: bgView.extWidth() - 50, height: bgView.extHeight() * 1 / 3)
             titleLB.text = mMerchantAnnotation!.title
-            titleLB.font = UIFont.systemFontOfSize(13)
+            titleLB.font = UIFont.systemFont(ofSize: 13)
             titleLB.textColor = THEMECOLOR
             
-            subTitleLB.frame = CGRectMake(10, bgView.extHeight() * 1 / 3, bgView.extWidth() - 50, bgView.extHeight() * 2 / 3)
+            subTitleLB.frame = CGRect(x: 10, y: bgView.extHeight() * 1 / 3, width: bgView.extWidth() - 50, height: bgView.extHeight() * 2 / 3)
             subTitleLB.text = mMerchantAnnotation!.subtitle
             subTitleLB.numberOfLines = 0
-            subTitleLB.font = UIFont.systemFontOfSize(10)
-            subTitleLB.textColor = UIColor.grayColor()
+            subTitleLB.font = UIFont.systemFont(ofSize: 10)
+            subTitleLB.textColor = UIColor.gray
 
-            imageView.frame = CGRectMake((self.extWidth() - imageView.extWidth()) / 2, self.extHeight() - 30, 30, 30)
+            imageView.frame = CGRect(x: (self.extWidth() - imageView.extWidth()) / 2, y: self.extHeight() - 30, width: 30, height: 30)
 
         } else {
             recoverView() ///恢复视图
         }
         
-        self.centerOffset = CGPointMake(0, -1 * self.extHeight() / 2)
-        self.calloutOffset = CGPointMake(0, -1 * self.extHeight() / 2)
+        self.centerOffset = CGPoint(x: 0, y: -1 * self.extHeight() / 2)
+        self.calloutOffset = CGPoint(x: 0, y: -1 * self.extHeight() / 2)
 
     }
     

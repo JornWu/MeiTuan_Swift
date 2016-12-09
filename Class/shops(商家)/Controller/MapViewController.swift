@@ -16,17 +16,41 @@
 
 import UIKit
 import MapKit
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 
 class MapViewController: BaseViewController,MKMapViewDelegate, CLLocationManagerDelegate, AroundMerchantAnnotationViewDelegate {
     
     var kindId: Int64!
     var kindName: String!
     
-    private var locationManager: CLLocationManager!
-    private var coordinate: CLLocationCoordinate2D!
+    fileprivate var locationManager: CLLocationManager!
+    fileprivate var coordinate: CLLocationCoordinate2D!
 
-    private var mapView: MKMapView!
-    private var locateBtn: UIButton!
+    fileprivate var mapView: MKMapView!
+    fileprivate var locateBtn: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,32 +68,32 @@ class MapViewController: BaseViewController,MKMapViewDelegate, CLLocationManager
     
     func setupNavigationBar() {
         
-        self.navigationController?.navigationBar.hidden = true
-        let bgView = UIView(frame: CGRectMake(0, 0, 100, 64))
-        bgView.backgroundColor = UIColor.clearColor()
+        self.navigationController?.navigationBar.isHidden = true
+        let bgView = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 64))
+        bgView.backgroundColor = UIColor.clear
         
-        let backBtn = UIButton(frame: CGRectMake(10, 30, 30, 30))
-        backBtn.setImage(UIImage(named: "back@2x.png"), forState: UIControlState.Normal)
-        backBtn.setTitle(kindName, forState: UIControlState.Normal)
-        backBtn.contentMode = .ScaleAspectFit
-        backBtn.addTarget(self, action: #selector(HotelViewController.backBtnAction), forControlEvents: UIControlEvents.TouchUpInside)
+        let backBtn = UIButton(frame: CGRect(x: 10, y: 30, width: 30, height: 30))
+        backBtn.setImage(UIImage(named: "back@2x.png"), for: UIControlState())
+        backBtn.setTitle(kindName, for: UIControlState())
+        backBtn.contentMode = .scaleAspectFit
+        backBtn.addTarget(self, action: #selector(HotelViewController.backBtnAction), for: UIControlEvents.touchUpInside)
         
-        let titleLB = UILabel(frame: CGRectMake(40, 30, 70, 30))
-        titleLB.font = UIFont.systemFontOfSize(13)
-        titleLB.backgroundColor = UIColor.blackColor()
+        let titleLB = UILabel(frame: CGRect(x: 40, y: 30, width: 70, height: 30))
+        titleLB.font = UIFont.systemFont(ofSize: 13)
+        titleLB.backgroundColor = UIColor.black
         titleLB.layer.cornerRadius = 5
         titleLB.clipsToBounds = true
         titleLB.text = kindName
-        titleLB.textColor = UIColor.whiteColor()
-        titleLB.textAlignment = .Center
+        titleLB.textColor = UIColor.white
+        titleLB.textAlignment = .center
         titleLB.alpha = 0.5
         
         if titleLB.text != nil {
             let text = NSString(string: titleLB.text!)
-            let textWidth = text.boundingRectWithSize(CGSizeMake(SCREENWIDTH, 30), options: .UsesLineFragmentOrigin, attributes: [NSFontAttributeName : UIFont.systemFontOfSize(13)], context: nil).width ///根据文子获取宽度
-            titleLB.frame = CGRectMake(40, 30, textWidth + 20 , 30)///加两边的间距
+            let textWidth = text.boundingRect(with: CGSize(width: SCREENWIDTH, height: 30), options: .usesLineFragmentOrigin, attributes: [NSFontAttributeName : UIFont.systemFont(ofSize: 13)], context: nil).width ///根据文子获取宽度
+            titleLB.frame = CGRect(x: 40, y: 30, width: textWidth + 20 , height: 30)///加两边的间距
         }else {
-            titleLB.frame = CGRectMake(30, 30, 0, 30)
+            titleLB.frame = CGRect(x: 30, y: 30, width: 0, height: 30)
         }
         
         bgView.addSubview(titleLB)
@@ -78,18 +102,18 @@ class MapViewController: BaseViewController,MKMapViewDelegate, CLLocationManager
     }
     
     func backBtnAction() {
-        self.navigationController?.popToRootViewControllerAnimated(true)
+        self.navigationController?.popToRootViewController(animated: true)
     }
     
     
     func createLocateBtn() {
-        locateBtn = UIButton(type: .Custom)
-        locateBtn.frame = CGRectMake(10, self.view.extHeight() - 50, 30, 30)
+        locateBtn = UIButton(type: .custom)
+        locateBtn.frame = CGRect(x: 10, y: self.view.extHeight() - 50, width: 30, height: 30)
         //locateBtn.autoresizingMask = UIViewAutoresizing.FlexibleRightMargin | UIViewAutoresizing.FlexibleTopMargin
-        locateBtn.backgroundColor = UIColor.whiteColor()
+        locateBtn.backgroundColor = UIColor.white
         locateBtn.layer.cornerRadius = 5
-        locateBtn.setImage(UIImage(named: "location_no"), forState: .Normal)
-        locateBtn.addTarget(self, action: #selector(MapViewController.locateAction), forControlEvents: .TouchUpInside)
+        locateBtn.setImage(UIImage(named: "location_no"), for: UIControlState())
+        locateBtn.addTarget(self, action: #selector(MapViewController.locateAction), for: .touchUpInside)
         
         self.view.addSubview(locateBtn)
     }
@@ -104,8 +128,8 @@ class MapViewController: BaseViewController,MKMapViewDelegate, CLLocationManager
          
          */
         
-        if mapView.userTrackingMode != MKUserTrackingMode.Follow {///追踪模式
-            mapView.setUserTrackingMode(.Follow, animated: true) ///追踪并显示当前位置
+        if mapView.userTrackingMode != MKUserTrackingMode.follow {///追踪模式
+            mapView.setUserTrackingMode(.follow, animated: true) ///追踪并显示当前位置
         }
         
         searchNearby()///搜索附近
@@ -142,12 +166,12 @@ class MapViewController: BaseViewController,MKMapViewDelegate, CLLocationManager
 
     func loadMapView() {
         
-        mapView = MKMapView(frame: UIScreen.mainScreen().bounds)
+        mapView = MKMapView(frame: UIScreen.main.bounds)
         mapView.showsUserLocation = true ///显示当前所在位置
-        mapView.mapType = MKMapType.Standard /// 地图类型， 卫星，标准， 混合
+        mapView.mapType = MKMapType.standard /// 地图类型， 卫星，标准， 混合
         mapView.delegate = self
         
-        self.view.insertSubview(mapView, atIndex: 0)
+        self.view.insertSubview(mapView, at: 0)
     }
     
     ///定位
@@ -156,8 +180,8 @@ class MapViewController: BaseViewController,MKMapViewDelegate, CLLocationManager
         
         ///ios8+以上要授权，并且在plist文件中添加NSLocationWhenInUseUsageDescription，
         ///NSLocationAlwaysUsageDescription，值可以为空
-        let index = IOS_VERSION.startIndex.advancedBy(3)///9.3.1 to 9.3
-        if (Double(IOS_VERSION.substringToIndex(index)) > 8.0) {
+        let index = IOS_VERSION.characters.index(IOS_VERSION.startIndex, offsetBy: 3)///9.3.1 to 9.3
+        if (Double(IOS_VERSION.substring(to: index)) > 8.0) {
             locationManager.requestWhenInUseAuthorization()//请求授权
         }
         locationManager.desiredAccuracy = kCLLocationAccuracyBest//精度(使用电池供电时的最高精度)
@@ -167,7 +191,7 @@ class MapViewController: BaseViewController,MKMapViewDelegate, CLLocationManager
     }
     
     ///CLLocationManagerDelegate
-    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
         let location = locations.last//CLLocation ///获得经纬度
         
@@ -225,11 +249,11 @@ class MapViewController: BaseViewController,MKMapViewDelegate, CLLocationManager
     }
     
     ///地位失败
-    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("定位失败", error.localizedDescription)
     }
     
-    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if annotation is MKUserLocation { ///当前位置
             return nil
         }
@@ -248,7 +272,7 @@ class MapViewController: BaseViewController,MKMapViewDelegate, CLLocationManager
 //        return pinView
         
         ///自定义
-        var annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier("MerchantView") as? AroundMerchantAnnotationView
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "MerchantView") as? AroundMerchantAnnotationView
         if annotationView == nil {
             annotationView = AroundMerchantAnnotationView(annotation: annotation, reuseIdentifier: "MerchantView")
         }
@@ -261,13 +285,13 @@ class MapViewController: BaseViewController,MKMapViewDelegate, CLLocationManager
     }
     
     ///选择某个图标
-    func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
-        view.selected = true
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        view.isSelected = true
         view.setNeedsLayout()
     }
     
-    func mapView(mapView: MKMapView, didDeselectAnnotationView view: MKAnnotationView) {
-        view.selected = false
+    func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
+        view.isSelected = false
         view.setNeedsLayout()
     }
     
@@ -275,7 +299,7 @@ class MapViewController: BaseViewController,MKMapViewDelegate, CLLocationManager
     ///周边信息
     func searchNearby() {
         let center = coordinate///当前位置
-        let region = MKCoordinateRegionMakeWithDistance(center, 2000, 2000)///周围1000米的范围
+        let region = MKCoordinateRegionMakeWithDistance(center!, 2000, 2000)///周围1000米的范围
         
         let adjustRegion = mapView.regionThatFits(region)///显示该区域
         
@@ -284,11 +308,11 @@ class MapViewController: BaseViewController,MKMapViewDelegate, CLLocationManager
         requst.naturalLanguageQuery = "place";//想要的信息
         let localSearch = MKLocalSearch(request: requst)
         
-        localSearch.startWithCompletionHandler {
+        localSearch.start {
             //[unowned self]
             (response, error) in
             if error != nil {
-                print(error?.localizedDescription)
+                print(error!.localizedDescription)
             }else {
                 
                 //response?.mapItems///包含所需信息
@@ -300,11 +324,11 @@ class MapViewController: BaseViewController,MKMapViewDelegate, CLLocationManager
     }
     
     ///改变模式
-    func mapView(mapView: MKMapView, didChangeUserTrackingMode mode: MKUserTrackingMode, animated: Bool) {
-        if mode == MKUserTrackingMode.None {
-            locateBtn.setImage(UIImage(named: "location_no"), forState: .Normal)
+    func mapView(_ mapView: MKMapView, didChange mode: MKUserTrackingMode, animated: Bool) {
+        if mode == MKUserTrackingMode.none {
+            locateBtn.setImage(UIImage(named: "location_no"), for: UIControlState())
         }else {
-            locateBtn.setImage(UIImage(named: "location_yes"), forState: .Normal)
+            locateBtn.setImage(UIImage(named: "location_yes"), for: UIControlState())
         }
     }
     
@@ -333,21 +357,21 @@ class MapViewController: BaseViewController,MKMapViewDelegate, CLLocationManager
         let request = MKDirectionsRequest()
         request.source = from
         request.destination = to
-        request.transportType = MKDirectionsTransportType.Automobile ///交通类型
+        request.transportType = MKDirectionsTransportType.automobile ///交通类型
         
-        let index = IOS_VERSION.startIndex.advancedBy(3)///9.3.1 to 9.3
-        if (Double(IOS_VERSION.substringToIndex(index)) > 7.0) { ///7.0以上
+        let index = IOS_VERSION.characters.index(IOS_VERSION.startIndex, offsetBy: 3)///9.3.1 to 9.3
+        if (Double(IOS_VERSION.substring(to: index)) > 7.0) { ///7.0以上
             request.requestsAlternateRoutes = true ///可以绘制路线
         }
     
         ///MKDirections
         let directions = MKDirections(request: request)
         
-        directions.calculateDirectionsWithCompletionHandler {
+        directions.calculate {
             [unowned self]///捕获列表
-            (response: MKDirectionsResponse?, error: NSError?) in
+            (response, error) in
             if error != nil {
-                print(error?.localizedDescription)
+                print(error!.localizedDescription)
             }else {
                 ///MKRoute
                 let route = response?.routes[0]///多条路线
@@ -377,28 +401,22 @@ class MapViewController: BaseViewController,MKMapViewDelegate, CLLocationManager
                  public var steps: [MKRouteStep] { get }
                  
                  }
-                */
-                self.mapView.addOverlay((route?.polyline)!)///地图上显示路线
+                 */
+                self.mapView.add((route?.polyline)!)///地图上显示路线
             }
+
         }
     }
-    
     ///路线样式设置
-    func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         ///路径的渲染对象
         let renderer = MKPolylineRenderer(overlay: overlay)///MKPolylineRenderer 注意是这个类，要不可能显示不出线路，Polyline地图上的多段线
-        renderer.lineCap = .Round
+        renderer.lineCap = .round
         renderer.lineWidth = 4.0
         renderer.strokeColor = THEMECOLOR
         
         return renderer
     }
-    
-    
-    
-    
-    
-    
     
     
     
@@ -417,5 +435,4 @@ class MapViewController: BaseViewController,MKMapViewDelegate, CLLocationManager
         // Pass the selected object to the new view controller.
     }
     */
-
 }

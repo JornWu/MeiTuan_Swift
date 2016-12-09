@@ -7,10 +7,34 @@
 //
 
 import UIKit
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func >= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l >= r
+  default:
+    return !(lhs < rhs)
+  }
+}
+
 
 class BaseNavigationController: UINavigationController {
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
      
     }
@@ -36,21 +60,21 @@ class BaseNavigationController: UINavigationController {
     
     func reloadNavigationBar(){
 
-        if Double(UIDevice.currentDevice().systemVersion) >= 7.0 {
-            self.edgesForExtendedLayout = UIRectEdge.None//视图控制器，四条边不指定
+        if Double(UIDevice.current.systemVersion) >= 7.0 {
+            self.edgesForExtendedLayout = UIRectEdge()//视图控制器，四条边不指定
             self.extendedLayoutIncludesOpaqueBars = false//不透明的操作栏
             self.modalPresentationCapturesStatusBarAppearance = false
             UINavigationBar.appearance().setBackgroundImage(UIImage(named: ""),
-                forBarPosition: UIBarPosition.Top,
-                barMetrics:UIBarMetrics.Default)
+                for: UIBarPosition.top,
+                barMetrics:UIBarMetrics.default)
         }
         
         let mainColor = THEMECOLOR
         self.navigationBar.barTintColor = mainColor
-        self.navigationBar.tintColor = UIColor.whiteColor()
+        self.navigationBar.tintColor = UIColor.white
         
         //设置标题颜色
-        let navigationTitleAttribute = NSDictionary(object: UIColor.blackColor(), forKey: NSForegroundColorAttributeName)
+        let navigationTitleAttribute = NSDictionary(object: UIColor.black, forKey: NSForegroundColorAttributeName as NSCopying)
         self.navigationBar.titleTextAttributes = navigationTitleAttribute as? [String : AnyObject]
         
 //        let backBtn = UIButton(frame: CGRectMake(0, 0, 40, 40))

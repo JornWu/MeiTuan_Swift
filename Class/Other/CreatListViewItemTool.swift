@@ -12,7 +12,7 @@ class CreatListViewItemTool: NSObject {
     
     ///创建类九宫格列表按钮
     static func creatListViewItemWith(
-        count: Int,
+        _ count: Int,
         columns: Int,
         itemSize: CGSize,
         xSpace: CGFloat,
@@ -34,21 +34,21 @@ class CreatListViewItemTool: NSObject {
             
             let col = Int(i % columns) //所在的列
             let row = Int(i / columns) //所在的行
-            let bgView = UIView(frame: CGRectMake((xSpace + itemSize.width) * CGFloat(col) + xSpace, (ySpace + itemSize.height) * CGFloat(row) + ySpace, itemSize.width, itemSize.height))
+            let bgView = UIView(frame: CGRect(x: (xSpace + itemSize.width) * CGFloat(col) + xSpace, y: (ySpace + itemSize.height) * CGFloat(row) + ySpace, width: itemSize.width, height: itemSize.height))
             
-            let btn = UIButton(frame: CGRectMake(0, 0, bgView.bounds.width, bgView.bounds.height * 0.8))
-            let titleLB = UILabel(frame: CGRectMake(0, btn.bounds.height + 2, bgView.bounds.width, bgView.bounds.height * 0.19))
-            titleLB.textAlignment = NSTextAlignment.Center
+            let btn = UIButton(frame: CGRect(x: 0, y: 0, width: bgView.bounds.width, height: bgView.bounds.height * 0.8))
+            let titleLB = UILabel(frame: CGRect(x: 0, y: btn.bounds.height + 2, width: bgView.bounds.width, height: bgView.bounds.height * 0.19))
+            titleLB.textAlignment = NSTextAlignment.center
             bgView.addSubview(btn)
             bgView.addSubview(titleLB)
                 
             
             if tag { btn.tag = Int(parentView.frame.origin.x + parentView.frame.origin.y) + i}///tag的计算公式
-            if target != nil { btn.addTarget(target, action: selector!, forControlEvents: controlEvents!) }
+            if target != nil { btn.addTarget(target, action: selector!, for: controlEvents!) }
             if backgroundColor != nil { bgView.backgroundColor = backgroundColor! }
-            if imageForNomals != nil { btn.setImage(imageForNomals![i], forState: UIControlState.Normal) }
-            if imageForHighlighteds != nil { btn.setImage(imageForHighlighteds![i], forState: UIControlState.Highlighted) }
-            if imageForSelecteds != nil { btn.setImage(imageForSelecteds![i], forState: UIControlState.Selected) }
+            if imageForNomals != nil { btn.setImage(imageForNomals![i], for: UIControlState()) }
+            if imageForHighlighteds != nil { btn.setImage(imageForHighlighteds![i], for: UIControlState.highlighted) }
+            if imageForSelecteds != nil { btn.setImage(imageForSelecteds![i], for: UIControlState.selected) }
             if titleFont != nil { titleLB.font = titleFont! }
             if itemTitle != nil { titleLB.text = itemTitle![i] }
             
@@ -56,7 +56,7 @@ class CreatListViewItemTool: NSObject {
             
             if autoResizeParentView {
                 if i == (count - 1) {
-                    parentView.bounds = CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, CGFloat(row + 1) * CGFloat(ySpace + itemSize.height) + ySpace)
+                    parentView.bounds = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: CGFloat(row + 1) * CGFloat(ySpace + itemSize.height) + ySpace)
                 }
             }
         }

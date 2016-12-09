@@ -18,7 +18,7 @@
 import UIKit
 
 @objc protocol ShopDropDownViewControllerDelegate: NSObjectProtocol {
-    func didChoosedFilterType(kindId: Int, kindName: String)//选择了过滤的类型
+    func didChoosedFilterType(_ kindId: Int, kindName: String)//选择了过滤的类型
     func didChoosedSortType()//选择了排序的类型
     func didRevertDropDownViewState()//恢复下拉视图的状态
 }
@@ -27,15 +27,15 @@ class ShopDropDownViewController: BaseViewController, UITableViewDataSource, UIT
     weak var delegate: ShopDropDownViewControllerDelegate!
     
     var shopCateListModel: SC_ShopCateListModel!
-    private var selectedTypeIndex: Int!
+    fileprivate var selectedTypeIndex: Int!
     
     var sortTypeAr = ["智能排序", "好评优先", "离我最近", "人均最低"]//排序类型数值
     
-    private var typeChoiceView: UIView!
-    private var leftTableView: UITableView!
-    private var rightTableView: UITableView!
-    private var sortTablewView: UITableView!
-    private var currentSelectedItemTag: Int?
+    fileprivate var typeChoiceView: UIView!
+    fileprivate var leftTableView: UITableView!
+    fileprivate var rightTableView: UITableView!
+    fileprivate var sortTablewView: UITableView!
+    fileprivate var currentSelectedItemTag: Int?
     
     convenience init(withFrame frame: CGRect, shopCateListModel: SC_ShopCateListModel) {
         self.init()
@@ -51,34 +51,34 @@ class ShopDropDownViewController: BaseViewController, UITableViewDataSource, UIT
         self.shopCateListModel = model
         self.selectedTypeIndex = 0
         loadAllViews()
-        self.view.hidden = true ///默认为隐藏的
+        self.view.isHidden = true ///默认为隐藏的
     }
     
     func loadAllViews() {
-        let typeChoiceBgView = UIButton(frame: CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT - 105))///
+        let typeChoiceBgView = UIButton(frame: CGRect(x: 0, y: 0, width: SCREENWIDTH, height: SCREENHEIGHT - 105))///
         typeChoiceBgView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.2)
-        typeChoiceBgView.addTarget(self, action: #selector(ShopDropDownViewController.revertDropDownView), forControlEvents: UIControlEvents.TouchUpInside)
+        typeChoiceBgView.addTarget(self, action: #selector(ShopDropDownViewController.revertDropDownView), for: UIControlEvents.touchUpInside)
         self.view.addSubview(typeChoiceBgView)
         
-        typeChoiceView = UIView(frame: CGRectMake(0, 0, SCREENWIDTH, 300))///
+        typeChoiceView = UIView(frame: CGRect(x: 0, y: 0, width: SCREENWIDTH, height: 300))///
         typeChoiceView.backgroundColor = BACKGROUNDCOLOR
         self.view.addSubview(typeChoiceView)
         
-        leftTableView = UITableView(frame: CGRectMake(0, 0, SCREENWIDTH * 2 / 5, 300), style: UITableViewStyle.Plain)
+        leftTableView = UITableView(frame: CGRect(x: 0, y: 0, width: SCREENWIDTH * 2 / 5, height: 300), style: UITableViewStyle.plain)
         leftTableView.tag = 301
         leftTableView.dataSource = self
         leftTableView.delegate = self
         
-        rightTableView = UITableView(frame: CGRectMake(SCREENWIDTH * 2 / 5, 0, SCREENWIDTH * 3 / 5, 300), style: UITableViewStyle.Plain)
+        rightTableView = UITableView(frame: CGRect(x: SCREENWIDTH * 2 / 5, y: 0, width: SCREENWIDTH * 3 / 5, height: 300), style: UITableViewStyle.plain)
         rightTableView.tag = 302
         rightTableView.backgroundColor = BACKGROUNDCOLOR
         rightTableView.dataSource = self
         rightTableView.delegate = self
         
-        sortTablewView = UITableView(frame: CGRectMake(0, 0, SCREENWIDTH, 160), style: UITableViewStyle.Plain)
+        sortTablewView = UITableView(frame: CGRect(x: 0, y: 0, width: SCREENWIDTH, height: 160), style: UITableViewStyle.plain)
         sortTablewView.tag = 303
         sortTablewView.rowHeight = 40
-        sortTablewView.hidden = true
+        sortTablewView.isHidden = true
         sortTablewView.dataSource = self
         sortTablewView.delegate = self
         
@@ -88,14 +88,14 @@ class ShopDropDownViewController: BaseViewController, UITableViewDataSource, UIT
     }
     
     func revertDropDownView() {
-        self.view.hidden = true
-        if self.delegate?.respondsToSelector(#selector(ShopDropDownViewControllerDelegate.didRevertDropDownViewState)) != nil {
+        self.view.isHidden = true
+        if self.delegate?.responds(to: #selector(ShopDropDownViewControllerDelegate.didRevertDropDownViewState)) != nil {
             self.delegate?.didRevertDropDownViewState()///恢复所有选择按钮的状态
         }
     }
     
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView.tag == 301 {
             return shopCateListModel.data.count
         }else if tableView.tag == 302 {
@@ -105,27 +105,27 @@ class ShopDropDownViewController: BaseViewController, UITableViewDataSource, UIT
         }
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: UITableViewCell
         if tableView.tag == 301 {
-            cell = UITableViewCell(style: UITableViewCellStyle.Value1, reuseIdentifier: "LeftCell")
-            cell.detailTextLabel?.font = UIFont.systemFontOfSize(11)
-            cell.detailTextLabel?.textColor = UIColor.grayColor()
+            cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: "LeftCell")
+            cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 11)
+            cell.detailTextLabel?.textColor = UIColor.gray
             cell.backgroundColor = UIColor(red: 0.97, green: 0.97, blue: 0.97, alpha: 1)
             cell.textLabel!.text = shopCateListModel.data[indexPath.row].name
-            cell.detailTextLabel!.text = "\(shopCateListModel.data[indexPath.row].count)"
-            cell.detailTextLabel?.font = UIFont.systemFontOfSize(11)
+            cell.detailTextLabel!.text = "\(shopCateListModel.data[indexPath.row].count!)"
+            cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 11)
         }else if tableView.tag == 302 {
-            cell = UITableViewCell(style: UITableViewCellStyle.Value1, reuseIdentifier: "RightCell")
-            cell.detailTextLabel?.font = UIFont.systemFontOfSize(11)
-            cell.detailTextLabel?.textColor = UIColor.grayColor()
+            cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: "RightCell")
+            cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 11)
+            cell.detailTextLabel?.textColor = UIColor.gray
             cell.backgroundColor = BACKGROUNDCOLOR
             cell.textLabel!.text = shopCateListModel.data[selectedTypeIndex].list[indexPath.row].name
-            cell.detailTextLabel!.text = "\(shopCateListModel.data[selectedTypeIndex].list[indexPath.row].count)"
+            cell.detailTextLabel!.text = "\(shopCateListModel.data[selectedTypeIndex].list[indexPath.row].count!)"
         }else {
-            cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "SortCell")
-            cell.detailTextLabel?.font = UIFont.systemFontOfSize(11)
-            cell.detailTextLabel?.textColor = UIColor.grayColor()
+            cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "SortCell")
+            cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 11)
+            cell.detailTextLabel?.textColor = UIColor.gray
             cell.imageView?.image  = UIImage(named: "icon_checkbox_unchecked")
             cell.textLabel!.text = sortTypeAr[indexPath.row]
         }
@@ -133,12 +133,12 @@ class ShopDropDownViewController: BaseViewController, UITableViewDataSource, UIT
         return cell
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let cell = tableView.cellForRowAtIndexPath(indexPath)
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath)
         if tableView.tag == 301 {
             if indexPath.row == 0 {///全部
                 //让代理执行过滤
-                if self.delegate?.respondsToSelector(#selector(ShopDropDownViewControllerDelegate.didChoosedFilterType(_: kindName:))) != nil {
+                if self.delegate?.responds(to: #selector(ShopDropDownViewControllerDelegate.didChoosedFilterType(_: kindName:))) != nil {
                     
                     self.delegate?.didChoosedFilterType(shopCateListModel.data[0].mId, kindName: shopCateListModel.data[0].name)
                 }
@@ -153,7 +153,7 @@ class ShopDropDownViewController: BaseViewController, UITableViewDataSource, UIT
             }
         }else if tableView.tag == 302 {
             //让代理执行过滤
-            if self.delegate?.respondsToSelector(#selector(ShopDropDownViewControllerDelegate.didChoosedFilterType(_: kindName:))) != nil {
+            if self.delegate?.responds(to: #selector(ShopDropDownViewControllerDelegate.didChoosedFilterType(_: kindName:))) != nil {
                 if shopCateListModel.data[selectedTypeIndex].list != nil {
                     self.delegate?.didChoosedFilterType(shopCateListModel.data[selectedTypeIndex].list[indexPath.row].mId, kindName: shopCateListModel.data[selectedTypeIndex].list[indexPath.row].name)
                 }else {
@@ -168,14 +168,14 @@ class ShopDropDownViewController: BaseViewController, UITableViewDataSource, UIT
         }
     }
     
-    func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
-        let cell = tableView.cellForRowAtIndexPath(indexPath)
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath)
         if tableView.tag == 301 {
-            cell?.textLabel?.textColor = UIColor.blackColor()
+            cell?.textLabel?.textColor = UIColor.black
         }else if tableView.tag == 302 {
             //////
         }else {
-            cell?.textLabel?.textColor = UIColor.blackColor()
+            cell?.textLabel?.textColor = UIColor.black
             cell!.imageView?.image  = UIImage(named: "icon_checkbox_unchecked")
         }
     }
@@ -186,26 +186,26 @@ class ShopDropDownViewController: BaseViewController, UITableViewDataSource, UIT
         if currentSelectedItemTag == nil {///从关闭中展开
             currentSelectedItemTag = btn.tag
         }else if currentSelectedItemTag != btn.tag {///从展开中切换
-            self.view.hidden = false///先把前面的关闭
+            self.view.isHidden = false///先把前面的关闭
         }
         
         switch btn.tag {
         case 200:///类型筛选选择
             typeChoiceView.extSetHeight(300)
             self.typeChoiceView.extSetY(-1 * self.typeChoiceView.extHeight())
-            btn.selected = !btn.selected
-            self.view.hidden = !self.view.hidden
-            if btn.selected {///展开
+            btn.isSelected = !btn.isSelected
+            self.view.isHidden = !self.view.isHidden
+            if btn.isSelected {///展开
                 
-                sortTablewView.hidden = true
-                leftTableView.hidden = false
-                rightTableView.hidden = false
+                sortTablewView.isHidden = true
+                leftTableView.isHidden = false
+                rightTableView.isHidden = false
                 
-                UIView.animateWithDuration(0.2, animations: {
+                UIView.animate(withDuration: 0.2, animations: {
                     [unowned self]
                     () -> Void in
                     
-                    self.typeChoiceView.transform = CGAffineTransformTranslate(self.typeChoiceView.transform, 0, self.typeChoiceView.extHeight())
+                    self.typeChoiceView.transform = self.typeChoiceView.transform.translatedBy(x: 0, y: self.typeChoiceView.extHeight())
                     }, completion: { (isCompletion) -> Void in
                         
                         if isCompletion {
@@ -217,27 +217,27 @@ class ShopDropDownViewController: BaseViewController, UITableViewDataSource, UIT
             }
             
         case 201:///地区筛选选择
-            self.view.hidden = false
+            self.view.isHidden = false
             
             // doing
             
         case 202:///排序类型选择
-            btn.selected = !btn.selected
-            self.view.hidden = !self.view.hidden
+            btn.isSelected = !btn.isSelected
+            self.view.isHidden = !self.view.isHidden
             
-            if btn.selected {
+            if btn.isSelected {
                 
                 typeChoiceView.extSetHeight(160)
                 self.typeChoiceView.extSetY(-1 * self.typeChoiceView.extHeight())
-                self.view.hidden = false
-                leftTableView.hidden = true
-                rightTableView.hidden = true
-                sortTablewView.hidden = false
+                self.view.isHidden = false
+                leftTableView.isHidden = true
+                rightTableView.isHidden = true
+                sortTablewView.isHidden = false
                 
-                UIView.animateWithDuration(0.2, animations: {
+                UIView.animate(withDuration: 0.2, animations: {
                     [unowned self]
                     () -> Void in
-                    self.typeChoiceView.transform = CGAffineTransformTranslate(self.typeChoiceView.transform, 0, self.typeChoiceView.extHeight())
+                    self.typeChoiceView.transform = self.typeChoiceView.transform.translatedBy(x: 0, y: self.typeChoiceView.extHeight())
                     })
             }else {
                 currentSelectedItemTag = nil

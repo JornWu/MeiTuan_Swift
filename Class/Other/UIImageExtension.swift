@@ -17,14 +17,14 @@ extension UIImage {
         
         ///适应图片比例
         if (img.size.width / img.size.height) < (size.width / size.height) {//比例 高过大
-            newSize = CGSizeMake(img.size.width, img.size.width * (size.height / size.width))
+            newSize = CGSize(width: img.size.width, height: img.size.width * (size.height / size.width))
         }else {//比例 宽过大
-            newSize = CGSizeMake(img.size.height * (size.width / size.height), img.size.height)
+            newSize = CGSize(width: img.size.height * (size.width / size.height), height: img.size.height)
         }
         
-        let imageRef = CGImageCreateWithImageInRect(img.CGImage, CGRectMake(0, 0, newSize.width, newSize.height))
+        let imageRef = img.cgImage?.cropping(to: CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height))
 
-        let newImage = UIImage(CGImage: imageRef!)
+        let newImage = UIImage(cgImage: imageRef!)
 
         return newImage
         

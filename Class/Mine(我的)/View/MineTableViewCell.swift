@@ -18,25 +18,25 @@ class MineTableViewCell: UITableViewCell {
         // Initialization code
     }
     
-    class func tableViewCellWith(modelAArray: [MineTableViewCellModel]!, tableView: UITableView, indexPath: NSIndexPath, reuseIndentify: String) -> MineTableViewCell {
+    class func tableViewCellWith(_ modelAArray: [MineTableViewCellModel]!, tableView: UITableView, indexPath: IndexPath, reuseIndentify: String) -> MineTableViewCell {
         
-        var cell = tableView.dequeueReusableCellWithIdentifier(reuseIndentify, forIndexPath: indexPath) as? MineTableViewCell
+        var cell = tableView.dequeueReusableCell(withIdentifier: reuseIndentify, for: indexPath) as? MineTableViewCell
         if cell == nil {
-            cell = NSBundle.mainBundle().loadNibNamed("MineTableViewCell", owner: nil, options: nil).last as? MineTableViewCell
+            cell = Bundle.main.loadNibNamed("MineTableViewCell", owner: nil, options: nil)?.last as? MineTableViewCell
         }
         
         cell!.mImageView.image = modelAArray[Int(indexPath.row)].mImage
         cell!.mTitleLable.text = modelAArray[Int(indexPath.row)].mTitleText
 
-        cell!.selectionStyle = UITableViewCellSelectionStyle.None
-        cell!.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+        cell!.selectionStyle = UITableViewCellSelectionStyle.none
+        cell!.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
         
         return cell!
     }
     
     
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

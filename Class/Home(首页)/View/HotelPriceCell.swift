@@ -21,11 +21,11 @@ class HotelPriceCell: UITableViewCell {
         rushBuyBtn.layer.cornerRadius = 3
     }
 
-    @IBAction func rushBuyBtnAction(sender: UIButton) {
+    @IBAction func rushBuyBtnAction(_ sender: UIButton) {
         print("立即抢购")
     }
     
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

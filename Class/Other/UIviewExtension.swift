@@ -36,20 +36,20 @@ extension UIView {
         return self.frame.origin
     }
     
-    func extSetX(x: CGFloat) {
-        self.frame.origin = CGPointMake(x, self.extY())
+    func extSetX(_ x: CGFloat) {
+        self.frame.origin = CGPoint(x: x, y: self.extY())
     }
     
-    func extSetY(y: CGFloat) {
-        self.frame.origin = CGPointMake(self.extX(), y)
+    func extSetY(_ y: CGFloat) {
+        self.frame.origin = CGPoint(x: self.extX(), y: y)
     }
     
-    func extSetWidth(width: CGFloat) {
-        self.frame.size = CGSizeMake(width, self.extHeight())
+    func extSetWidth(_ width: CGFloat) {
+        self.frame.size = CGSize(width: width, height: self.extHeight())
     }
     
-    func extSetHeight(height: CGFloat) {
-        self.frame.size = CGSizeMake(self.extWidth(), height)
+    func extSetHeight(_ height: CGFloat) {
+        self.frame.size = CGSize(width: self.extWidth(), height: height)
     }
     
 }

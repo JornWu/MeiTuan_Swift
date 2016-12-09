@@ -10,13 +10,13 @@ import UIKit
 
 class RootTabBarController: UITabBarController {
     
-    private let storyboardNameAr = ["Home", "Shop", "Mine", "More"]
-    private let titleAr = ["首页", "商家", "我的", "更多"]
-    private let itemIconAr = ["icon_tabbar_homepage",
+    fileprivate let storyboardNameAr = ["Home", "Shop", "Mine", "More"]
+    fileprivate let titleAr = ["首页", "商家", "我的", "更多"]
+    fileprivate let itemIconAr = ["icon_tabbar_homepage",
         "icon_tabbar_merchant_normal",
         "icon_tabbar_mine",
         "icon_tabbar_misc"]
-    private let itemSelectedIconAr = ["icon_tabbar_homepage_selected",
+    fileprivate let itemSelectedIconAr = ["icon_tabbar_homepage_selected",
         "icon_tabbar_merchant_selected",
         "icon_tabbar_mine_selected",
         "icon_tabbar_misc_selected"]
@@ -24,7 +24,7 @@ class RootTabBarController: UITabBarController {
     var barView: UIView!
     var preSelectedBtnTag: Int
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         preSelectedBtnTag = 100
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         self.addChildViewControllers()
@@ -57,7 +57,7 @@ class RootTabBarController: UITabBarController {
         }
         
         barView = UIView(frame: self.tabBar.bounds)
-        barView.backgroundColor = UIColor.whiteColor()
+        barView.backgroundColor = UIColor.white
         self.tabBar.addSubview(barView)
     }
     
@@ -70,14 +70,14 @@ class RootTabBarController: UITabBarController {
         
         for i in 0 ..< itemIconAr.count {
             
-            let btn = UIButton(frame:CGRectMake(btnW * (CGFloat)(i), 0, btnW, btnH))
+            let btn = UIButton(frame:CGRect(x: btnW * (CGFloat)(i), y: 0, width: btnW, height: btnH))
             btn.tag = i + 100
             if btn.tag == 100 {
-                btn.selected = true
+                btn.isSelected = true
             }
-            btn.setImage(UIImage(named: itemIconAr[i]), forState: UIControlState.Normal)
-            btn.setImage(UIImage(named: itemSelectedIconAr[i]), forState: UIControlState.Selected)
-            btn.addTarget(self, action: #selector(RootTabBarController.btnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+            btn.setImage(UIImage(named: itemIconAr[i]), for: UIControlState())
+            btn.setImage(UIImage(named: itemSelectedIconAr[i]), for: UIControlState.selected)
+            btn.addTarget(self, action: #selector(RootTabBarController.btnAction(_:)), for: UIControlEvents.touchUpInside)
             barView.addSubview(btn)
         }
     }
@@ -85,9 +85,9 @@ class RootTabBarController: UITabBarController {
     /**
      * 点击btn的响应方法
      */
-    func btnAction(btn: UIButton) {
+    func btnAction(_ btn: UIButton) {
         if preSelectedBtnTag != btn.tag{
-            (barView.viewWithTag(preSelectedBtnTag) as! UIButton).selected = false
+            (barView.viewWithTag(preSelectedBtnTag) as! UIButton).isSelected = false
             
         }
         /**
@@ -95,7 +95,7 @@ class RootTabBarController: UITabBarController {
         */
         preSelectedBtnTag = btn.tag
         self.selectedIndex = btn.tag - 100;
-        btn.selected = true;
+        btn.isSelected = true;
     }
     
     /**
@@ -116,7 +116,7 @@ class RootTabBarController: UITabBarController {
     /**
      * 创建自控制器
      */
-    func stupChildViewController(storyboardName: String, title: String) -> BaseNavigationController{
+    func stupChildViewController(_ storyboardName: String, title: String) -> BaseNavigationController{
         
         let storyboard = UIStoryboard(name: storyboardName, bundle: nil)
         let vc = storyboard.instantiateInitialViewController()! //sb 可以再加一个NavigationController

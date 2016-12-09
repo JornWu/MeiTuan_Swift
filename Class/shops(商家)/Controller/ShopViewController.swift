@@ -20,30 +20,30 @@ class ShopViewController:BaseViewController,
     
     var choiceFilterDelegate: ShopViewControllerDelegate! //选择过滤类型的delegate
     
-    private var segBtn1: UIButton!
-    private var segBtn2: UIButton!
-    private var currentSelectedBtnTag: Int!
+    fileprivate var segBtn1: UIButton!
+    fileprivate var segBtn2: UIButton!
+    fileprivate var currentSelectedBtnTag: Int!
     
     ///
-    private var preferentialView: UIView!
+    fileprivate var preferentialView: UIView!
     
     ///////////////////////////////
     
-    private var shopCateListModel: SC_ShopCateListModel!
-    private var itemAr = [UIButton]()///用来存储所有选择按钮
-    private var currentSelectedItem: UIButton!
+    fileprivate var shopCateListModel: SC_ShopCateListModel!
+    fileprivate var itemAr = [UIButton]()///用来存储所有选择按钮
+    fileprivate var currentSelectedItem: UIButton!
     
-    private var shopListModel: SP_ShopModel!///商家列表数据
-    private var kindId: Int64!
-    private var kindName: String!
-    private var shopTableView: UITableView!
+    fileprivate var shopListModel: SP_ShopModel!///商家列表数据
+    fileprivate var kindId: Int64!
+    fileprivate var kindName: String!
+    fileprivate var shopTableView: UITableView!
     
-    private var isRefresh = false
-    private var offset: Int64 = 0
+    fileprivate var isRefresh = false
+    fileprivate var offset: Int64 = 0
     
-    private var currentAddressModel: CA_CurrentAddressModel?
-    private var headerView: UIView!
-    private var addressLabel: UILabel!
+    fileprivate var currentAddressModel: CA_CurrentAddressModel?
+    fileprivate var headerView: UIView!
+    fileprivate var addressLabel: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,9 +61,9 @@ class ShopViewController:BaseViewController,
         
     }
     
-    override func viewWillAppear(animated: Bool) {
-        self.navigationController!.navigationBar.barTintColor = UIColor.whiteColor()
-        self.navigationController!.navigationBar.hidden = false
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController!.navigationBar.barTintColor = UIColor.white
+        self.navigationController!.navigationBar.isHidden = false
     }
     
 /****************************************************************************************************/
@@ -71,72 +71,72 @@ class ShopViewController:BaseViewController,
  ** 添加导航栏按钮
  **
  */
-    private func addNavigationItems() {
+    fileprivate func addNavigationItems() {
         ///map button item
-        let lBtn = UIButton(type: UIButtonType.Custom)
-        lBtn.frame = CGRectMake(0, 0, 25, 25)
-        lBtn.contentMode = UIViewContentMode.ScaleAspectFit
-        lBtn.setImage(UIImage(named: "icon_map.png"), forState: UIControlState.Normal)
-        lBtn.setImage(UIImage(named: "icon_map_highlighted.png"), forState: UIControlState.Selected)
-        lBtn.addTarget(self, action: #selector(ShopViewController.openMapView(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        let lBtn = UIButton(type: UIButtonType.custom)
+        lBtn.frame = CGRect(x: 0, y: 0, width: 25, height: 25)
+        lBtn.contentMode = UIViewContentMode.scaleAspectFit
+        lBtn.setImage(UIImage(named: "icon_map.png"), for: UIControlState())
+        lBtn.setImage(UIImage(named: "icon_map_highlighted.png"), for: UIControlState.selected)
+        lBtn.addTarget(self, action: #selector(ShopViewController.openMapView(_:)), for: UIControlEvents.touchUpInside)
         let leftItem = UIBarButtonItem(customView: lBtn)
         self.navigationItem.leftBarButtonItem = leftItem
         
         ///search button item
-        let rBtn = UIButton(type: UIButtonType.Custom)
-        rBtn.frame = CGRectMake(0, 0, 25, 25)
-        rBtn.contentMode = UIViewContentMode.ScaleAspectFit
-        rBtn.setImage(UIImage(named: "icon_search.png"), forState: UIControlState.Normal)
-        rBtn.setImage(UIImage(named: "icon_search_selected.png"), forState: UIControlState.Selected)
-        rBtn.addTarget(self, action: #selector(ShopViewController.openSearchView(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        let rBtn = UIButton(type: UIButtonType.custom)
+        rBtn.frame = CGRect(x: 0, y: 0, width: 25, height: 25)
+        rBtn.contentMode = UIViewContentMode.scaleAspectFit
+        rBtn.setImage(UIImage(named: "icon_search.png"), for: UIControlState())
+        rBtn.setImage(UIImage(named: "icon_search_selected.png"), for: UIControlState.selected)
+        rBtn.addTarget(self, action: #selector(ShopViewController.openSearchView(_:)), for: UIControlEvents.touchUpInside)
         let rightItem = UIBarButtonItem(customView: rBtn)
         self.navigationItem.rightBarButtonItem = rightItem
         
         
         
         ///segment
-        let segView = UIView(frame: CGRectMake(0, 0, 200, 30))
-        segView.backgroundColor = UIColor.whiteColor()
-        segView.layer.borderColor = THEMECOLOR.CGColor
+        let segView = UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 30))
+        segView.backgroundColor = UIColor.white
+        segView.layer.borderColor = THEMECOLOR.cgColor
         
         let edge = UIEdgeInsetsMake(10, 5, 10, 5)
             //UIImageResizingModeStretch：拉伸模式，通过拉伸UIEdgeInsets指定的矩形区域来填充图片
             //UIImageResizingModeTile：平铺模式，通过重复显示UIEdgeInsets指定的矩形区域来填充图
         var img_1_n = UIImage(named: "btn_banklist_filter_left_normal")
-        img_1_n = img_1_n?.resizableImageWithCapInsets(edge, resizingMode: UIImageResizingMode.Stretch)
+        img_1_n = img_1_n?.resizableImage(withCapInsets: edge, resizingMode: UIImageResizingMode.stretch)
         var img_1_s = UIImage(named: "btn_banklist_filter_left_selected")
-        img_1_s = img_1_s?.resizableImageWithCapInsets(edge, resizingMode: UIImageResizingMode.Stretch)
+        img_1_s = img_1_s?.resizableImage(withCapInsets: edge, resizingMode: UIImageResizingMode.stretch)
         
         var img_2_n = UIImage(named: "btn_banklist_filter_right_normal")
-        img_2_n = img_2_n?.resizableImageWithCapInsets(edge, resizingMode: UIImageResizingMode.Stretch)
+        img_2_n = img_2_n?.resizableImage(withCapInsets: edge, resizingMode: UIImageResizingMode.stretch)
         var img_2_s = UIImage(named: "btn_banklist_filter_right_selected")
-        img_2_s = img_2_s?.resizableImageWithCapInsets(edge, resizingMode: UIImageResizingMode.Stretch)
+        img_2_s = img_2_s?.resizableImage(withCapInsets: edge, resizingMode: UIImageResizingMode.stretch)
         
-        segBtn1 = UIButton(type: UIButtonType.Custom)
-        segBtn1.frame = CGRectMake(0, 0, 100, 30)
-        segBtn1.setTitle("全部商家", forState: UIControlState.Normal)
-        segBtn1.setTitle("全部商家", forState: UIControlState.Selected)
-        segBtn1.selected = true
+        segBtn1 = UIButton(type: UIButtonType.custom)
+        segBtn1.frame = CGRect(x: 0, y: 0, width: 100, height: 30)
+        segBtn1.setTitle("全部商家", for: UIControlState())
+        segBtn1.setTitle("全部商家", for: UIControlState.selected)
+        segBtn1.isSelected = true
         segBtn1.tag = 1
-        segBtn1.titleLabel?.font = UIFont.systemFontOfSize(15)
-        segBtn1.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Selected)
-        segBtn1.setTitleColor(THEMECOLOR, forState: UIControlState.Normal)
-        segBtn1.setBackgroundImage(img_1_n, forState: UIControlState.Normal)
-        segBtn1.setBackgroundImage(img_1_s, forState: UIControlState.Selected)
-        segBtn1.contentMode = UIViewContentMode.ScaleAspectFill
-        segBtn1.addTarget(self, action: #selector(ShopViewController.segBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        segBtn1.titleLabel?.font = UIFont.systemFont(ofSize: 15)
+        segBtn1.setTitleColor(UIColor.white, for: UIControlState.selected)
+        segBtn1.setTitleColor(THEMECOLOR, for: UIControlState())
+        segBtn1.setBackgroundImage(img_1_n, for: UIControlState())
+        segBtn1.setBackgroundImage(img_1_s, for: UIControlState.selected)
+        segBtn1.contentMode = UIViewContentMode.scaleAspectFill
+        segBtn1.addTarget(self, action: #selector(ShopViewController.segBtnAction(_:)), for: UIControlEvents.touchUpInside)
         
-        segBtn2 = UIButton(type: UIButtonType.Custom)
-        segBtn2.frame = CGRectMake(100, 0, 100, 30)
-        segBtn2.setTitle("优惠商家", forState: UIControlState.Normal)
-        segBtn2.selected = false
+        segBtn2 = UIButton(type: UIButtonType.custom)
+        segBtn2.frame = CGRect(x: 100, y: 0, width: 100, height: 30)
+        segBtn2.setTitle("优惠商家", for: UIControlState())
+        segBtn2.isSelected = false
         segBtn2.tag = 2
-        segBtn2.titleLabel?.font = UIFont.systemFontOfSize(15)
-        segBtn2.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Selected)
-        segBtn2.setTitleColor(THEMECOLOR, forState: UIControlState.Normal)
-        segBtn2.setBackgroundImage(img_2_n, forState: UIControlState.Normal)
-        segBtn2.setBackgroundImage(img_2_s, forState: UIControlState.Selected)
-        segBtn2.addTarget(self, action: #selector(ShopViewController.segBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        segBtn2.titleLabel?.font = UIFont.systemFont(ofSize: 15)
+        segBtn2.setTitleColor(UIColor.white, for: UIControlState.selected)
+        segBtn2.setTitleColor(THEMECOLOR, for: UIControlState())
+        segBtn2.setBackgroundImage(img_2_n, for: UIControlState())
+        segBtn2.setBackgroundImage(img_2_s, for: UIControlState.selected)
+        segBtn2.addTarget(self, action: #selector(ShopViewController.segBtnAction(_:)), for: UIControlEvents.touchUpInside)
         
         currentSelectedBtnTag = 1 //segBtn1
         segView.addSubview(segBtn1)
@@ -146,20 +146,20 @@ class ShopViewController:BaseViewController,
 
     }
     
-    func segBtnAction(btn: UIButton)  {
+    func segBtnAction(_ btn: UIButton)  {
         if btn.tag != currentSelectedBtnTag {//不是原来的button
             currentSelectedBtnTag = btn.tag
-            segBtn1.selected = !segBtn1.selected
-            segBtn2.selected = !segBtn2.selected
+            segBtn1.isSelected = !segBtn1.isSelected
+            segBtn2.isSelected = !segBtn2.isSelected
   
             if btn.tag == 1 {
                 //........ data 1 reload tableview
                 
-                UIView.transitionWithView(self.view, duration: 2, options: UIViewAnimationOptions.TransitionCurlDown, animations: {
+                UIView.transition(with: self.view, duration: 2, options: UIViewAnimationOptions.transitionCurlDown, animations: {
                     [unowned self]
                     () -> Void in
-                    self.shopTableView.hidden = false
-                    self.preferentialView.hidden = true
+                    self.shopTableView.isHidden = false
+                    self.preferentialView.isHidden = true
                     }, completion: { (isCompletion) -> Void in
                         if isCompletion {
                             ///doing
@@ -172,11 +172,11 @@ class ShopViewController:BaseViewController,
                 //........ data 2 reload tableview
                 ///test
                 
-                UIView.transitionWithView(self.view, duration: 2, options: UIViewAnimationOptions.TransitionCurlUp, animations: {
+                UIView.transition(with: self.view, duration: 2, options: UIViewAnimationOptions.transitionCurlUp, animations: {
                     [unowned self]
                     () -> Void in
-                    self.shopTableView.hidden = true
-                    self.preferentialView.hidden = false
+                    self.shopTableView.isHidden = true
+                    self.preferentialView.isHidden = false
                     }, completion: { (isCompletion) -> Void in
                         if isCompletion {
                             ///doing
@@ -190,19 +190,19 @@ class ShopViewController:BaseViewController,
     
     ///test ///优惠商家
     func creatPreferentialView() {
-        preferentialView = UIView(frame: CGRectMake(0, 105, SCREENWIDTH,SCREENHEIGHT - 41 - 64))
+        preferentialView = UIView(frame: CGRect(x: 0, y: 105, width: SCREENWIDTH,height: SCREENHEIGHT - 41 - 64))
         preferentialView.backgroundColor = THEMECOLOR
         let imageView = UIImageView(frame: preferentialView.bounds)
         imageView.image = UIImage(named: "icon_menu.jpg")
-        imageView.contentMode = UIViewContentMode.ScaleAspectFill
+        imageView.contentMode = UIViewContentMode.scaleAspectFill
         
         preferentialView.addSubview(imageView)
-        preferentialView.hidden = true
+        preferentialView.isHidden = true
         self.view.addSubview(preferentialView)
     }
     
     
-    func openMapView(btn: UIButton) {
+    func openMapView(_ btn: UIButton) {
         
         let mapVC = MapViewController()
         if self.kindName == nil {
@@ -223,7 +223,7 @@ class ShopViewController:BaseViewController,
         
     }
     
-    func openSearchView(btn: UIButton){
+    func openSearchView(_ btn: UIButton){
         let SHVC = SearchViewController()
         self.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(SHVC, animated: true)
@@ -239,14 +239,14 @@ class ShopViewController:BaseViewController,
 
     func creatChooseBar() {
         
-        let chooseBarTopLineView = UIView(frame: CGRectMake(0, 64, SCREENWIDTH, 41))//上分割线，用背景色衬托（多种方法）
-        chooseBarTopLineView.backgroundColor = UIColor.grayColor()
+        let chooseBarTopLineView = UIView(frame: CGRect(x: 0, y: 64, width: SCREENWIDTH, height: 41))//上分割线，用背景色衬托（多种方法）
+        chooseBarTopLineView.backgroundColor = UIColor.gray
         
-        let chooseBar = UIView(frame: CGRectMake(0, 1, SCREENWIDTH, 40))
-        chooseBar.backgroundColor = UIColor.whiteColor()
+        let chooseBar = UIView(frame: CGRect(x: 0, y: 1, width: SCREENWIDTH, height: 40))
+        chooseBar.backgroundColor = UIColor.white
         chooseBarTopLineView.addSubview(chooseBar)
-        let grayLineView = UIView(frame: CGRectMake(0, 5, SCREENWIDTH, chooseBar.extHeight() - 10))
-        grayLineView.backgroundColor = UIColor.grayColor()
+        let grayLineView = UIView(frame: CGRect(x: 0, y: 5, width: SCREENWIDTH, height: chooseBar.extHeight() - 10))
+        grayLineView.backgroundColor = UIColor.gray
         
         self.view.addSubview(chooseBarTopLineView)
         chooseBar.addSubview(grayLineView)
@@ -256,21 +256,21 @@ class ShopViewController:BaseViewController,
         let originTitleAr = ["全部分类", "全城", "智能排序"]
         
         for index in 0 ..< originTitleAr.count {///这里btnItem类建议自定义，要不图片和文字位置不好控制
-            let btnItem = UIButton(type: UIButtonType.Custom)
+            let btnItem = UIButton(type: UIButtonType.custom)
             btnItem.tag = index + 200
             let btnWidth = (SCREENWIDTH - 2) / 3
-            btnItem.frame = CGRectMake((btnWidth + 1) * CGFloat(index), 0, btnWidth, chooseBar.extHeight())
-            btnItem.setTitle(originTitleAr[index], forState: UIControlState.Normal)
-            btnItem.titleLabel?.font = UIFont.systemFontOfSize(13)
-            btnItem.setTitleColor(UIColor.grayColor(), forState: UIControlState.Normal)
-            btnItem.setImage(UIImage(named: "icon_arrow_dropdown_normal"), forState: UIControlState.Normal)
-            btnItem.setImage(UIImage(named: "icon_arrow_dropdown_selected"), forState: UIControlState.Selected)
-            btnItem.contentMode = UIViewContentMode.ScaleAspectFit
+            btnItem.frame = CGRect(x: (btnWidth + 1) * CGFloat(index), y: 0, width: btnWidth, height: chooseBar.extHeight())
+            btnItem.setTitle(originTitleAr[index], for: UIControlState())
+            btnItem.titleLabel?.font = UIFont.systemFont(ofSize: 13)
+            btnItem.setTitleColor(UIColor.gray, for: UIControlState())
+            btnItem.setImage(UIImage(named: "icon_arrow_dropdown_normal"), for: UIControlState())
+            btnItem.setImage(UIImage(named: "icon_arrow_dropdown_selected"), for: UIControlState.selected)
+            btnItem.contentMode = UIViewContentMode.scaleAspectFit
             btnItem.titleEdgeInsets = UIEdgeInsetsMake(0, -15, 0, 0)
             
             btnItem.imageEdgeInsets = UIEdgeInsetsMake(0, btnItem.extWidth() - 20, 0, 0)
-            btnItem.backgroundColor = UIColor.whiteColor()
-            btnItem.addTarget(self, action: #selector(ShopViewController.chooseListView(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+            btnItem.backgroundColor = UIColor.white
+            btnItem.addTarget(self, action: #selector(ShopViewController.chooseListView(_:)), for: UIControlEvents.touchUpInside)
             
             
             itemAr.append(btnItem)///放到数组中，统一管理
@@ -280,13 +280,13 @@ class ShopViewController:BaseViewController,
     }
     
     ///控制下拉列表视图的显示
-    func chooseListView(btn: UIButton) {
+    func chooseListView(_ btn: UIButton) {
         if currentSelectedItem == nil {
             currentSelectedItem = btn
         }else if currentSelectedItem.tag != btn.tag {//点击另一个按钮
-            currentSelectedItem.selected = false
+            currentSelectedItem.isSelected = false
         }
-        if (self.choiceFilterDelegate?.respondsToSelector(#selector(ShopViewControllerDelegate.didClickChoiceBarButtonItemWith(button:))) != nil){
+        if (self.choiceFilterDelegate?.responds(to: #selector(ShopViewControllerDelegate.didClickChoiceBarButtonItemWith(button:))) != nil){
             self.choiceFilterDelegate?.didClickChoiceBarButtonItemWith(button: btn)
         }
         
@@ -301,16 +301,16 @@ class ShopViewController:BaseViewController,
     ///商家分类列表数据
     func loadShopCateListData() {
 
-        self.view.bringSubviewToFront(self.activityIndicatorView)///放在最上面
-        self.activityIndicatorView.hidden = false ///让activityView显示
+        self.view.bringSubview(toFront: self.activityIndicatorView)///放在最上面
+        self.activityIndicatorView.isHidden = false ///让activityView显示
         
-        let URLString = UrlStrType.CateList.getUrlString()
+        let URLString = UrlStrType.cateList.getUrlString()
         ///封装的方法
         NetworkeProcessor.loadNetworkeDate(withTarget: self, URLString: URLString) {
             [unowned self]
             (dictionary) in
             self.shopCateListModel(withDictionary: dictionary)
-            self.activityIndicatorView.hidden = true ///让activityView隐藏
+            self.activityIndicatorView.isHidden = true ///让activityView隐藏
         }
 
     }
@@ -325,15 +325,15 @@ class ShopViewController:BaseViewController,
     
     func creatFilterTypeChoiceView() {
         
-        let filterTypeChoiceVC = ShopDropDownViewController(withFrame: CGRectMake(0, 64 + 41, SCREENWIDTH, SCREENHEIGHT - 64), shopCateListModel: shopCateListModel)
+        let filterTypeChoiceVC = ShopDropDownViewController(withFrame: CGRect(x: 0, y: 64 + 41, width: SCREENWIDTH, height: SCREENHEIGHT - 64), shopCateListModel: shopCateListModel)
         self.choiceFilterDelegate = filterTypeChoiceVC
         filterTypeChoiceVC.delegate = self//注意循环引用
-        self.view.insertSubview(filterTypeChoiceVC.view, atIndex: 1)///在主白视图之上就行
+        self.view.insertSubview(filterTypeChoiceVC.view, at: 1)///在主白视图之上就行
         
     }
     
     ///ShopDropDownViewDelegate
-    func didChoosedFilterType(kindId: Int, kindName: String) {
+    func didChoosedFilterType(_ kindId: Int, kindName: String) {
         self.kindId = Int64(kindId)
         self.kindName = kindName
         self.loadShopListData(withKindId: self.kindId)///重新加载数据
@@ -347,7 +347,7 @@ class ShopViewController:BaseViewController,
     ///ShopDropDownViewDelegate
     func didRevertDropDownViewState() {
         for index in itemAr {
-            index.selected = false ///恢复左右按钮的状态
+            index.isSelected = false ///恢复左右按钮的状态
         }
     }
     
@@ -371,7 +371,7 @@ QOS_CLASS_BACKGROUND：       background 等级表示那些用户不会察觉的
                             维护或是其它不需用户交互和对时间不敏感的任务。
 */
     func loadCurrenAddressData() {
-        let URLString = UrlStrType.Address.getUrlString()
+        let URLString = UrlStrType.address.getUrlString()
      
         ///未封装方法
 //        ///加载数据很耗时，放到子线程中
@@ -425,7 +425,7 @@ QOS_CLASS_BACKGROUND：       background 等级表示那些用户不会察觉的
         }else {
             if currentAddressModel != nil {
                 let dataModel = currentAddressModel!.data
-                addressLabel.text = "当前位置：" + dataModel.province + dataModel.city + dataModel.district + dataModel.detail
+                addressLabel.text = "当前位置：" + dataModel!.province + dataModel!.city + dataModel!.district + dataModel!.detail
             }else {
                 addressLabel.text = "无法获取当前地址，请检查GPS是否打开或者网络是否打开。"
             }
@@ -433,20 +433,20 @@ QOS_CLASS_BACKGROUND：       background 等级表示那些用户不会察觉的
     }
     
     func creatheaderView() {
-        headerView = UIView(frame: CGRectMake(0, 0, SCREENWIDTH, 30))
-        addressLabel = UILabel(frame: CGRectMake(0, 0, headerView.extWidth() - 30, 30))
-        addressLabel.font = UIFont.systemFontOfSize(13)
+        headerView = UIView(frame: CGRect(x: 0, y: 0, width: SCREENWIDTH, height: 30))
+        addressLabel = UILabel(frame: CGRect(x: 0, y: 0, width: headerView.extWidth() - 30, height: 30))
+        addressLabel.font = UIFont.systemFont(ofSize: 13)
         headerView.addSubview(addressLabel)
         
-        let refreshBtn = UIButton(frame: CGRectMake(addressLabel.extWidth(), 5, 20, 20))
-        refreshBtn.setImage(UIImage(named: "icon_dellist_locate_refresh"), forState: UIControlState.Normal)
-        refreshBtn.contentMode = UIViewContentMode.ScaleAspectFit
+        let refreshBtn = UIButton(frame: CGRect(x: addressLabel.extWidth(), y: 5, width: 20, height: 20))
+        refreshBtn.setImage(UIImage(named: "icon_dellist_locate_refresh"), for: UIControlState())
+        refreshBtn.contentMode = UIViewContentMode.scaleAspectFit
         headerView.addSubview(refreshBtn)
-        refreshBtn.addTarget(self, action: #selector(ShopViewController.refreshAddressInfo), forControlEvents: UIControlEvents.TouchUpInside)
+        refreshBtn.addTarget(self, action: #selector(ShopViewController.refreshAddressInfo), for: UIControlEvents.touchUpInside)
         
         if currentAddressModel != nil {
             let dataModel = currentAddressModel!.data
-            addressLabel.text = "当前位置：" + dataModel.province + dataModel.city + dataModel.district + dataModel.detail
+            addressLabel.text = "当前位置：" + dataModel!.province + dataModel!.city + dataModel!.district + dataModel!.detail
         }else {
             addressLabel.text = "无法获取当前地址，请检查GPS是否打开或者网络是否打开。"
         }
@@ -458,15 +458,15 @@ QOS_CLASS_BACKGROUND：       background 等级表示那些用户不会察觉的
     
     ///商家列表数据
     func loadShopListData(withKindId kId: Int64) {
-        self.view.bringSubviewToFront(self.activityIndicatorView)
-        self.activityIndicatorView.hidden = false ///让activityView显示
+        self.view.bringSubview(toFront: self.activityIndicatorView)
+        self.activityIndicatorView.isHidden = false ///让activityView显示
         let URLString = UrlStrType.urlStringWithMerchantStr(kId, offset: 10)
         ///封装的方法
         NetworkeProcessor.loadNetworkeDate(withTarget: self, URLString: URLString) {
             [unowned self]
             (dictionary) in
             self.shopListModel(withDictionary: dictionary)
-            self.activityIndicatorView.hidden = true ///让activityView隐藏
+            self.activityIndicatorView.isHidden = true ///让activityView隐藏
         }
 
     }
@@ -483,11 +483,11 @@ QOS_CLASS_BACKGROUND：       background 等级表示那些用户不会察觉的
     
     func creatShopTableView() {
         
-        shopTableView = UITableView(frame: CGRectMake(0, 64 + 41 + 1, SCREENWIDTH, SCREENHEIGHT - 64 - 42 - 49), style: UITableViewStyle.Plain)
+        shopTableView = UITableView(frame: CGRect(x: 0, y: 64 + 41 + 1, width: SCREENWIDTH, height: SCREENHEIGHT - 64 - 42 - 49), style: UITableViewStyle.plain)
         shopTableView.tag = 304
         shopTableView.backgroundColor = BACKGROUNDCOLOR
         shopTableView.separatorInset = UIEdgeInsetsMake(0, -10, 0, 0)
-        shopTableView.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
+        shopTableView.separatorStyle = UITableViewCellSeparatorStyle.singleLine
         shopTableView.delegate = self
         shopTableView.dataSource = self
         
@@ -495,9 +495,9 @@ QOS_CLASS_BACKGROUND：       background 等级表示那些用户不会察觉的
         
         addRefreshView()///添加刷新视图
         
-        shopTableView.registerNib(UINib(nibName: "ShopTableViewCell", bundle: nil), forCellReuseIdentifier: "ShopCell")
+        shopTableView.register(UINib(nibName: "ShopTableViewCell", bundle: nil), forCellReuseIdentifier: "ShopCell")
         
-        self.view.insertSubview(shopTableView, atIndex: 0)///放在最下面
+        self.view.insertSubview(shopTableView, at: 0)///放在最下面
         
     }
     
@@ -505,7 +505,7 @@ QOS_CLASS_BACKGROUND：       background 等级表示那些用户不会察觉的
     func addRefreshView() {///添加刷新视图
         
         ///refresh视图
-        let header = MJRefreshGifHeader(refreshingTarget: self, refreshingAction: #selector(loadNewData))
+        let header = MJRefreshGifHeader(refreshingTarget: self, refreshingAction: #selector(loadNewData))!
         
         ///设置普通状态的动画图片
         var idleImages = [UIImage]() ///创建数字对象
@@ -514,7 +514,7 @@ QOS_CLASS_BACKGROUND：       background 等级表示那些用户不会察觉的
             idleImages.append(image!)
         }
         
-        header.setImages(idleImages, forState: .Idle)
+        header.setImages(idleImages, for: .idle)
         
         //设置即将刷新状态的动画图片
         var refreshingImages = [UIImage]()
@@ -523,18 +523,18 @@ QOS_CLASS_BACKGROUND：       background 等级表示那些用户不会察觉的
             refreshingImages.append(image!)
         }
         
-        header.setImages(idleImages, forState: .Idle)///正常
-        header.setImages(refreshingImages, forState: .Pulling)///下拉过程
-        header.setImages(refreshingImages, forState: .Refreshing)///刷新过程
+        header.setImages(idleImages, for: .idle)///正常
+        header.setImages(refreshingImages, for: .pulling)///下拉过程
+        header.setImages(refreshingImages, for: .refreshing)///刷新过程
         
-        header.setTitle("下拉刷新", forState: .Idle)
-        header.setTitle("释放开始刷新", forState: .Pulling)
-        header.setTitle("正在刷新数据中...", forState: .Refreshing)
+        header.setTitle("下拉刷新", for: .idle)
+        header.setTitle("释放开始刷新", for: .pulling)
+        header.setTitle("正在刷新数据中...", for: .refreshing)
         
         shopTableView.mj_header = header
         
         let footer = MJRefreshAutoGifFooter(refreshingTarget: self, refreshingAction: #selector(loadMoreData))
-        footer.setImages(refreshingImages, forState: .Refreshing)///加载过程
+        footer?.setImages(refreshingImages, for: .refreshing)///加载过程
         shopTableView.mj_footer = footer
     }
     
@@ -572,8 +572,8 @@ QOS_CLASS_BACKGROUND：       background 等级表示那些用户不会察觉的
             */
             
             ///把新的数据添加到原数据的后面
-            self.shopListModel.data.appendContentsOf(newModel.data)
-            self.shopListModel.ctPois.appendContentsOf(newModel.ctPois)
+            self.shopListModel.data.append(contentsOf: newModel.data)
+            self.shopListModel.ctPois.append(contentsOf: newModel.ctPois)
             self.shopListModel.count! += newModel.count!
             
             self.shopTableView.mj_footer.endRefreshing()
@@ -583,21 +583,21 @@ QOS_CLASS_BACKGROUND：       background 等级表示那些用户不会察觉的
     
     
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return shopListModel.data.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = ShopTableViewCell.creatCellWithTableView(tableView, reuseIdentify: "ShopCell", indexPath: indexPath)
         
         let dataModel = shopListModel.data[indexPath.row]
         
-        cell.selectionStyle = UITableViewCellSelectionStyle.None
+        cell.selectionStyle = UITableViewCellSelectionStyle.none
         
-        cell.mImageView.sd_setImageWithURL(NSURL(string: dataModel.frontImg), placeholderImage: UIImage(named: "bg_merchant_photo_placeholder_big@2x.png"))
+        cell.mImageView.sd_setImage(with: URL(string: dataModel.frontImg), placeholderImage: UIImage(named: "bg_merchant_photo_placeholder_big@2x.png"))
         cell.titleBL.text = dataModel.name
         cell.subTitle.text = dataModel.cateName + " " + dataModel.areaName
-        cell.subTitle.textColor = UIColor.grayColor()
+        cell.subTitle.textColor = UIColor.gray
         
         let starView = StarView(withRate: CGFloat(dataModel.avgScore), total: 5, starWH: 20, space: 1,starImageFull: UIImage(named: "icon_merchant_star_full")!, starImageEmpty: UIImage(named: "icon_merchant_star_empty")!)
         
@@ -605,18 +605,18 @@ QOS_CLASS_BACKGROUND：       background 等级表示那些用户不会察觉的
         
         ///临时处理
         if dataModel.markNumbers != nil {
-        cell.evaluateLB.text = "\(dataModel.markNumbers)" + "评价"
+        cell.evaluateLB.text = "\(dataModel.markNumbers!)" + "评价"
         }else {
-            cell.evaluateLB.hidden = true
+            cell.evaluateLB.isHidden = true
         }
         
         if dataModel.avgPrice != nil {
-        cell.priceLB.text = "人均" + "\(dataModel.avgPrice)"
+        cell.priceLB.text = "人均" + "\(dataModel.avgPrice!)"
         }else {
-            cell.priceLB.hidden = true
+            cell.priceLB.isHidden = true
         }
         
-        cell.dictanceLB.hidden = true
+        cell.dictanceLB.isHidden = true
         
         if dataModel.hasGroup! {
             cell.markImageView1.image = UIImage(named: "icon_merchant_mark_tuan")
@@ -634,11 +634,11 @@ QOS_CLASS_BACKGROUND：       background 等级表示那些用户不会察觉的
         return cell
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 88
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let dataModel = shopListModel.data[indexPath.row]
         let SPDVC = ShopDetailViewController(withModel: dataModel)
         self.hidesBottomBarWhenPushed = true

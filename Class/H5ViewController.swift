@@ -23,8 +23,8 @@ import UIKit
 class H5ViewController: BaseViewController, UIWebViewDelegate {
     
     var URLString: String!
-    private var webView: UIWebView!
-    private var activityView: UIActivityIndicatorView!
+    fileprivate var mWebView: UIWebView!
+    fileprivate var activityView: UIActivityIndicatorView!
     
     
     override func viewDidLoad() {
@@ -44,72 +44,75 @@ class H5ViewController: BaseViewController, UIWebViewDelegate {
     func setupNavigationBar() {
         
         ///right button item
-        let rBtn = UIButton(type: UIButtonType.System)
-        rBtn.frame = CGRectMake(0, 0, 70, 35)
-        rBtn.setTitle("适应屏幕", forState: UIControlState.Normal)
-        rBtn.addTarget(self, action: #selector(H5ViewController.adjustDisplay(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        let rBtn = UIButton(type: UIButtonType.system)
+        rBtn.frame = CGRect(x: 0, y: 0, width: 70, height: 35)
+        rBtn.setTitle("适应屏幕", for: UIControlState())
+        rBtn.addTarget(self, action: #selector(H5ViewController.adjustDisplay(_:)), for: UIControlEvents.touchUpInside)
         let rightItem = UIBarButtonItem(customView: rBtn)
         self.navigationItem.rightBarButtonItem = rightItem
         
-        let backBtn = UIButton(frame: CGRectMake(0, 0, 30, 30))
-        backBtn.setImage(UIImage(named: "back@2x.png"), forState: UIControlState.Normal)
-        backBtn.addTarget(self, action: #selector(H5ViewController.backBtnAction), forControlEvents: UIControlEvents.TouchUpInside)
+        let backBtn = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+        backBtn.setImage(UIImage(named: "back@2x.png"), for: UIControlState())
+        backBtn.addTarget(self, action: #selector(H5ViewController.backBtnAction), for: UIControlEvents.touchUpInside)
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backBtn)
         
         
     }
     
     func backBtnAction() {
-        self.navigationController?.popToRootViewControllerAnimated(true)
+        self.navigationController?.popViewController(animated: true)
     }
     
-    func adjustDisplay(btn: UIButton) {
-        btn.selected = !btn.selected
-        webView.autoresizesSubviews = btn.selected
-        webView.scalesPageToFit = btn.selected
+    func adjustDisplay(_ btn: UIButton) {
+        btn.isSelected = !btn.isSelected
+        mWebView.autoresizesSubviews = btn.isSelected
+        mWebView.scalesPageToFit = btn.isSelected
         loadWebViewData()//reload
     }
     
     func setupWebView() {
-        webView = UIWebView(frame: CGRectMake(0, 64, SCREENWIDTH, SCREENHEIGHT - 64))
-        self.view.addSubview(webView)
-        webView.delegate = self
+        mWebView = UIWebView(frame: CGRect(x: 0, y: 64, width: SCREENWIDTH, height: SCREENHEIGHT - 64))
+        self.view.addSubview(mWebView)
+        mWebView.delegate = self
         
         loadWebViewData()
         
-        activityView = UIActivityIndicatorView(frame: CGRectMake(SCREENWIDTH/2-15, SCREENHEIGHT/2-15, 30, 30))
-        activityView.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
+        activityView = UIActivityIndicatorView(frame: CGRect(x: SCREENWIDTH/2-15, y: SCREENHEIGHT/2-15, width: 30, height: 30))
+        activityView.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
         activityView.hidesWhenStopped = true
         self.view.addSubview(activityView)
-        self.view.bringSubviewToFront(activityView)
+        self.view.bringSubview(toFront: activityView)
     }
     
     func loadWebViewData() {
-        let URL = NSURL(string: URLString)
-        let req = NSURLRequest(URL: URL!, cachePolicy: NSURLRequestCachePolicy.UseProtocolCachePolicy, timeoutInterval: 6000)
-        webView.loadRequest(req, progress: AutoreleasingUnsafeMutablePointer<NSProgress?>(), success: {
+        let url = NSURL(string: URLString)
+        let req = URLRequest(url: url as! URL, cachePolicy: NSURLRequest.CachePolicy.useProtocolCachePolicy,timeoutInterval: 6000)
+        mWebView.loadRequest(req, progress: nil, success: {
             
-            (response: NSHTTPURLResponse, str: String) -> String in
+            (response: HTTPURLResponse, str: String) -> String in
             
-            return "加载成功：" + "\(response.statusCode)"
+            let code = response.statusCode
             
-            }) { (error: NSError) -> Void in
+            return "加载成功：" + "\(code)"
+            
+            }) { (error: Error) -> Void in
                 print(error.localizedDescription)
         }
+        
     }
     
-    func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
+    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
         activityView.startAnimating()
         return true
     }
     
-    func webView(webView: UIWebView, didFailLoadWithError error: NSError?) {
+    func webView(_ webView: UIWebView, didFailLoadWithError error: Error) {
         activityView.stopAnimating()
     }
     
-    func webViewDidFinishLoad(webView: UIWebView) {
+    func webViewDidFinishLoad(_ webView: UIWebView) {
         activityView.stopAnimating()
-        let theTitle = webView.stringByEvaluatingJavaScriptFromString("document.title")
+        let theTitle = webView.stringByEvaluatingJavaScript(from: "document.title")
         self.title = theTitle
     }
     
