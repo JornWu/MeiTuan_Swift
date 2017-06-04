@@ -2,7 +2,7 @@
 ![](https://img.shields.io/badge/Language-Swift3.0.x-orange.svg)
 ![](https://img.shields.io/badge/Platform-iOS9.3.x-green.svg)
 ![](https://img.shields.io/badge/Xcode-7.3.x-red.svg)
-[![](https://img.shields.io/badge/License-MIT-000000.svg)](https://raw.githubusercontent.com/chenliming777/MeiTuan_Swift/master/LICENSE)
+[![](https://img.shields.io/badge/License-MIT-000000.svg)](https://raw.githubusercontent.com/JornWu/MeiTuan_Swift/master/LICENSE)
 [![](https://img.shields.io/badge/Download-master-blue.svg)](https://github.com/JornWu/MeiTuan_Swift/archive/master.zip)
 <br />
 该项目为美团高仿版，只适用于学习，不可用于其他商业用途。
