@@ -21,21 +21,21 @@ class ShopDetailViewController: BaseViewController, UITableViewDataSource, UITab
     
     var dataModel: SP_Data!
     
-    fileprivate var navigationView: UIView!
-    fileprivate var navigationColorView: UIView!
-    fileprivate var backBtn: UIButton!
-    fileprivate var collectBtn: UIButton!
-    fileprivate var shareBtn: UIButton!
-    fileprivate var massageBtn: UIButton!
-    fileprivate var titleLB: UILabel!
+    private var navigationView: UIView!
+    private var navigationColorView: UIView!
+    private var backBtn: UIButton!
+    private var collectBtn: UIButton!
+    private var shareBtn: UIButton!
+    private var massageBtn: UIButton!
+    private var titleLB: UILabel!
     
-    fileprivate var headerView: UIView!
+    private var headerView: UIView!
     
-    fileprivate var shopDetailTableView: UITableView!
+    private var shopDetailTableView: UITableView!
     
-    fileprivate var aroundGroupPurchaseModel: AGP_AroundGroupPurchaseModel!
+    private var aroundGroupPurchaseModel: AGP_AroundGroupPurchaseModel!
     
-    fileprivate var shopAddress: String!
+    private var shopAddress: String!
     
     convenience init(withModel model: SP_Data) {
         self.init()

@@ -31,7 +31,7 @@ struct Data{
 	 * Instantiate the instance using the passed dictionary values to set the properties values
 	 */
 	init(fromDictionary dictionary: NSDictionary){
-		activityImgUrl = String.URLStringHttpToHttps(dictionary["activityImgUrl"] as! String)//to https
+		activityImgUrl = String.URLStringHttpToHttps((dictionary["activityImgUrl"] as? String) ?? "")//to https
         
 		countdownText = dictionary["countdownText"] as? String
 		deals = [Deal]()

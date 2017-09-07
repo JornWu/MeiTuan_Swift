@@ -20,8 +20,8 @@ import UIKit
 class HotelViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate {
     
     var dataModel: RE_Data!
-    fileprivate var hotelTableView: UITableView!
-    fileprivate var hotelDetailModel: HD_HotelDetailModel!
+    private var hotelTableView: UITableView!
+    private var hotelDetailModel: HD_HotelDetailModel!
     
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {

@@ -19,11 +19,11 @@ import UIKit
 
 class CityListViewController: BaseViewController,UITableViewDataSource,UITableViewDelegate {
     
-    fileprivate var mTableView: UITableView!
-    fileprivate var mHotCityView: UIView!
-    fileprivate var cityListDic: NSDictionary!
-    fileprivate var keyAr: NSArray!
-    fileprivate let hotCityAr = ["广州市", "北京市", "天津市", "西安市", "重庆市", "沈阳市", "青岛市", "济南市", "深圳市", "长沙市", "无锡市"];
+    private var mTableView: UITableView!
+    private var mHotCityView: UIView!
+    private var cityListDic: NSDictionary!
+    private var keyAr: NSArray!
+    private let hotCityAr = ["广州市", "北京市", "天津市", "西安市", "重庆市", "沈阳市", "青岛市", "济南市", "深圳市", "长沙市", "无锡市"];
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)

@@ -10,8 +10,8 @@ import UIKit
 
 class MoreViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate {
     
-    fileprivate var dataAr: NSArray!
-    fileprivate var moreTableView: UITableView!
+    private var dataAr: NSArray!
+    private var moreTableView: UITableView!
 
     override func viewDidLoad() {
         super.viewDidLoad()

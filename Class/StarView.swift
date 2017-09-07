@@ -19,12 +19,12 @@ import UIKit
 
 class StarView: UIView {
     
-    fileprivate var rate: CGFloat! //评分
-    fileprivate var total: Int! //总分
-    fileprivate var mStarWH: CGFloat! //星星宽高，默认20
-    fileprivate var mSpace: CGFloat! //间距，默认3
-    fileprivate var starImageFull: UIImage! //星星图片(填充的)（表示得到分数）
-    fileprivate var starImageEmpty: UIImage! //星星图片(未填充的)（表示未得到的分数）
+    private var rate: CGFloat! //评分
+    private var total: Int! //总分
+    private var mStarWH: CGFloat! //星星宽高，默认20
+    private var mSpace: CGFloat! //间距，默认3
+    private var starImageFull: UIImage! //星星图片(填充的)（表示得到分数）
+    private var starImageEmpty: UIImage! //星星图片(未填充的)（表示未得到的分数）
     
     convenience init(withRate rate: CGFloat, total: Int, starWH: CGFloat?, space: CGFloat?, starImageFull: UIImage, starImageEmpty: UIImage) {
         
@@ -56,7 +56,7 @@ class StarView: UIView {
         setupView()
     }
     
-    fileprivate func setupView() {
+    private func setupView() {
         
         ///比例
         let r = mStarWH / starImageFull.size.width ///因为星星的大小是固定的，所以要适配starView的大小

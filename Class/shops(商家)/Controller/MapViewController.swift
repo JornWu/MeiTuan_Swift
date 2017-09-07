@@ -18,7 +18,7 @@ import UIKit
 import MapKit
 // FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
 // Consider refactoring the code to use the non-optional operators.
-fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+private func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
   switch (lhs, rhs) {
   case let (l?, r?):
     return l < r
@@ -31,7 +31,7 @@ fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 
 // FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
 // Consider refactoring the code to use the non-optional operators.
-fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+private func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
   switch (lhs, rhs) {
   case let (l?, r?):
     return l > r
@@ -46,11 +46,11 @@ class MapViewController: BaseViewController,MKMapViewDelegate, CLLocationManager
     var kindId: Int64!
     var kindName: String!
     
-    fileprivate var locationManager: CLLocationManager!
-    fileprivate var coordinate: CLLocationCoordinate2D!
+    private var locationManager: CLLocationManager!
+    private var coordinate: CLLocationCoordinate2D!
 
-    fileprivate var mapView: MKMapView!
-    fileprivate var locateBtn: UIButton!
+    private var mapView: MKMapView!
+    private var locateBtn: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()

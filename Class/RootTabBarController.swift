@@ -10,13 +10,13 @@ import UIKit
 
 class RootTabBarController: UITabBarController {
     
-    fileprivate let storyboardNameAr = ["Home", "Shop", "Mine", "More"]
-    fileprivate let titleAr = ["首页", "商家", "我的", "更多"]
-    fileprivate let itemIconAr = ["icon_tabbar_homepage",
+    private let storyboardNameAr = ["Home", "Shop", "Mine", "More"]
+    private let titleAr = ["首页", "商家", "我的", "更多"]
+    private let itemIconAr = ["icon_tabbar_homepage",
         "icon_tabbar_merchant_normal",
         "icon_tabbar_mine",
         "icon_tabbar_misc"]
-    fileprivate let itemSelectedIconAr = ["icon_tabbar_homepage_selected",
+    private let itemSelectedIconAr = ["icon_tabbar_homepage_selected",
         "icon_tabbar_merchant_selected",
         "icon_tabbar_mine_selected",
         "icon_tabbar_misc_selected"]

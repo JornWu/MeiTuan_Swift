@@ -10,15 +10,15 @@ import UIKit
 
 class SearchViewController: BaseViewController, UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate {
     
-    fileprivate var searchField: UITextField!
+    private var searchField: UITextField!
     
-    fileprivate lazy var hotWords: [String] = {
+    private lazy var hotWords: [String] = {
         return ["外卖", "华莱士", "正新鸡排", "麦当劳", "华德莱", "知味观", "可莎蜜儿", "毛源昌眼镜店", "必胜客", "肯德基", "兰州拉面", "川味坊"]
     }()
     
-    fileprivate var hotListView: UIView!
+    private var hotListView: UIView!
     
-    fileprivate var searchTableView: UITableView!
+    private var searchTableView: UITableView!
 
     override func viewDidLoad() {
         super.viewDidLoad()

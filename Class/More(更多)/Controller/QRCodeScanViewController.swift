@@ -26,14 +26,14 @@ class QRCodeScanViewController: UIViewController,
                                 UIImagePickerControllerDelegate,
                                 UITextFieldDelegate{
     
-    fileprivate var session: AVCaptureSession!// 输入输出的中间链接
-    fileprivate var maskView: UIView!//蒙版
-    fileprivate var scanWindow: UIView!//扫描窗口
-    fileprivate var scanNetImageView: UIImageView!//扫描的模拟图
+    private var session: AVCaptureSession!// 输入输出的中间链接
+    private var maskView: UIView!//蒙版
+    private var scanWindow: UIView!//扫描窗口
+    private var scanNetImageView: UIImageView!//扫描的模拟图
     
-    fileprivate var isOpenFlash = false
+    private var isOpenFlash = false
     
-    fileprivate var textInfo: String?///要生成二维码的信息
+    private var textInfo: String?///要生成二维码的信息
     
     override func viewDidLoad() {
         super.viewDidLoad()

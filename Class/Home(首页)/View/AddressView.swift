@@ -26,9 +26,9 @@ import UIKit
 class AddressView: UIView, UITableViewDataSource, UITableViewDelegate {
     
     weak var delegate: AddressViewDelegate?
-    fileprivate var transBgView: UIView! //最底层的容器视图（透明）
-    fileprivate var areaArray: NSArray!
-    fileprivate var addressListTableView: UITableView!
+    private var transBgView: UIView! //最底层的容器视图（透明）
+    private var areaArray: NSArray!
+    private var addressListTableView: UITableView!
     
     var currentCity: String? =  nil {
         didSet {

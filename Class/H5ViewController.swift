@@ -23,8 +23,8 @@ import UIKit
 class H5ViewController: BaseViewController, UIWebViewDelegate {
     
     var URLString: String!
-    fileprivate var mWebView: UIWebView!
-    fileprivate var activityView: UIActivityIndicatorView!
+    private var mWebView: UIWebView!
+    private var activityView: UIActivityIndicatorView!
     
     
     override func viewDidLoad() {
@@ -85,7 +85,7 @@ class H5ViewController: BaseViewController, UIWebViewDelegate {
     }
     
     func loadWebViewData() {
-        let url = NSURL(string: URLString)
+        let url = URL(string: URLString)
         let req = URLRequest(url: url as! URL, cachePolicy: NSURLRequest.CachePolicy.useProtocolCachePolicy,timeoutInterval: 6000)
         mWebView.loadRequest(req, progress: nil, success: {
             

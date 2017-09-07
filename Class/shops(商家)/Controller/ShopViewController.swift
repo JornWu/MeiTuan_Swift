@@ -20,30 +20,30 @@ class ShopViewController:BaseViewController,
     
     var choiceFilterDelegate: ShopViewControllerDelegate! //选择过滤类型的delegate
     
-    fileprivate var segBtn1: UIButton!
-    fileprivate var segBtn2: UIButton!
-    fileprivate var currentSelectedBtnTag: Int!
+    private var segBtn1: UIButton!
+    private var segBtn2: UIButton!
+    private var currentSelectedBtnTag: Int!
     
     ///
-    fileprivate var preferentialView: UIView!
+    private var preferentialView: UIView!
     
     ///////////////////////////////
     
-    fileprivate var shopCateListModel: SC_ShopCateListModel!
-    fileprivate var itemAr = [UIButton]()///用来存储所有选择按钮
-    fileprivate var currentSelectedItem: UIButton!
+    private var shopCateListModel: SC_ShopCateListModel!
+    private var itemAr = [UIButton]()///用来存储所有选择按钮
+    private var currentSelectedItem: UIButton!
     
-    fileprivate var shopListModel: SP_ShopModel!///商家列表数据
-    fileprivate var kindId: Int64!
-    fileprivate var kindName: String!
-    fileprivate var shopTableView: UITableView!
+    private var shopListModel: SP_ShopModel!///商家列表数据
+    private var kindId: Int64!
+    private var kindName: String!
+    private var shopTableView: UITableView!
     
-    fileprivate var isRefresh = false
-    fileprivate var offset: Int64 = 0
+    private var isRefresh = false
+    private var offset: Int64 = 0
     
-    fileprivate var currentAddressModel: CA_CurrentAddressModel?
-    fileprivate var headerView: UIView!
-    fileprivate var addressLabel: UILabel!
+    private var currentAddressModel: CA_CurrentAddressModel?
+    private var headerView: UIView!
+    private var addressLabel: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,7 +71,7 @@ class ShopViewController:BaseViewController,
  ** 添加导航栏按钮
  **
  */
-    fileprivate func addNavigationItems() {
+    private func addNavigationItems() {
         ///map button item
         let lBtn = UIButton(type: UIButtonType.custom)
         lBtn.frame = CGRect(x: 0, y: 0, width: 25, height: 25)

@@ -11,8 +11,8 @@ import UIKit
 class MineViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate {
 
     
-    fileprivate var mineTableView: UITableView!
-    fileprivate var headerBgView: UIView!
+    private var mineTableView: UITableView!
+    private var headerBgView: UIView!
     var individualityTextLable: UILabel!//个性签名
     var modelAr = [MineTableViewCellModel]()
 

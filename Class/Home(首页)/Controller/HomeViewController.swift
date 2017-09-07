@@ -12,9 +12,9 @@ import AFNetworking
 
 class HomeViewController: BaseViewController, AddressViewDelegate, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate{
     
-    fileprivate var lBtn: UIButton!
-    fileprivate var addressView: AddressView!
-    fileprivate var areaArray: NSArray!
+    private var lBtn: UIButton!
+    private var addressView: AddressView!
+    private var areaArray: NSArray!
     
     var currentCity: String! {
         didSet {
@@ -23,22 +23,22 @@ class HomeViewController: BaseViewController, AddressViewDelegate, UITableViewDa
     }
     
     ///menuView
-    fileprivate var menuView: UIView!
+    private var menuView: UIView!
     
     ///fushShopping
-    fileprivate var rushShoppingModel: RushShoppingDataModel!//包含全部数据
-    fileprivate var rushShoppingView: UIView!
+    private var rushShoppingModel: RushShoppingDataModel!//包含全部数据
+    private var rushShoppingView: UIView!
     
     ///activity
-    fileprivate var activityModel: AC_ActivityDataModel!//包含全部数据
-    fileprivate var activityView: UIView!//响应事件
+    private var activityModel: AC_ActivityDataModel!//包含全部数据
+    private var activityView: UIView!//响应事件
     
     ///recomment
-    fileprivate var recommentModel: RE_RecommentDataModel!
-    fileprivate var homeTableView: UITableView!
-    fileprivate var headerView: UIView!//头视图
-    fileprivate var isRefresh = false
-    fileprivate var offset: Int64 = 0///请求数据的偏移量（从第几条获取）
+    private var recommentModel: RE_RecommentDataModel!
+    private var homeTableView: UITableView!
+    private var headerView: UIView!//头视图
+    private var isRefresh = false
+    private var offset: Int64 = 0///请求数据的偏移量（从第几条获取）
     
     
     
@@ -74,7 +74,7 @@ class HomeViewController: BaseViewController, AddressViewDelegate, UITableViewDa
  ** 添加导航栏按钮
  **
  */
-    fileprivate func addNavigationItems() {
+    private func addNavigationItems() {
         ///left button item
         lBtn = UIButton(type: UIButtonType.custom)
         lBtn.frame = CGRect(x: 0, y: 0, width: 60, height: 35)

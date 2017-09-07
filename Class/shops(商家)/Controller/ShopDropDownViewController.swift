@@ -27,15 +27,15 @@ class ShopDropDownViewController: BaseViewController, UITableViewDataSource, UIT
     weak var delegate: ShopDropDownViewControllerDelegate!
     
     var shopCateListModel: SC_ShopCateListModel!
-    fileprivate var selectedTypeIndex: Int!
+    private var selectedTypeIndex: Int!
     
     var sortTypeAr = ["智能排序", "好评优先", "离我最近", "人均最低"]//排序类型数值
     
-    fileprivate var typeChoiceView: UIView!
-    fileprivate var leftTableView: UITableView!
-    fileprivate var rightTableView: UITableView!
-    fileprivate var sortTablewView: UITableView!
-    fileprivate var currentSelectedItemTag: Int?
+    private var typeChoiceView: UIView!
+    private var leftTableView: UITableView!
+    private var rightTableView: UITableView!
+    private var sortTablewView: UITableView!
+    private var currentSelectedItemTag: Int?
     
     convenience init(withFrame frame: CGRect, shopCateListModel: SC_ShopCateListModel) {
         self.init()
@@ -155,9 +155,9 @@ class ShopDropDownViewController: BaseViewController, UITableViewDataSource, UIT
             //让代理执行过滤
             if self.delegate?.responds(to: #selector(ShopDropDownViewControllerDelegate.didChoosedFilterType(_: kindName:))) != nil {
                 if shopCateListModel.data[selectedTypeIndex].list != nil {
-                    self.delegate?.didChoosedFilterType(shopCateListModel.data[selectedTypeIndex].list[indexPath.row].mId, kindName: shopCateListModel.data[selectedTypeIndex].list[indexPath.row].name)
+                    self.delegate?.didChoosedFilterType(shopCateListModel.data[selectedTypeIndex].list[indexPath.row].mId!, kindName: shopCateListModel.data[selectedTypeIndex].list[indexPath.row].name)
                 }else {
-                    self.delegate?.didChoosedFilterType(shopCateListModel.data[selectedTypeIndex].mId, kindName: shopCateListModel.data[selectedTypeIndex].name)
+                    self.delegate?.didChoosedFilterType(shopCateListModel.data[selectedTypeIndex].mId!, kindName: shopCateListModel.data[selectedTypeIndex].name)
                 }
             }
             revertDropDownView()///恢复拉视图

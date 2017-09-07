@@ -10,10 +10,10 @@ import UIKit
 
 class MenuView: UIView, UIScrollViewDelegate {
     
-    fileprivate var imageAr = [UIImage]()
-    fileprivate var titilAr = [String]()
+    private var imageAr = [UIImage]()
+    private var titilAr = [String]()
     
-    fileprivate var pageMark: UIPageControl! ///
+    private var pageMark: UIPageControl! ///
     
     override init(frame: CGRect) {
         super.init(frame: frame)

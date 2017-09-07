@@ -17,11 +17,11 @@ class AroundMerchantAnnotationView: MKAnnotationView {
     
     var delegate: AroundMerchantAnnotationViewDelegate!
     
-    fileprivate var titleLB: UILabel!
-    fileprivate var subTitleLB: UILabel!
-    fileprivate var button: UIButton!
-    fileprivate var bgView: UIView!
-    fileprivate var imageView: UIImageView!
+    private var titleLB: UILabel!
+    private var subTitleLB: UILabel!
+    private var button: UIButton!
+    private var bgView: UIView!
+    private var imageView: UIImageView!
     
     var mMerchantAnnotation: MerchantAnnotation! {
         didSet {

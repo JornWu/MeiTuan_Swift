@@ -26,7 +26,7 @@ class BaseViewController: UIViewController {
         self.automaticallyAdjustsScrollViewInsets = false//取消scrollview和tableview上的留白
     }
     
-    fileprivate class func setupActivutyView() -> UIView {
+    private class func setupActivutyView() -> UIView {
         ///封装activityView视图
         let bgView = UIView(frame: CGRect(x: SCREENWIDTH/2-15, y: SCREENHEIGHT/2-15, width: 40, height: 40))
         bgView.tag = 101010 ///要在外面停止
