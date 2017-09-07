@@ -8,30 +8,6 @@
 
 import UIKit
 import CoreLocation
-// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
-// Consider refactoring the code to use the non-optional operators.
-fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l < r
-  case (nil, _?):
-    return true
-  default:
-    return false
-  }
-}
-
-// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
-// Consider refactoring the code to use the non-optional operators.
-fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l > r
-  default:
-    return rhs < lhs
-  }
-}
-
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate{
@@ -69,7 +45,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         
         ///ios8+以上要授权，并且在plist文件中添加NSLocationWhenInUseUsageDescription，
         ///NSLocationAlwaysUsageDescription，值可以为空
-        if (Double(IOS_VERSION) > 8.0) {
+        if NSFoundationVersionNumber >= NSFoundationVersionNumber_iOS_8_0 {
             locationManager.requestWhenInUseAuthorization()//请求授权
         }
         locationManager.desiredAccuracy = kCLLocationAccuracyBest//精度(使用电池供电时的最高精度)

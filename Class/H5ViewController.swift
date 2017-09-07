@@ -6,17 +6,15 @@
 //  Copyright © 2016年 Jorn.Wu(jorn_wza@sina.com). All rights reserved.
 //
 
-/****************************************************************************************************/
 /*
-**
-** 这是H5页面视图，凡是要加载H5页面的只要传一个URL字符串即可
-** 从这里可以进入H5页面，现在的APP大多开始流行H5混合开发
-** 这样大大减少移动端的开发压力，减少bug，缩短开发流程，页面加载跟快，更流畅，更好维护，缩小APP的大小
-** 各方面效果都不错，用户体验也不错，只是烧流量，当然还与网络有关
-**
-*/
-/****************************************************************************************************/
-
+ *******************************************************************************
+ *   这是H5页面视图，凡是要加载H5页面的只要传一个URL字符串即可
+ *   从这里可以进入H5页面，现在的APP大多开始流行H5混合开发
+ *   这样大大减少移动端的开发压力，减少bug，
+ *   缩短开发流程，页面加载跟快，更流畅，更好维护，缩小APP的大小
+ *   各方面效果都不错，用户体验也不错，只是烧流量，当然还与网络有关
+ *******************************************************************************
+ */
 
 import UIKit
 
@@ -86,7 +84,7 @@ class H5ViewController: BaseViewController, UIWebViewDelegate {
     
     func loadWebViewData() {
         let url = URL(string: URLString)
-        let req = URLRequest(url: url as! URL, cachePolicy: NSURLRequest.CachePolicy.useProtocolCachePolicy,timeoutInterval: 6000)
+        let req = URLRequest(url: url!, cachePolicy: NSURLRequest.CachePolicy.useProtocolCachePolicy,timeoutInterval: 6000)
         mWebView.loadRequest(req, progress: nil, success: {
             
             (response: HTTPURLResponse, str: String) -> String in

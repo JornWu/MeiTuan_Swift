@@ -6,14 +6,11 @@
 //  Copyright © 2016年 Jorn.Wu(jorn_wza@sina.com). All rights reserved.
 //
 
-/****************************************************************************************************/
 /*
-**
-** 这是地址，城市列表页面
-**
-*/
-/****************************************************************************************************/
-
+ *******************************************************************************
+ *   这是地址，城市列表页面
+ *******************************************************************************
+ */
 
 import UIKit
 
@@ -93,7 +90,7 @@ class CityListViewController: BaseViewController,UITableViewDataSource,UITableVi
     }
     
     func hotCityBtnAction(_ btn: UIButton) {
-        print("选择了\(btn.titleLabel?.text)")
+        print("选择了" + String(describing: btn.titleLabel?.text))
     }
     
     func creatHotCityView() {
@@ -186,7 +183,7 @@ class CityListViewController: BaseViewController,UITableViewDataSource,UITableVi
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section != 0 {
         let cell = tableView.cellForRow(at: indexPath)
-        print("选择了\(cell?.textLabel!.text)")
+        print("选择了" + String(describing: cell?.textLabel!.text))
         }
     }
 

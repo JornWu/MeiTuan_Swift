@@ -7,30 +7,6 @@
 //
 
 import UIKit
-// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
-// Consider refactoring the code to use the non-optional operators.
-fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l < r
-  case (nil, _?):
-    return true
-  default:
-    return false
-  }
-}
-
-// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
-// Consider refactoring the code to use the non-optional operators.
-fileprivate func >= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l >= r
-  default:
-    return !(lhs < rhs)
-  }
-}
-
 
 class BaseNavigationController: UINavigationController {
     
@@ -60,7 +36,7 @@ class BaseNavigationController: UINavigationController {
     
     func reloadNavigationBar(){
 
-        if Double(UIDevice.current.systemVersion) >= 7.0 {
+        if #available(iOS 7.0, *) {
             self.edgesForExtendedLayout = UIRectEdge()//视图控制器，四条边不指定
             self.extendedLayoutIncludesOpaqueBars = false//不透明的操作栏
             self.modalPresentationCapturesStatusBarAppearance = false

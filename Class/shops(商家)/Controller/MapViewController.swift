@@ -180,8 +180,7 @@ class MapViewController: BaseViewController,MKMapViewDelegate, CLLocationManager
         
         ///ios8+以上要授权，并且在plist文件中添加NSLocationWhenInUseUsageDescription，
         ///NSLocationAlwaysUsageDescription，值可以为空
-        let index = IOS_VERSION.characters.index(IOS_VERSION.startIndex, offsetBy: 3)///9.3.1 to 9.3
-        if (Double(IOS_VERSION.substring(to: index)) > 8.0) {
+        if #available(iOS 8.0, *) {
             locationManager.requestWhenInUseAuthorization()//请求授权
         }
         locationManager.desiredAccuracy = kCLLocationAccuracyBest//精度(使用电池供电时的最高精度)
@@ -359,8 +358,7 @@ class MapViewController: BaseViewController,MKMapViewDelegate, CLLocationManager
         request.destination = to
         request.transportType = MKDirectionsTransportType.automobile ///交通类型
         
-        let index = IOS_VERSION.characters.index(IOS_VERSION.startIndex, offsetBy: 3)///9.3.1 to 9.3
-        if (Double(IOS_VERSION.substring(to: index)) > 7.0) { ///7.0以上
+        if #available(iOS 7.0, *) { ///7.0以上
             request.requestsAlternateRoutes = true ///可以绘制路线
         }
     
