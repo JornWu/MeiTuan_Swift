@@ -25,7 +25,7 @@ AF -> 3.0、 SD->3.8、UIKit等。详情请看项目，打开运行注意适配,
 <pre>
 如有问题或者好的idea请咨询：
 QQ: 1249233155，
-Email: jorn_wza@sina.com， 
+Email: jorn.wza@gmail.com， 
 微博：<a href="https://weibo.com/u/5077687473">JornWu丶WwwwW</a>
 简书：<a href="https://www.jianshu.com/u/c718dbf8e4d0">JornWu丶WwwwW</a>
 博客：<a href="https://blog.sina.com.cn/u/5077687473">梦迹灬何寻</a>
