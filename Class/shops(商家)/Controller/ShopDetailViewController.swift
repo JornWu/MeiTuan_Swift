@@ -279,13 +279,27 @@ class ShopDetailViewController: BaseViewController, UITableViewDataSource, UITab
                 let dealModel = aroundGroupPurchaseModel.data.deals[indexPath.row - 2]
                 cell.ImageView.sd_setImage(with: URL(string: dealModel.imgurl), placeholderImage: UIImage(named: "bg_merchant_photo_placeholder_big@2x.png"))
                 cell.titleLB.text = dealModel.mname
-                cell.detailLB.text = "[" + dealModel.range + "]" + dealModel.mtitle
-                cell.priceLB.text = "\(dealModel.price!)" + "元"
+                cell.detailLB.text = "[\(dealModel.range ?? "")]\(dealModel.mtitle ?? "")"
+                
+                if let price = dealModel.price {
+                    cell.priceLB.text = "\(price)元"
+                } else {
+                    cell.priceLB.text = "无"
+                }
                 cell.priceLB.textColor = THEMECOLOR
                 
-                cell.valueLB.text = "门面价：" + "\(dealModel.value!)" + "元"
+                if let val = dealModel.value {
+                    cell.valueLB.text = "门面价：\(val)元"
+                } else {
+                    cell.valueLB.text = "门面价：无"
+                }
                 cell.valueLB.textColor = UIColor.gray
-                cell.salesLB.text = "\(dealModel.rating!)" + "分" + "(" + "\(dealModel.ratecount!)" + "人)"
+                
+                if let rate = dealModel.rating {
+                    cell.salesLB.text = "\(rate)分(\(dealModel.ratecount!)人)"
+                } else {
+                    cell.salesLB.text = "无"
+                }
                 cell.salesLB.textColor = UIColor.gray
                 
                 return cell

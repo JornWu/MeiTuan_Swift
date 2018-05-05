@@ -16,7 +16,7 @@ open class MerchantAnnotation: NSObject, MKAnnotation  {
     ///包含在MKAnnotation中
     open var coordinate: CLLocationCoordinate2D {
         get {
-            return CLLocationCoordinate2D(latitude: Double(merchantDataModel.lat), longitude: Double(merchantDataModel.lng))
+            return CLLocationCoordinate2D(latitude: Double(merchantDataModel.lat ?? 40), longitude: Double(merchantDataModel.lng ?? 116))/// 空值 ->（40， 116）北京坐标
         }
     }
     

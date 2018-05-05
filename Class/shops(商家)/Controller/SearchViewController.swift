@@ -13,7 +13,10 @@ class SearchViewController: BaseViewController, UITextFieldDelegate, UITableView
     private var searchField: UITextField!
     
     private lazy var hotWords: [String] = {
-        return ["外卖", "华莱士", "正新鸡排", "麦当劳", "华德莱", "知味观", "可莎蜜儿", "毛源昌眼镜店", "必胜客", "肯德基", "兰州拉面", "川味坊"]
+        return ["外卖", "华莱士", "正新鸡排",
+                "麦当劳", "华德莱", "知味观",
+                "可莎蜜儿", "毛源昌眼镜店", "必胜客",
+                "肯德基", "兰州拉面", "川味坊"]
     }()
     
     private var hotListView: UIView!
@@ -162,9 +165,6 @@ class SearchViewController: BaseViewController, UITextFieldDelegate, UITableView
             return nil
         }
     }
-    
-    
-    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

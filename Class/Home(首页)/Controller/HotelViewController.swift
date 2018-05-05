@@ -113,11 +113,19 @@ class HotelViewController: BaseViewController, UITableViewDataSource, UITableVie
                 
                 ///只有一个，直接从xib中加载
                 let cell = Bundle.main.loadNibNamed("HotelPriceCell", owner: nil, options: nil)?.last as! HotelPriceCell
-                cell.priceLB.text = "\(dataModel.price!)"
+                if let price = dataModel.price {
+                    cell.priceLB.text = "\(price)"
+                } else {
+                    cell.priceLB.text = "无"
+                }
                 cell.priceLB.font = UIFont.systemFont(ofSize: 40)
-                cell.valueLB.textAlignment = .left
                 
-                cell.valueLB.text = "门市价: ￥" + "\(dataModel.value!)"
+                if let value = dataModel.value {
+                    cell.valueLB.text = "门市价: ￥\(value)"
+                } else {
+                    cell.valueLB.text = "门市价: 无"
+                }
+                cell.valueLB.textAlignment = .left
                 cell.valueLB.font = UIFont.systemFont(ofSize: 15)
                 cell.valueLB.textAlignment = .left
                 
@@ -130,7 +138,6 @@ class HotelViewController: BaseViewController, UITableViewDataSource, UITableVie
                 cell.selectionStyle = .none
                 
                 if dataModel.rating != nil && dataModel.ratecount != nil {
-                    
                     let starView = StarView(withRate: CGFloat(dataModel.rating), total: 5, starWH: 30, space: 3,starImageFull: UIImage(named: "icon_merchant_star_full")!, starImageEmpty: UIImage(named: "icon_merchant_star_empty")!)
                     
                     starView.extSetY((cell.contentView.extHeight() - starView.extHeight()) / 2)
@@ -141,7 +148,6 @@ class HotelViewController: BaseViewController, UITableViewDataSource, UITableVie
                     cell.textLabel?.text = "暂无评分"
                     cell.textLabel?.font = UIFont.systemFont(ofSize: 20)
                 }
-
                 
                 return cell
             }
@@ -161,15 +167,31 @@ class HotelViewController: BaseViewController, UITableViewDataSource, UITableVie
                 let dealModel = hotelDetailModel.data.deals[indexPath.row - 1]
                 
                 cell.ImageView.sd_setImage(with: URL(string: dealModel.imgurl), placeholderImage: UIImage(named: "bg_merchant_photo_placeholder_big@2x.png"))
+                
                 cell.titleLB.text = dealModel.brandname
-                cell.detailLB.text = "[" + dealModel.range + "]" + dealModel.title
-                cell.priceLB.text = "\(dealModel.price!)" + "元"
+                cell.detailLB.text = "[\(dealModel.range ?? "")]\(dealModel.title ?? "")"
+                
+                if let price = dealModel.price {
+                    cell.priceLB.text = "\(price)元"
+                } else {
+                    cell.priceLB.text = "无"
+                }
                 cell.priceLB.textColor = THEMECOLOR
                 
-                cell.valueLB.text = "门面价：" + "\(dealModel.value!)" + "元"
+                if let val = dealModel.value {
+                    cell.valueLB.text = "门面价：\(val)元"
+                } else {
+                    cell.valueLB.text = "门面价：无"
+                }
                 cell.valueLB.textColor = UIColor.gray
-                cell.salesLB.text = "已卖" + "\(dealModel.solds!)" + "份"
+                
+                if let count = dealModel.solds {
+                    cell.salesLB.text = "已卖：\(count)份"
+                } else {
+                    cell.salesLB.text = "已卖：无"
+                }
                 cell.salesLB.textColor = THEMECOLOR
+                
                 return cell
             }
         }

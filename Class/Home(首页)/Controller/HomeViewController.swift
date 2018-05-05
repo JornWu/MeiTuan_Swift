@@ -398,7 +398,7 @@ class HomeViewController: BaseViewController, AddressViewDelegate, UITableViewDa
         headerView.addSubview(blankView)//空白修饰视图（添加额外内容和通知）
         
         let email = UILabel(frame: CGRect(x: 10, y: 0, width: SCREENWIDTH - 20, height: 15))
-        email.text = "有问题请投递：jorn_wza@sina.com QQ:1249233155"
+        email.text = "有问题请投递：jorn.wza@gmail.com QQ:1249233155"
         email.font = UIFont.systemFont(ofSize: 13)
         email.textColor = UIColor.red
         blankView.addSubview(email)
@@ -640,14 +640,29 @@ class HomeViewController: BaseViewController, AddressViewDelegate, UITableViewDa
             
             let dataItem = recommentModel.data[indexPath.row - 1]
             cell.ImageView.sd_setImage(with: URL(string: dataItem.imgurl), placeholderImage: UIImage(named: "bg_merchant_photo_placeholder_big@2x.png"))
+            
             cell.titleLB.text = dataItem.mname
-            cell.detailLB.text = "[" + dataItem.range + "]" + dataItem.mtitle
-            cell.priceLB.text = "\(dataItem.price!)" + "元"
+            cell.detailLB.text = "[\(dataItem.range ?? "")]\(dataItem.mtitle ?? "")"
+            
+            if let price = dataItem.price {
+                cell.priceLB.text = "\(price)元"
+            } else {
+                cell.priceLB.text = "无"
+            }
             cell.priceLB.textColor = THEMECOLOR
             
-            cell.valueLB.text = "门面价：" + "\(dataItem.value!)" + "元"
+            if let val = dataItem.value {
+                cell.valueLB.text = "门面价：\(val)元"
+            } else {
+                cell.valueLB.text = "门面价：无"
+            }
             cell.valueLB.textColor = UIColor.gray
-            cell.salesLB.text = "已卖" + "\(dataItem.solds!)" + "份"
+            
+            if let count = dataItem.solds {
+                cell.salesLB.text = "已卖：\(count)份"
+            } else {
+                cell.salesLB.text = "已卖：无"
+            }
             cell.salesLB.textColor = THEMECOLOR
             return cell 
         }

@@ -286,6 +286,7 @@ class ShopViewController:BaseViewController,
         }else if currentSelectedItem.tag != btn.tag {//点击另一个按钮
             currentSelectedItem.isSelected = false
         }
+        
         if (self.choiceFilterDelegate?.responds(to: #selector(ShopViewControllerDelegate.didClickChoiceBarButtonItemWith(button:))) != nil){
             self.choiceFilterDelegate?.didClickChoiceBarButtonItemWith(button: btn)
         }
@@ -604,14 +605,14 @@ QOS_CLASS_BACKGROUND：       background 等级表示那些用户不会察觉的
         cell.ratingView.addSubview(starView)
         
         ///临时处理
-        if dataModel.markNumbers != nil {
-        cell.evaluateLB.text = "\(dataModel.markNumbers!)" + "评价"
+        if let number = dataModel.markNumbers {
+            cell.evaluateLB.text = "\(number)评价"
         }else {
             cell.evaluateLB.isHidden = true
         }
         
-        if dataModel.avgPrice != nil {
-        cell.priceLB.text = "人均" + "\(dataModel.avgPrice!)"
+        if let price = dataModel.avgPrice {
+            cell.priceLB.text = "人均 ￥\(price)"
         }else {
             cell.priceLB.isHidden = true
         }

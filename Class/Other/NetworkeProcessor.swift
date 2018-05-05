@@ -19,10 +19,7 @@ struct NetworkeProcessor {
         ///iOS 9.0 之后
         //let URLStr = URLString.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!//解码
         
-        ///NSURLSessionConfiguration
         let configuration = URLSessionConfiguration.default
-
-        ///AFHTTPSessionManager
         let httpsManager = AFHTTPSessionManager(sessionConfiguration: configuration)
         
         let security = AFSecurityPolicy.default()///安全策略
@@ -36,7 +33,11 @@ struct NetworkeProcessor {
         
         httpsManager.requestSerializer.timeoutInterval = 15///超时时长
         
-        let dataTask = httpsManager.get(URLString as String, parameters: parameters, progress: progress, success: success, failure: failure)//可以监视进度
+        let dataTask = httpsManager.get(URLString as String,
+                                        parameters: parameters,
+                                        progress: progress,
+                                        success: success,
+                                        failure: failure)//可以监视进度
 
         dataTask!.resume()
         
@@ -44,19 +45,13 @@ struct NetworkeProcessor {
     
     ///GET,非AFNetworking
     static func dataWith(_ URLString: NSString, parameters: AnyObject?, completionHandler hander: @escaping (URLResponse, Any?, Error?)->Void) {
-        
-        let URLStr = URLString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!//编码
-        
-        ///NSURLSessionConfiguration
+        let URLStr = URLString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!//编码
         let configuration = URLSessionConfiguration.default
-        
-        ///AFURLSessionManager
         let session = AFURLSessionManager(sessionConfiguration: configuration)
-        ///NSURL
         let Url = URL(string: URLStr)
-        ///NSURLRequet
-        let request = NSMutableURLRequest(url: Url!, cachePolicy: NSURLRequest.CachePolicy.useProtocolCachePolicy, timeoutInterval: 6)
-        //NSURLRequest(URL: Url!)
+        let request = NSMutableURLRequest(url: Url!,
+                                          cachePolicy: .useProtocolCachePolicy,
+                                          timeoutInterval: 6)
         request.httpMethod = "GET"
         request.timeoutInterval = 15
         ////当然还可以添加更多参数（来自parameters）///request.setValue(<#T##value: AnyObject?##AnyObject?#>, forKey: <#T##String#>)
@@ -86,7 +81,7 @@ struct NetworkeProcessor {
     ///自封装
     static func loadNetworkeDate(withTarget target: UIViewController, URLString: String, result: @escaping (_ dictionary: NSDictionary) -> Void) {
         ///封装放到子线中去
-        DispatchQueue.global(qos: DispatchQoS.QoSClass.utility).async {
+        DispatchQueue.global(qos: .utility).async {
 
             NetworkeProcessor.GET(URLString as NSString, parameters: nil, progress: {
                 (progress: Progress) in ///想了解progress的进度，可以用KVO来监视，但是这里不能再Struct中实现，要放在@objc class中
@@ -96,13 +91,12 @@ struct NetworkeProcessor {
                     //print("----获取数据成功----",responseObject)//responseObject 已经是一个字典对象了
                 
                     ///返回主线程刷新UI
-                    DispatchQueue.main.async(execute: { () -> Void in
-                        
-                        result(responseObject as! NSDictionary)///闭包回调
-                    })
+                    DispatchQueue.main.async(execute:
+                        { result(responseObject as! NSDictionary) }///闭包回调
+                    )
                     
                 }, failure: {(task: URLSessionDataTask?, responseObject: Error)in
-                    print("----获取数据失败----",responseObject)
+                    print("----获取数据失败----",responseObject.localizedDescription)
             })
         }
     }
