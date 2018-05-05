@@ -5356,7 +5356,7 @@
 				TargetAttributes = {
 					436A748B1D58CA820007F956 = {
 						CreatedOnToolsVersion = 7.2.1;
-						DevelopmentTeam = W3V3YKZ85E;
+						DevelopmentTeam = 836B7WVD5J;
 						LastSwiftMigration = 0810;
 					};
 					436A749F1D58CA820007F956 = {
@@ -7054,6 +7054,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 836B7WVD5J;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Class/ThirdLib/BaiduMap_IOSSDK_v3",
@@ -7077,6 +7078,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 836B7WVD5J;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Class/ThirdLib/BaiduMap_IOSSDK_v3",
