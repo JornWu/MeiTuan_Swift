@@ -24,8 +24,8 @@ AF -> 3.0、 SD->3.8、UIKit等。详情请看项目，打开运行注意适配,
 
 <pre>
 如有问题或者好的idea请咨询：
-QQ: 1249233155，
-Email: jornwucn@gmail.com， 
+QQ: 1249233155
+Email: jornwucn@gmail.com 
 微博：<a href="https://weibo.com/u/5077687473">Jorn丶Wu</a>
 简书：<a href="https://www.jianshu.com/u/c718dbf8e4d0">Jorn丶Wu</a>
 博客：<a href="https://blog.sina.com.cn/u/5077687473">梦迹灬何寻</a>
@@ -33,9 +33,4 @@ Email: jornwucn@gmail.com，
 
 ### 2、获取
 一、<a href="https://github.com/JornWu/MeiTuan_Swift/archive/master.zip">直接下载ZIP</a> <br />
-二、<a href="https://github.com/JornWu/MeiTuan_Swift.git">check out到本地</a> <br />
-三、<a href="https://github.com/JornWu/MeiTuan_Swift.git">clone 仓库到本地</a> <br />
-四、<a href="github-mac://openRepo/https://github.com/JornWu/MeiTuan_Swift">Open in Desktop</a> <br />
-
-### 3、其他
-[本APP的解析](http://blog.sina.com.cn/u/5077687473)  <br />
+二、<a href="github-mac://openRepo/https://github.com/JornWu/MeiTuan_Swift">Open in Desktop</a> <br />
